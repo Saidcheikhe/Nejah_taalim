@@ -467,6 +467,167 @@
                 font-size: 19px;
             }
         }
+
+        /* ================= QUIZZES DASHBOARD ================= */
+
+#quizzesSection {
+    display: none;
+    background: #f5f8fc;
+    padding: 60px 20px;
+}
+
+.quizzes-container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.quizzes-title {
+    text-align: center;
+    color: #123b6d;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.quizzes-description {
+    text-align: center;
+    color: #475569;
+    margin-bottom: 35px;
+}
+
+#quizzesLoading {
+    text-align: center;
+    color: #475569;
+    font-size: 18px;
+}
+
+#quizzesMessage {
+    text-align: center;
+    color: #b91c1c;
+    margin: 20px 0;
+}
+
+.quizzes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.quiz-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 25px 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+.quiz-card h3 {
+    color: #123b6d;
+    margin-bottom: 10px;
+}
+
+.quiz-card p {
+    color: #475569;
+    margin-bottom: 15px;
+}
+
+.quiz-card button {
+    width: 100%;
+    border: none;
+    background: #f59e0b;
+    color: white;
+    padding: 12px;
+    border-radius: 9px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.quiz-card button:hover {
+    background: #d97706;
+}
+
+/* ================= QUIZ QUESTIONS ================= */
+
+#quizView {
+    display: none;
+    background: white;
+    padding: 40px 20px;
+}
+
+.quiz-view-container {
+    max-width: 850px;
+    margin: auto;
+}
+
+#quizTitle {
+    text-align: center;
+    color: #123b6d;
+    margin-bottom: 30px;
+}
+
+.question-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 20px;
+}
+
+.question-number {
+    color: #123b6d;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.question-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.option-label {
+    display: block;
+    background: white;
+    border: 1px solid #dbe3ec;
+    border-radius: 9px;
+    padding: 12px;
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+.option-label:hover {
+    background: #f1f5f9;
+}
+
+#submitQuizButton {
+    display: block;
+    margin: 30px auto;
+    background: #123b6d;
+    color: white;
+    border: none;
+    padding: 14px 35px;
+    border-radius: 9px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#quizResult {
+    display: none;
+    text-align: center;
+    background: #ecfdf5;
+    border: 1px solid #86efac;
+    color: #166534;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+@media (max-width: 850px) {
+    .quizzes-grid {
+        grid-template-columns: 1fr;
+    }
+}
     </style>
 </head>
 
@@ -818,7 +979,54 @@
     </div>
 
 </section>
-<footer>
+<!-- ================= QUIZZES ================= -->
+
+<section id="quizzesSection">
+
+    <div class="quizzes-container">
+
+        <h2 class="quizzes-title">
+            🎓 اختباراتك
+        </h2>
+
+        <p class="quizzes-description">
+            اختر الاختبار الذي تريد البدء به.
+        </p>
+
+        <div id="quizzesLoading">
+            جاري تحميل الاختبارات...
+        </div>
+
+        <div id="quizzesMessage"></div>
+
+        <div id="quizzesGrid" class="quizzes-grid"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= QUIZ VIEW ================= -->
+
+<section id="quizView">
+
+    <div class="quiz-view-container">
+
+        <h2 id="quizTitle"></h2>
+
+        <div id="questionsContainer"></div>
+
+        <button id="submitQuizButton">
+            تصحيح الاختبار ✅
+        </button>
+
+        <div id="quizResult"></div>
+
+    </div>
+
+</section>
+    
+    <footer>
     <h3>منصة النجاح التعليمية</h3>
 
     <p>
@@ -872,10 +1080,99 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
     message.textContent = "✅ تم تسجيل الدخول بنجاح.";
 
-    console.log("User:", data.user);
+console.log("User:", data.user);
 
+/* إظهار قسم الاختبارات */
+document.getElementById("quizzesSection").style.display = "block";
+
+/* الانتقال إلى قسم الاختبارات */
+document.getElementById("quizzesSection").scrollIntoView({
+    behavior: "smooth"
 });
 
+/* تحميل الاختبارات */
+loadQuizzes();
+});
+/* ================= LOAD QUIZZES ================= */
+
+async function loadQuizzes() {
+
+    const loading = document.getElementById("quizzesLoading");
+    const message = document.getElementById("quizzesMessage");
+    const grid = document.getElementById("quizzesGrid");
+
+    loading.style.display = "block";
+    message.textContent = "";
+    grid.innerHTML = "";
+
+    const { data: quizzes, error } = await supabaseClient
+        .from("quizzes")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+
+        console.error("Quizzes error:", error);
+
+        loading.style.display = "none";
+
+        message.textContent =
+            "حدث خطأ أثناء تحميل الاختبارات.";
+
+        return;
+    }
+
+    loading.style.display = "none";
+
+    if (!quizzes || quizzes.length === 0) {
+
+        message.textContent =
+            "لا توجد اختبارات متاحة حاليًا.";
+
+        return;
+    }
+
+    quizzes.forEach(function(quiz) {
+
+        const card = document.createElement("div");
+
+        card.className = "quiz-card";
+
+        const title = quiz.title || "اختبار بدون عنوان";
+        const level = quiz.level || "";
+
+        card.innerHTML = `
+            <h3>${escapeHtml(title)}</h3>
+
+            <p>
+                المستوى: ${escapeHtml(level)}
+            </p>
+
+            <button onclick="openQuiz('${quiz.id}')">
+                🚀 ابدأ الاختبار
+            </button>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+
+/* حماية النصوص القادمة من قاعدة البيانات */
+
+function escapeHtml(value) {
+
+    if (value === null || value === undefined) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 </script>
 </body>
 </html>
