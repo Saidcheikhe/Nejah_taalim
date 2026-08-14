@@ -1112,14 +1112,15 @@ async function loadQuizzes() {
 
     if (error) {
 
-        console.error("Quizzes error:", error);
+    console.error("Quizzes error:", error);
 
-        loading.style.display = "none";
+    loading.style.display = "none";
 
-        message.textContent =
-            "حدث خطأ أثناء تحميل الاختبارات.";
+    message.textContent =
+        "❌ خطأ: " + error.message;
 
-        return;
+    return;
+
     }
 
     loading.style.display = "none";
