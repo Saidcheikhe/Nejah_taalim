@@ -21,6 +21,7 @@
             --dark: #172033;
             --text: #475569;
             --white: #ffffff;
+            --border: #e2e8f0;
         }
 
         html {
@@ -31,13 +32,13 @@
             font-family: Arial, "Tahoma", sans-serif;
             background: var(--light);
             color: var(--dark);
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
-        /* ===== Header ===== */
+        /* ================= HEADER ================= */
 
         header {
-            background: var(--white);
+            background: white;
             box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
@@ -55,10 +56,10 @@
         }
 
         .logo {
+            text-decoration: none;
             color: var(--primary);
             font-size: 22px;
             font-weight: bold;
-            text-decoration: none;
             white-space: nowrap;
         }
 
@@ -69,14 +70,14 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 22px;
+            gap: 20px;
         }
 
         nav a {
             text-decoration: none;
             color: var(--dark);
-            font-weight: 600;
             font-size: 15px;
+            font-weight: bold;
         }
 
         nav a:hover {
@@ -90,13 +91,13 @@
             border-radius: 8px;
         }
 
-        /* ===== Hero ===== */
+        /* ================= HERO ================= */
 
         .hero {
-            background: linear-gradient(135deg, #123b6d, #2563a6);
+            background: linear-gradient(135deg, #123b6d, #2867a5);
             color: white;
             text-align: center;
-            padding: 90px 20px;
+            padding: 85px 20px;
         }
 
         .hero-content {
@@ -106,17 +107,17 @@
 
         .badge {
             display: inline-block;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 7px 16px;
+            padding: 7px 17px;
             border-radius: 30px;
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.25);
             margin-bottom: 20px;
             font-size: 14px;
         }
 
         .hero h1 {
             font-size: 42px;
-            line-height: 1.35;
+            line-height: 1.4;
             margin-bottom: 20px;
         }
 
@@ -125,10 +126,10 @@
         }
 
         .hero p {
-            max-width: 700px;
+            max-width: 720px;
             margin: auto;
+            color: #e7f0fa;
             font-size: 18px;
-            color: #e8f0fa;
         }
 
         .hero-buttons {
@@ -141,7 +142,7 @@
 
         .btn {
             display: inline-block;
-            padding: 13px 26px;
+            padding: 13px 27px;
             border-radius: 9px;
             text-decoration: none;
             font-weight: bold;
@@ -167,7 +168,7 @@
             color: var(--primary);
         }
 
-        /* ===== Sections ===== */
+        /* ================= SECTIONS ================= */
 
         section {
             padding: 70px 20px;
@@ -181,18 +182,89 @@
         .section-title {
             text-align: center;
             color: var(--primary);
-            font-size: 30px;
+            font-size: 31px;
             margin-bottom: 12px;
         }
 
         .section-description {
             text-align: center;
-            color: var(--text);
-            max-width: 650px;
+            max-width: 700px;
             margin: 0 auto 40px;
+            color: var(--text);
         }
 
-        /* ===== Features ===== */
+        /* ================= PATHS ================= */
+
+        .paths {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .path {
+            background: white;
+            border-radius: 16px;
+            padding: 30px 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            position: relative;
+            transition: 0.2s;
+        }
+
+        .path:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.09);
+        }
+
+        .path-icon {
+            font-size: 45px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .path h3 {
+            color: var(--primary);
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .path-subtitle {
+            text-align: center;
+            color: var(--text);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .subjects {
+            list-style: none;
+        }
+
+        .subjects li {
+            padding: 9px 0;
+            border-bottom: 1px solid #edf1f5;
+            color: var(--dark);
+        }
+
+        .subjects li:last-child {
+            border-bottom: none;
+        }
+
+        .math-choice {
+            background: #fff8e8;
+            border: 1px solid #f7d58a;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 12px;
+            color: #7a5600;
+            font-size: 14px;
+        }
+
+        /* ================= FEATURES ================= */
+
+        .features-section {
+            background: white;
+        }
 
         .features {
             display: grid;
@@ -201,16 +273,15 @@
         }
 
         .feature {
-            background: white;
-            padding: 30px 20px;
-            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            padding: 25px 18px;
+            border-radius: 14px;
+            background: var(--light);
         }
 
         .feature-icon {
-            font-size: 42px;
-            margin-bottom: 12px;
+            font-size: 40px;
+            margin-bottom: 10px;
         }
 
         .feature h3 {
@@ -223,41 +294,7 @@
             font-size: 14px;
         }
 
-        /* ===== Courses ===== */
-
-        .courses {
-            background: white;
-        }
-
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .course {
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 25px;
-            background: #fff;
-        }
-
-        .course-icon {
-            font-size: 35px;
-            margin-bottom: 10px;
-        }
-
-        .course h3 {
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .course p {
-            color: var(--text);
-            font-size: 14px;
-        }
-
-        /* ===== How it works ===== */
+        /* ================= HOW ================= */
 
         .steps {
             display: grid;
@@ -266,8 +303,8 @@
         }
 
         .step {
-            text-align: center;
             background: white;
+            text-align: center;
             padding: 25px 15px;
             border-radius: 14px;
             box-shadow: 0 5px 18px rgba(0,0,0,0.05);
@@ -276,13 +313,13 @@
         .number {
             width: 45px;
             height: 45px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
             background: var(--primary);
             color: white;
-            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 15px;
             font-weight: bold;
             font-size: 18px;
         }
@@ -297,34 +334,34 @@
             font-size: 14px;
         }
 
-        /* ===== Subscription ===== */
+        /* ================= SUBSCRIPTION ================= */
 
         .subscription {
-            background: linear-gradient(135deg, #eef5ff, #f8fbff);
+            background: linear-gradient(135deg, #edf5ff, #f9fbff);
         }
 
         .subscription-box {
             max-width: 750px;
             margin: auto;
             background: white;
-            border-radius: 18px;
-            padding: 40px 25px;
+            padding: 42px 25px;
             text-align: center;
+            border-radius: 18px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.08);
         }
 
         .subscription-box h3 {
             color: var(--primary);
-            font-size: 25px;
-            margin-bottom: 15px;
+            font-size: 26px;
+            margin-bottom: 12px;
         }
 
         .subscription-box p {
             color: var(--text);
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
-        /* ===== Login ===== */
+        /* ================= LOGIN ================= */
 
         .login-section {
             background: var(--primary);
@@ -334,7 +371,7 @@
 
         .login-section h2 {
             font-size: 30px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .login-section p {
@@ -342,13 +379,13 @@
             margin-bottom: 25px;
         }
 
-        /* ===== Footer ===== */
+        /* ================= FOOTER ================= */
 
         footer {
             background: #0d2b4d;
             color: white;
-            padding: 35px 20px;
             text-align: center;
+            padding: 35px 20px;
         }
 
         footer h3 {
@@ -361,24 +398,25 @@
         }
 
         .copyright {
+            border-top: 1px solid rgba(255,255,255,0.15);
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.15);
+            color: #b8c8da;
+            font-size: 13px;
         }
 
-        /* ===== Mobile ===== */
+        /* ================= MOBILE ================= */
 
-        @media (max-width: 800px) {
+        @media (max-width: 850px) {
 
             .navbar {
                 flex-direction: column;
-                gap: 12px;
             }
 
             nav {
-                gap: 10px;
                 flex-wrap: wrap;
                 justify-content: center;
+                gap: 10px;
             }
 
             nav a {
@@ -397,12 +435,12 @@
                 font-size: 16px;
             }
 
-            .features {
-                grid-template-columns: repeat(2, 1fr);
+            .paths {
+                grid-template-columns: 1fr;
             }
 
-            .course-grid {
-                grid-template-columns: 1fr;
+            .features {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .steps {
@@ -412,10 +450,7 @@
 
         @media (max-width: 500px) {
 
-            .features {
-                grid-template-columns: 1fr;
-            }
-
+            .features,
             .steps {
                 grid-template-columns: 1fr;
             }
@@ -427,33 +462,39 @@
             .section-title {
                 font-size: 26px;
             }
+
+            .logo {
+                font-size: 19px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<!-- ===== Header ===== -->
+<!-- ================= HEADER ================= -->
 
 <header>
+
     <div class="navbar">
 
-        <a href="#" class="logo">
+        <a href="#home" class="logo">
             منصة <span>النجاح</span> التعليمية
         </a>
 
         <nav>
             <a href="#home">الرئيسية</a>
-            <a href="#courses">الدورات</a>
+            <a href="#paths">مسارات المسابقة</a>
             <a href="#how">طريقة الاشتراك</a>
             <a href="#login" class="login-btn">🔐 تسجيل الدخول</a>
         </nav>
 
     </div>
+
 </header>
 
 
-<!-- ===== Hero ===== -->
+<!-- ================= HERO ================= -->
 
 <section class="hero" id="home">
 
@@ -466,19 +507,19 @@
         <h1>
             استعد لمسابقة اكتتاب المعلمين
             <br>
-            <span>بخطوة أكثر ثقة</span>
+            <span>حسب مسارك وتخصصك</span>
         </h1>
 
         <p>
-            منصة تعليمية متخصصة تجمع لك الدروس،
-            الملخصات، التمارين والاختبارات في مكان واحد،
-            لمساعدتك على تنظيم مراجعتك والاستعداد للمسابقة.
+            منصة النجاح التعليمية توفر لك دروسًا منظمة،
+            ملخصات، تمارين واختبارات QCM مخصصة لمسارك،
+            لمساعدتك على الاستعداد للمسابقة بطريقة أفضل.
         </p>
 
         <div class="hero-buttons">
 
-            <a href="#subscribe" class="btn btn-primary">
-                🚀 اشترك الآن
+            <a href="#paths" class="btn btn-primary">
+                🎓 اختر مسارك
             </a>
 
             <a href="#login" class="btn btn-outline">
@@ -492,9 +533,112 @@
 </section>
 
 
-<!-- ===== Features ===== -->
+<!-- ================= PATHS ================= -->
 
-<section>
+<section id="paths">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            اختر مسارك في مسابقة المعلمين
+        </h2>
+
+        <p class="section-description">
+            تختلف المواد حسب نوع المعلم، لذلك سيتم تنظيم محتوى المنصة
+            وفق المسار الذي تختاره.
+        </p>
+
+        <div class="paths">
+
+            <!-- DOUBLE TEACHER -->
+
+            <div class="path">
+
+                <div class="path-icon">👨‍🏫</div>
+
+                <h3>المعلم المزدوج</h3>
+
+                <p class="path-subtitle">
+                    ثلاث مواد
+                </p>
+
+                <ul class="subjects">
+
+                    <li>🇸🇦 اللغة العربية</li>
+
+                    <li>🇫🇷 اللغة الفرنسية</li>
+
+                    <li>📐 الرياضيات</li>
+
+                </ul>
+
+                <div class="math-choice">
+                    💡 الرياضيات تكون <strong>باللغة العربية أو الفرنسية</strong>
+                    حسب اختيار المترشح.
+                </div>
+
+            </div>
+
+
+            <!-- ARABIC TEACHER -->
+
+            <div class="path">
+
+                <div class="path-icon">📚</div>
+
+                <h3>المعلم العربي</h3>
+
+                <p class="path-subtitle">
+                    ثلاث مواد
+                </p>
+
+                <ul class="subjects">
+
+                    <li>🇸🇦 اللغة العربية</li>
+
+                    <li>☪️ التربية الإسلامية</li>
+
+                    <li>📐 الرياضيات باللغة العربية</li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- FRENCH TEACHER -->
+
+            <div class="path">
+
+                <div class="path-icon">🇫🇷</div>
+
+                <h3>المعلم الفرنسي</h3>
+
+                <p class="path-subtitle">
+                    ثلاث مواد
+                </p>
+
+                <ul class="subjects">
+
+                    <li>🇫🇷 اللغة الفرنسية</li>
+
+                    <li>📐 الرياضيات بالفرنسية</li>
+
+                    <li>🔬 العلوم الطبيعية بالفرنسية</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features-section">
 
     <div class="container">
 
@@ -503,7 +647,7 @@
         </h2>
 
         <p class="section-description">
-            كل ما تحتاج إليه لتنظيم مراجعتك والتدرب على نمط أسئلة المسابقة.
+            محتوى تدريبي يساعدك على تنظيم المراجعة والتدرب باستمرار.
         </p>
 
         <div class="features">
@@ -512,15 +656,15 @@
                 <div class="feature-icon">📚</div>
                 <h3>دروس منظمة</h3>
                 <p>
-                    دروس مرتبة حسب المواد والمحاور لتسهيل عملية المراجعة.
+                    دروس مرتبة حسب المادة والمحاور.
                 </p>
             </div>
 
             <div class="feature">
                 <div class="feature-icon">📝</div>
-                <h3>اختبارات QCM</h3>
+                <h3>QCM واختبارات</h3>
                 <p>
-                    اختبارات متعددة الخيارات للتدرب وقياس مستوى الاستعداد.
+                    اختبارات تدريبية متعددة الخيارات.
                 </p>
             </div>
 
@@ -528,7 +672,7 @@
                 <div class="feature-icon">📖</div>
                 <h3>ملخصات</h3>
                 <p>
-                    ملخصات مركزة تساعدك على مراجعة أهم النقاط بسرعة.
+                    مراجعات مركزة لأهم المعلومات.
                 </p>
             </div>
 
@@ -536,7 +680,7 @@
                 <div class="feature-icon">🎯</div>
                 <h3>تدريب مستمر</h3>
                 <p>
-                    تمارين وأسئلة متنوعة لتحسين مستواك قبل المسابقة.
+                    تمارين وأسئلة متنوعة للاستعداد للمسابقة.
                 </p>
             </div>
 
@@ -547,78 +691,7 @@
 </section>
 
 
-<!-- ===== Courses ===== -->
-
-<section class="courses" id="courses">
-
-    <div class="container">
-
-        <h2 class="section-title">
-            المواد والدورات
-        </h2>
-
-        <p class="section-description">
-            سيتم تنظيم المحتوى داخل حسابك حسب المواد والمحاور.
-        </p>
-
-        <div class="course-grid">
-
-            <div class="course">
-                <div class="course-icon">🇸🇦</div>
-                <h3>اللغة العربية</h3>
-                <p>
-                    قواعد اللغة، الفهم، النصوص والتطبيقات.
-                </p>
-            </div>
-
-            <div class="course">
-                <div class="course-icon">🇫🇷</div>
-                <h3>اللغة الفرنسية</h3>
-                <p>
-                    القواعد، المفردات، الفهم والتطبيقات.
-                </p>
-            </div>
-
-            <div class="course">
-                <div class="course-icon">📐</div>
-                <h3>الرياضيات</h3>
-                <p>
-                    دروس وتمارين وأسئلة تدريبية متنوعة.
-                </p>
-            </div>
-
-            <div class="course">
-                <div class="course-icon">🎓</div>
-                <h3>التربية</h3>
-                <p>
-                    محاور ومفاهيم تربوية مهمة للتحضير للمسابقة.
-                </p>
-            </div>
-
-            <div class="course">
-                <div class="course-icon">📝</div>
-                <h3>QCM والاختبارات</h3>
-                <p>
-                    اختبارات تدريبية مع تصحيح ونتائج.
-                </p>
-            </div>
-
-            <div class="course">
-                <div class="course-icon">📚</div>
-                <h3>المراجعات</h3>
-                <p>
-                    مراجعات مركزة وأسئلة للمساعدة على تثبيت المعلومات.
-                </p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ===== How it works ===== -->
+<!-- ================= HOW TO SUBSCRIBE ================= -->
 
 <section id="how">
 
@@ -636,25 +709,25 @@
 
             <div class="step">
                 <div class="number">1</div>
-                <h3>تواصل معنا</h3>
+                <h3>اختر مسارك</h3>
                 <p>
-                    تواصل معنا عبر واتساب للاستفسار والاشتراك.
+                    حدد نوع المعلم الذي تستعد له.
                 </p>
             </div>
 
             <div class="step">
                 <div class="number">2</div>
-                <h3>دفع الرسوم</h3>
+                <h3>تواصل معنا</h3>
                 <p>
-                    بعد الاتفاق، تقوم بدفع رسوم الاشتراك.
+                    تواصل معنا عبر واتساب.
                 </p>
             </div>
 
             <div class="step">
                 <div class="number">3</div>
-                <h3>إنشاء الحساب</h3>
+                <h3>ادفع الرسوم</h3>
                 <p>
-                    نقوم بإنشاء حساب خاص بك وتفعيل الاشتراك.
+                    بعد الاتفاق، قم بدفع رسوم الاشتراك.
                 </p>
             </div>
 
@@ -662,7 +735,7 @@
                 <div class="number">4</div>
                 <h3>ابدأ التعلم</h3>
                 <p>
-                    تحصل على بيانات الدخول وتبدأ الوصول إلى المحتوى.
+                    تحصل على بيانات الدخول وتبدأ المراجعة.
                 </p>
             </div>
 
@@ -673,22 +746,22 @@
 </section>
 
 
-<!-- ===== Subscription ===== -->
+<!-- ================= SUBSCRIPTION ================= -->
 
 <section class="subscription" id="subscribe">
 
     <div class="subscription-box">
 
         <h3>
-            🎓 هل أنت مستعد للبدء؟
+            🎓 جاهز للبدء؟
         </h3>
 
         <p>
-            تواصل معنا عبر واتساب لمعرفة تفاصيل الاشتراك
-            والبدء في الاستفادة من محتوى المنصة.
+            اختر مسارك ثم تواصل معنا عبر واتساب لمعرفة
+            تفاصيل الاشتراك والحصول على حسابك.
         </p>
 
-        <!-- سنضع رقم واتساب الحقيقي هنا لاحقًا -->
+        <!-- سنضع رقم واتساب النهائي هنا -->
 
         <a href="#" class="btn btn-primary">
             📱 الاشتراك عبر واتساب
@@ -699,7 +772,7 @@
 </section>
 
 
-<!-- ===== Login ===== -->
+<!-- ================= LOGIN ================= -->
 
 <section class="login-section" id="login">
 
@@ -710,10 +783,10 @@
         </h2>
 
         <p>
-            تسجيل الدخول إلى حسابك والوصول إلى الدروس والاختبارات.
+            سجل الدخول للوصول إلى الدروس والاختبارات الخاصة بمسارك.
         </p>
 
-        <!-- سيتم ربط هذا الزر بنظام Supabase لاحقًا -->
+        <!-- سيتم ربط الزر بـ Supabase لاحقًا -->
 
         <a href="#" class="btn btn-outline">
             تسجيل الدخول
@@ -724,14 +797,14 @@
 </section>
 
 
-<!-- ===== Footer ===== -->
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
     <h3>منصة النجاح التعليمية</h3>
 
     <p>
-        دورات تكوين المعلمين والاستعداد للاختبارات.
+        دورات تكوين المعلمين والاستعداد للمسابقة.
     </p>
 
     <div class="copyright">
