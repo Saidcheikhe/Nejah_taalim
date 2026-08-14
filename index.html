@@ -773,34 +773,52 @@
 
 
 <!-- ================= LOGIN ================= -->
+<!-- ================= LOGIN ================= -->
 
 <section class="login-section" id="login">
 
     <div class="container">
 
-        <h2>
-            🔐 لديك حساب بالفعل؟
-        </h2>
+        <h2>🔐 تسجيل الدخول</h2>
 
         <p>
-            سجل الدخول للوصول إلى الدروس والاختبارات الخاصة بمسارك.
+            أدخل بريدك الإلكتروني وكلمة المرور للوصول إلى حسابك.
         </p>
 
-        <!-- سيتم ربط الزر بـ Supabase لاحقًا -->
+        <form id="loginForm" style="max-width:450px;margin:25px auto 0;">
 
-        <a href="#" class="btn btn-outline">
-            تسجيل الدخول
-        </a>
+            <input
+                type="email"
+                id="email"
+                placeholder="البريد الإلكتروني"
+                required
+                style="width:100%;padding:14px;margin-bottom:12px;border:none;border-radius:9px;font-size:16px;"
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="كلمة المرور"
+                required
+                style="width:100%;padding:14px;margin-bottom:12px;border:none;border-radius:9px;font-size:16px;"
+            >
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+                style="border:none;cursor:pointer;"
+            >
+                🔐 تسجيل الدخول
+            </button>
+
+            <p id="loginMessage" style="margin-top:15px;"></p>
+
+        </form>
 
     </div>
 
 </section>
-
-
-<!-- ================= FOOTER ================= -->
-
 <footer>
-
     <h3>منصة النجاح التعليمية</h3>
 
     <p>
@@ -812,6 +830,52 @@
     </div>
 
 </footer>
+<!-- ================= SUPABASE ================= -->
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL = "https://xujyaopbswocfvzxryvc.supabase.co";
+const SUPABASE_KEY = "sb_publishable_8yjs_ITrdMd43HccwKAnEQ_9iGkWtFl";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+document.getElementById("loginForm").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    const message = document.getElementById("loginMessage");
+
+    message.textContent = "جاري تسجيل الدخول...";
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+
+    if (error) {
+
+        message.textContent = "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+
+        console.error(error);
+
+        return;
+    }
+
+    message.textContent = "✅ تم تسجيل الدخول بنجاح.";
+
+    console.log("User:", data.user);
+
+});
+
+</script>
 </body>
 </html>
