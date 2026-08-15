@@ -46,7 +46,6 @@
 
             background: var(--background);
             color: var(--text);
-
             min-height: 100vh;
 
             transition:
@@ -72,15 +71,12 @@
         .header-inner {
 
             max-width: 1100px;
-
             margin: auto;
 
             padding: 12px 18px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
             gap: 20px;
@@ -92,7 +88,6 @@
         .brand {
 
             display: flex;
-
             align-items: center;
 
             gap: 9px;
@@ -112,20 +107,16 @@
             background: #eef5ff;
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             font-size: 23px;
-
             font-weight: 800;
         }
 
         .brand-name {
 
             font-size: 17px;
-
             line-height: 1.15;
 
             font-weight: 800;
@@ -141,7 +132,9 @@
         }
 
 
-        /* الإضافيات */
+        /* =========================
+           الإضافيات
+        ========================== */
 
         .header-actions {
 
@@ -157,7 +150,8 @@
             width: 37px;
             height: 37px;
 
-            border: 1px solid var(--border);
+            border:
+                1px solid var(--border);
 
             border-radius: 10px;
 
@@ -168,7 +162,6 @@
             display: flex;
 
             align-items: center;
-
             justify-content: center;
 
             cursor: pointer;
@@ -279,10 +272,6 @@
 
             box-shadow: var(--shadow);
 
-            cursor: pointer;
-
-            text-decoration: none;
-
             color: var(--text);
 
             overflow: hidden;
@@ -294,8 +283,6 @@
         }
 
 
-        /* الخط الجانبي */
-
         .category-card::before {
 
             content: "";
@@ -303,11 +290,9 @@
             position: absolute;
 
             top: 0;
-
             right: 0;
 
             width: 5px;
-
             height: 100%;
 
             background: var(--accent);
@@ -354,7 +339,6 @@
             display: flex;
 
             align-items: center;
-
             justify-content: center;
         }
 
@@ -402,7 +386,11 @@
         }
 
 
+        /* زر الدخول */
+
         .category-button {
+
+            display: block;
 
             margin-top: 23px;
 
@@ -421,6 +409,17 @@
             font-weight: 700;
 
             font-size: 14px;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+        .category-button:hover {
+
+            filter: brightness(0.95);
+
+            transform: translateY(-1px);
         }
 
 
@@ -429,21 +428,18 @@
         .arabic {
 
             --accent: #2563eb;
-
             --icon-bg: #eff6ff;
         }
 
         .french {
 
             --accent: #16a34a;
-
             --icon-bg: #ecfdf5;
         }
 
         .double {
 
             --accent: #f59e0b;
-
             --icon-bg: #fff7ed;
         }
 
@@ -736,15 +732,11 @@
              المعلم العربي
         ====================== -->
 
-        <a
-            href="category.html?category=arabic"
-            class="category-card arabic"
-        >
+        <div class="category-card arabic">
 
             <div>
 
                 <div class="category-top">
-
 
                     <div class="category-icon">
 
@@ -772,7 +764,6 @@
 
                     </div>
 
-
                     <span class="category-number">
                         01
                     </span>
@@ -792,11 +783,14 @@
             </div>
 
 
-            <div class="category-button">
+            <a
+                href="category.html?category=arabic"
+                class="category-button"
+            >
                 دخول إلى الفئة
-            </div>
+            </a>
 
-        </a>
+        </div>
 
 
 
@@ -804,15 +798,11 @@
              المعلم الفرنسي
         ====================== -->
 
-        <a
-            href="category.html?category=french"
-            class="category-card french"
-        >
+        <div class="category-card french">
 
             <div>
 
                 <div class="category-top">
-
 
                     <div class="category-icon">
 
@@ -845,7 +835,6 @@
 
                     </div>
 
-
                     <span class="category-number">
                         02
                     </span>
@@ -865,11 +854,14 @@
             </div>
 
 
-            <div class="category-button">
+            <a
+                href="category.html?category=french"
+                class="category-button"
+            >
                 دخول إلى الفئة
-            </div>
+            </a>
 
-        </a>
+        </div>
 
 
 
@@ -877,15 +869,11 @@
              المعلم المزدوج
         ====================== -->
 
-        <a
-            href="category.html?category=double"
-            class="category-card double"
-        >
+        <div class="category-card double">
 
             <div>
 
                 <div class="category-top">
-
 
                     <div class="category-icon">
 
@@ -908,7 +896,6 @@
 
                     </div>
 
-
                     <span class="category-number">
                         03
                     </span>
@@ -928,11 +915,14 @@
             </div>
 
 
-            <div class="category-button">
+            <a
+                href="category.html?category=double"
+                class="category-button"
+            >
                 دخول إلى الفئة
-            </div>
+            </a>
 
-        </a>
+        </div>
 
 
     </section>
