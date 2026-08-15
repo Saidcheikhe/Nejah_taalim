@@ -1013,7 +1013,7 @@
             nav {
 
                 flex-wrap:
-                    wrap;
+                wrap;
 
                 justify-content:
                     center;
@@ -1352,14 +1352,7 @@
 
                 <p class="path-subtitle">
                     ثلاث مواد
-                </p>
-
-
-                <ul class="subjects">
-
-                    <li>
-                        🇫🇷 اللغة الفرنسية
-                    </li>
+                </li>
 
                     <li>
                         📐 الرياضيات بالفرنسية
@@ -1930,14 +1923,14 @@
 
                 /*
                    بعد نجاح تسجيل الدخول
-                   ينتقل الطالب إلى صفحة الفئات.
+                   ينتقل الطالب إلى صفحة اختيار الفئة.
                 */
 
                 setTimeout(
                     function() {
 
                         window.location.href =
-                            "category.html";
+                            "categories.html";
 
                     },
                     600
@@ -2001,7 +1994,7 @@
             /*
                إذا كان المستخدم مسجل الدخول
                بالفعل ثم فتح index.html،
-               نرسله مباشرة إلى المنصة.
+               نرسله إلى صفحة اختيار الفئة.
             */
 
             if (
@@ -2010,7 +2003,7 @@
             ) {
 
                 window.location.href =
-                    "category.html";
+                    "categories.html";
 
             }
 
