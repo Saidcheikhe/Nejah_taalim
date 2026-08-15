@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>الفئة | منصة النجاح التعليمية</title>
+
+
+    <style>
+
+        /* =========================
+           الإعدادات العامة
+        ========================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        :root {
+
+            --primary: #123b6d;
+
+            --secondary: #f59e0b;
+
+            --background: #f5f8fc;
+
+            --card: #ffffff;
+
+            --text: #14213d;
+
+            --muted: #64748b;
+
+            --border: #e2e8f0;
+
+            --soft-blue: #eff6ff;
+
+            --soft-orange: #fff7ed;
+
+            --shadow:
+                0 10px 30px
+                rgba(18, 59, 109, 0.08);
+        }
+
+
+        body.dark {
+
+            --background: #0f172a;
+
+            --card: #172033;
+
+            --text: #f8fafc;
+
+            --muted: #aab5c5;
+
+            --border: #29364d;
+
+            --soft-blue: #1e293b;
+
+            --soft-orange: #292016;
+
+            --shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.25);
+        }
+
+
+        body {
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Tahoma,
+                Arial,
+                sans-serif;
+
+            background:
+                var(--background);
+
+            color:
+                var(--text);
+
+            min-height:
+                100vh;
+
+            transition:
+                background 0.25s ease,
+                color 0.25s ease;
+        }
+
+
+
+        /* =========================
+           رأس الصفحة
+        ========================== */
+
+        header {
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                100;
+
+            background:
+                var(--card);
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        .header-inner {
+
+            max-width:
+                1100px;
+
+            margin:
+                auto;
+
+            padding:
+                11px 16px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                15px;
+        }
+
+
+
+        /* اسم المنصة */
+
+        .brand {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                9px;
+
+            text-decoration:
+                none;
+
+            color:
+                var(--primary);
+        }
+
+
+        .brand-logo {
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            border-radius:
+                12px;
+
+            background:
+                #eef5ff;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                22px;
+
+            font-weight:
+                800;
+        }
+
+
+        .brand-name {
+
+            font-size:
+                17px;
+
+            line-height:
+                1.15;
+
+            font-weight:
+                800;
+        }
+
+
+        .brand-name span {
+
+            display:
+                block;
+
+            color:
+                var(--secondary);
+
+            margin-top:
+                2px;
+        }
+
+
+
+        /* =========================
+           أزرار الإضافيات
+        ========================== */
+
+        .header-actions {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                5px;
+
+            position:
+                relative;
+        }
+
+
+        .action-btn {
+
+            width:
+                36px;
+
+            height:
+                36px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                10px;
+
+            background:
+                var(--card);
+
+            color:
+                var(--primary);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            cursor:
+                pointer;
+        }
+
+
+        .action-btn svg {
+
+            width:
+                18px;
+
+            height:
+                18px;
+        }
+
+
+
+        /* =========================
+           نافذة الحساب
+        ========================== */
+
+        .account-menu {
+
+            display:
+                none;
+
+            position:
+                absolute;
+
+            left:
+                0;
+
+            top:
+                45px;
+
+            width:
+                260px;
+
+            background:
+                var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                16px;
+
+            padding:
+                18px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.12);
+
+            z-index:
+                200;
+        }
+
+
+        .account-menu.show {
+
+            display:
+                block;
+        }
+
+
+        .account-menu h3 {
+
+            color:
+                var(--primary);
+
+            margin-bottom:
+                14px;
+
+            font-size:
+                18px;
+        }
+
+
+        body.dark .account-menu h3 {
+
+            color:
+                #ffffff;
+        }
+
+
+        .account-row {
+
+            padding:
+                10px 0;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        .account-row:last-child {
+
+            border-bottom:
+                none;
+        }
+
+
+        .account-label {
+
+            display:
+                block;
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            margin-bottom:
+                4px;
+        }
+
+
+        .account-value {
+
+            font-weight:
+                700;
+
+            color:
+                var(--text);
+
+            font-size:
+                14px;
+        }
+
+
+        .active-status {
+
+            color:
+                #16a34a;
+        }
+
+
+
+        /* =========================
+           المحتوى
+        ========================== */
+
+        main {
+
+            max-width:
+                1000px;
+
+            margin:
+                auto;
+
+            padding:
+                42px 16px 70px;
+        }
+
+
+
+        /* عنوان الفئة */
+
+        .page-heading {
+
+            text-align:
+                center;
+
+            margin-bottom:
+                38px;
+        }
+
+
+        .page-heading h1 {
+
+            color:
+                var(--primary);
+
+            font-size:
+                clamp(30px, 7vw, 45px);
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                10px;
+        }
+
+
+        body.dark .page-heading h1 {
+
+            color:
+                #ffffff;
+        }
+
+
+        .page-heading p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                16px;
+
+            line-height:
+                1.8;
+        }
+
+
+
+        /* =========================
+           عنوان الأقسام
+        ========================== */
+
+        .section-heading {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            margin:
+                35px 0 18px;
+        }
+
+
+        .section-heading h2 {
+
+            font-size:
+                27px;
+
+            color:
+                var(--primary);
+        }
+
+
+        body.dark .section-heading h2 {
+
+            color:
+                #ffffff;
+        }
+
+
+        .section-heading-line {
+
+            flex:
+                1;
+
+            height:
+                1px;
+
+            background:
+                var(--border);
+
+            margin-right:
+                18px;
+        }
+
+
+
+        /* =========================
+           المواد
+        ========================== */
+
+        .subjects {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                18px;
+        }
+
+
+        .subject-card {
+
+            background:
+                var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                20px;
+
+            padding:
+                23px 20px;
+
+            min-height:
+                205px;
+
+            box-shadow:
+                var(--shadow);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .subject-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 16px 35px
+                rgba(18,59,109,0.12);
+        }
+
+
+        .subject-icon {
+
+            width:
+                50px;
+
+            height:
+                50px;
+
+            border-radius:
+                14px;
+
+            background:
+                var(--soft-blue);
+
+            color:
+                var(--primary);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            margin-bottom:
+                18px;
+        }
+
+
+        .subject-icon svg {
+
+            width:
+                26px;
+
+            height:
+                26px;
+        }
+
+
+        .subject-card h3 {
+
+            font-size:
+                21px;
+
+            color:
+                var(--primary);
+
+            margin-bottom:
+                8px;
+        }
+
+
+        body.dark .subject-card h3 {
+
+            color:
+                #ffffff;
+        }
+
+
+        .subject-card p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                13px;
+
+            line-height:
+                1.7;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .subject-button {
+
+            display:
+                inline-block;
+
+            text-decoration:
+                none;
+
+            color:
+                var(--primary);
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+        }
+
+
+
+        /* =========================
+           الاختبارات
+        ========================== */
+
+        .tests-section {
+
+            margin-top:
+                48px;
+        }
+
+
+        .tests-box {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #123b6d,
+                    #1e568f
+                );
+
+            border-radius:
+                24px;
+
+            padding:
+                28px 22px;
+
+            color:
+                white;
+
+            box-shadow:
+                0 15px 35px
+                rgba(18,59,109,0.18);
+        }
+
+
+        .tests-box h2 {
+
+            font-size:
+                28px;
+
+            margin-bottom:
+                10px;
+        }
+
+
+        .tests-box p {
+
+            color:
+                rgba(255,255,255,.82);
+
+            line-height:
+                1.8;
+
+            font-size:
+                14px;
+
+            margin-bottom:
+                22px;
+        }
+
+
+        .test-materials {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                12px;
+        }
+
+
+        .test-material {
+
+            display:
+                block;
+
+            text-decoration:
+                none;
+
+            background:
+                rgba(255,255,255,.12);
+
+            border:
+                1px solid
+                rgba(255,255,255,.18);
+
+            color:
+                white;
+
+            padding:
+                15px 10px;
+
+            border-radius:
+                13px;
+
+            text-align:
+                center;
+
+            font-weight:
+                700;
+
+            font-size:
+                14px;
+
+            transition:
+                .2s;
+        }
+
+
+        .test-material:hover {
+
+            background:
+                rgba(255,255,255,.2);
+        }
+
+
+
+        /* =========================
+           العودة
+        ========================== */
+
+        .back-button {
+
+            display:
+                block;
+
+            width:
+                fit-content;
+
+            margin:
+                35px auto 0;
+
+            text-decoration:
+                none;
+
+            color:
+                var(--primary);
+
+            border:
+                1px solid var(--border);
+
+            background:
+                var(--card);
+
+            padding:
+                11px 20px;
+
+            border-radius:
+                12px;
+
+            font-weight:
+                700;
+
+            font-size:
+                14px;
+        }
+
+
+
+        /* =========================
+           الهاتف
+        ========================== */
+
+        @media (max-width: 760px) {
+
+            .header-inner {
+
+                padding:
+                    10px 12px;
+            }
+
+
+            .brand-logo {
+
+                width:
+                    39px;
+
+                height:
+                    39px;
+
+                font-size:
+                    20px;
+            }
+
+
+            .brand-name {
+
+                font-size:
+                    15px;
+            }
+
+
+            .action-btn {
+
+                width:
+                    34px;
+
+                height:
+                    34px;
+            }
+
+
+            main {
+
+                padding:
+                    35px 14px 60px;
+            }
+
+
+            .page-heading {
+
+                margin-bottom:
+                    30px;
+            }
+
+
+            .page-heading h1 {
+
+                font-size:
+                    31px;
+            }
+
+
+            .page-heading p {
+
+                font-size:
+                    14px;
+            }
+
+
+            .section-heading h2 {
+
+                font-size:
+                    24px;
+            }
+
+
+            .subjects {
+
+                grid-template-columns:
+                    1fr;
+
+                gap:
+                    14px;
+            }
+
+
+            .subject-card {
+
+                min-height:
+                    auto;
+
+                padding:
+                    21px 18px;
+            }
+
+
+            .test-materials {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .tests-box {
+
+                padding:
+                    24px 18px;
+
+                border-radius:
+                    20px;
+            }
+
+
+            .tests-box h2 {
+
+                font-size:
+                    25px;
+            }
+
+
+            .account-menu {
+
+                width:
+                    240px;
+
+                left:
+                    -5px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================== -->
+
+<header>
+
+    <div class="header-inner">
+
+
+        <!-- الشعار والاسم -->
+
+        <a
+            href="index.html"
+            class="brand"
+        >
+
+            <div class="brand-logo">
+                ن
+            </div>
+
+            <div class="brand-name">
+
+                منصة النجاح
+
+                <span>
+                    التعليمية
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- الإضافيات -->
+
+        <div class="header-actions">
+
+
+            <!-- الحساب -->
+
+            <button
+                class="action-btn"
+                onclick="toggleAccount()"
+                aria-label="الحساب"
+                title="الحساب"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+
+                    <circle
+                        cx="12"
+                        cy="8"
+                        r="4"
+                    ></circle>
+
+                    <path
+                        d="M4 21c0-4 3.5-7 8-7s8 3 8 7"
+                    ></path>
+
+                </svg>
+
+            </button>
+
+
+
+            <!-- الوضع الليلي -->
+
+            <button
+                class="action-btn"
+                onclick="toggleDarkMode()"
+                aria-label="الوضع الليلي"
+                title="الوضع الليلي"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+
+                    <path
+                        d="M21 12.8A8.5 8.5 0 1 1 11.2 3
+                        6.7 6.7 0 0 0 21 12.8Z"
+                    ></path>
+
+                </svg>
+
+            </button>
+
+
+
+            <!-- اللغة -->
+
+            <button
+                class="action-btn"
+                onclick="toggleLanguage()"
+                aria-label="اللغة"
+                title="تغيير اللغة"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="9"
+                    ></circle>
+
+                    <path
+                        d="M3 12h18"
+                    ></path>
+
+                    <path
+                        d="M12 3c3 3 3 15 0 18"
+                    ></path>
+
+                    <path
+                        d="M12 3c-3 3-3 15 0 18"
+                    ></path>
+
+                </svg>
+
+            </button>
+
+
+
+            <!-- نافذة الحساب -->
+
+            <div
+                id="accountMenu"
+                class="account-menu"
+            >
+
+                <h3>
+                    معلومات الحساب
+                </h3>
+
+
+                <div class="account-row">
+
+                    <span class="account-label">
+                        البريد الإلكتروني
+                    </span>
+
+                    <span
+                        id="accountEmail"
+                        class="account-value"
+                    >
+                        سيتم عرضه بعد تسجيل الدخول
+                    </span>
+
+                </div>
+
+
+                <div class="account-row">
+
+                    <span class="account-label">
+                        حالة الحساب
+                    </span>
+
+                    <span
+                        class="account-value active-status"
+                    >
+                        نشط
+                    </span>
+
+                </div>
+
+
+                <div class="account-row">
+
+                    <span class="account-label">
+                        حالة الاشتراك
+                    </span>
+
+                    <span class="account-value">
+                        مفتوح
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================== -->
+
+<main>
+
+
+    <!-- عنوان الفئة -->
+
+    <section class="page-heading">
+
+        <h1 id="categoryTitle">
+            المعلم العربي
+        </h1>
+
+        <p id="categoryDescription">
+            مرحبًا بك في المساحة الخاصة بفئتك.
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         المواد
+    ========================== -->
+
+    <section>
+
+        <div class="section-heading">
+
+            <h2>
+                المواد
+            </h2>
+
+            <div class="section-heading-line"></div>
+
+        </div>
+
+
+        <div
+            id="subjectsContainer"
+            class="subjects"
+        >
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         الاختبارات
+    ========================== -->
+
+    <section class="tests-section">
+
+        <div class="section-heading">
+
+            <h2>
+                اختبر نفسك
+            </h2>
+
+            <div class="section-heading-line"></div>
+
+        </div>
+
+
+        <div class="tests-box">
+
+            <h2>
+                اختبر نفسك
+            </h2>
+
+            <p>
+                اختبارات QCM تساعدك على قياس مستوى استعدادك،
+                مع وجود ثلاثة مستويات لكل مادة،
+                و150 سؤالًا لكل مادة.
+            </p>
+
+
+            <div
+                id="testMaterials"
+                class="test-materials"
+            >
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- العودة -->
+
+    <a
+        href="categories.html"
+        class="back-button"
+    >
+        العودة إلى الفئات
+    </a>
+
+
+</main>
+
+
+
+<script>
+
+
+    /* =========================
+       بيانات الفئات
+    ========================== */
+
+    const categories = {
+
+        arabic: {
+
+            title:
+                "المعلم العربي",
+
+            description:
+                "مرحبًا بك في المساحة الخاصة بالمعلم العربي.",
+
+            subjects: [
+
+                {
+                    name:
+                        "اللغة العربية",
+
+                    description:
+                        "الدروس والكتب والأرشيفات الخاصة باللغة العربية."
+                },
+
+                {
+                    name:
+                        "التربية الإسلامية",
+
+                    description:
+                        "الدروس والكتب والأرشيفات الخاصة بالتربية الإسلامية."
+                },
+
+                {
+                    name:
+                        "الرياضيات",
+
+                    description:
+                        "الدروس والكتب والأرشيفات الخاصة بالرياضيات."
+                }
+
+            ]
+
+        },
+
+
+        french: {
+
+            title:
+                "المعلم الفرنسي",
+
+            description:
+                "مرحبًا بك في المساحة الخاصة بالمعلم الفرنسي.",
+
+            subjects: [
+
+                {
+                    name:
+                        "اللغة الفرنسية",
+
+                    description:
+                        "الدروس والكتب والأرشيفات الخاصة باللغة الفرنسية."
+                },
+
+                {
+                    name:
+                        "العلوم الطبيعية",
+
+                    description:
+                        "الدروس والكتب والأرشيفات الخاصة بالعلوم الطبيعية."
+                },
+
+                {
+                    name:
+                        "الرياضيات",
+
+                    description:
+                        "الدروس والكتب والأرشيفات الخاصة بالرياضيات."
+                }
+
+            ]
+
+        },
+
+
+        double: {
+
+            title:
+                "المعلم المزدوج",
+
+            description:
+                "مرحبًا بك في المساحة الخاصة بالمعلم المزدوج.",
+
+            subjects: [
+
+                {
+                    name:
+                        "اللغة العربية",
+
+                    description:
+                        "الدروس والكتب والأرشيفات الخاصة باللغة العربية."
+                },
+
+                {
+                    name:
+                        "اللغة الفرنسية",
+
+                    description:
+                        "الدروس والكتب والأرشيفات الخاصة باللغة الفرنسية."
+                },
+
+                {
+                    name:
+                        "الرياضيات",
+
+                    description:
+                        "الدروس والكتب والأرشيفات الخاصة بالرياضيات."
+                }
+
+            ]
+
+        }
+
+    };
+
+
+
+    /* =========================
+       الحصول على الفئة من الرابط
+    ========================== */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const categoryKey =
+        params.get("category") || "arabic";
+
+
+    const currentCategory =
+        categories[categoryKey] ||
+        categories.arabic;
+
+
+
+    /* =========================
+       عنوان الصفحة
+    ========================== */
+
+    document.getElementById(
+        "categoryTitle"
+    ).textContent =
+        currentCategory.title;
+
+
+    document.getElementById(
+        "categoryDescription"
+    ).textContent =
+        currentCategory.description;
+
+
+
+    /* =========================
+       إنشاء المواد
+    ========================== */
+
+    const subjectsContainer =
+        document.getElementById(
+            "subjectsContainer"
+        );
+
+
+    subjectsContainer.innerHTML = "";
+
+
+    currentCategory.subjects.forEach(
+        function(subject, index) {
+
+
+            const card =
+                document.createElement("div");
+
+
+            card.className =
+                "subject-card";
+
+
+            card.innerHTML = `
+
+                <div class="subject-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                    >
+
+                        <path
+                            d="M4 5.5
+                               A2.5 2.5 0 0 1
+                               6.5 3H20v17H6.5
+                               A2.5 2.5 0 0 1
+                               4 17.5v-12Z"
+                        ></path>
+
+                        <path
+                            d="M4 17.5
+                               A2.5 2.5 0 0 1
+                               6.5 15H20"
+                        ></path>
+
+                    </svg>
+
+                </div>
+
+
+                <h3>
+                    ${escapeHtml(subject.name)}
+                </h3>
+
+
+                <p>
+                    ${escapeHtml(subject.description)}
+                </p>
+
+
+                <a
+                    href="subject.html?category=${categoryKey}&subject=${index}"
+                    class="subject-button"
+                >
+                    فتح المادة
+                </a>
+
+            `;
+
+
+            subjectsContainer.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+
+    /* =========================
+       اختبارات المواد
+    ========================== */
+
+    const testMaterials =
+        document.getElementById(
+            "testMaterials"
+        );
+
+
+    testMaterials.innerHTML = "";
+
+
+    currentCategory.subjects.forEach(
+        function(subject, index) {
+
+
+            const link =
+                document.createElement("a");
+
+
+            link.className =
+                "test-material";
+
+
+            link.href =
+                `tests.html?category=${categoryKey}&subject=${index}`;
+
+
+            link.textContent =
+                subject.name;
+
+
+            testMaterials.appendChild(
+                link
+            );
+
+        }
+    );
+
+
+
+    /* =========================
+       الحساب
+    ========================== */
+
+    function toggleAccount() {
+
+        const menu =
+            document.getElementById(
+                "accountMenu"
+            );
+
+
+        menu.classList.toggle(
+            "show"
+        );
+
+    }
+
+
+
+    /* إغلاق الحساب عند الضغط خارج النافذة */
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            const menu =
+                document.getElementById(
+                    "accountMenu"
+                );
+
+            const button =
+                event.target.closest(
+                    ".action-btn"
+                );
+
+
+            if (
+                !menu.contains(event.target) &&
+                !button
+            ) {
+
+                menu.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+
+
+    /* =========================
+       الوضع الليلي
+    ========================== */
+
+    function toggleDarkMode() {
+
+        document.body.classList.toggle(
+            "dark"
+        );
+
+
+        const isDark =
+            document.body.classList.contains(
+                "dark"
+            );
+
+
+        localStorage.setItem(
+            "nejah_dark_mode",
+            isDark ? "1" : "0"
+        );
+
+    }
+
+
+    if (
+        localStorage.getItem(
+            "nejah_dark_mode"
+        ) === "1"
+    ) {
+
+        document.body.classList.add(
+            "dark"
+        );
+
+    }
+
+
+
+    /* =========================
+       اللغة
+    ========================== */
+
+    function toggleLanguage() {
+
+        alert(
+            "تغيير اللغة سيتم تفعيله لاحقًا."
+        );
+
+    }
+
+
+
+    /* =========================
+       حماية النصوص
+    ========================== */
+
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            text;
+
+        return div.innerHTML;
+    }
+
+</script>
+
+
+</body>
+
+</html>
