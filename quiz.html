@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>اختبر نفسك - منصة النجاح التعليمية</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f7fb;
+            color: #173f73;
+            font-family: Arial, Tahoma, sans-serif;
+        }
+
+        .container {
+            width: min(900px, 94%);
+            margin: auto;
+            padding-bottom: 40px;
+        }
+
+        /* HEADER */
+        header {
+            background: white;
+            border-bottom: 1px solid #e3e8ef;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-inner {
+            width: min(900px, 94%);
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .brand span {
+            color: #f59e0b;
+            display: block;
+        }
+
+        .timer {
+            background: #fff4f4;
+            border: 1px solid #ffd2d2;
+            color: #d92d20;
+            padding: 10px 16px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 18px;
+            direction: ltr;
+            white-space: nowrap;
+        }
+
+        .timer.warning {
+            background: #fff8e6;
+            color: #b76e00;
+            border-color: #ffe0a3;
+        }
+
+        /* INTRO */
+        .intro {
+            padding: 30px 0 20px;
+        }
+
+        .intro h1 {
+            margin: 0 0 10px;
+            font-size: 32px;
+        }
+
+        .intro p {
+            margin: 0;
+            color: #667892;
+            font-size: 17px;
+        }
+
+        /* PROGRESS */
+        .progress-box {
+            background: white;
+            padding: 16px;
+            border-radius: 18px;
+            margin-bottom: 18px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 9px;
+            color: #64748b;
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: 9px;
+            background: #e8edf4;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #2864df;
+            transition: width .25s ease;
+        }
+
+        /* QUESTIONS */
+        .question-card {
+            background: white;
+            border: 1px solid #e1e7ef;
+            border-radius: 22px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 5px 18px rgba(20, 50, 90, .04);
+        }
+
+        .question-number {
+            color: #2864df;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.8;
+            color: #172b4d;
+            margin-bottom: 18px;
+        }
+
+        .options {
+            display: grid;
+            gap: 11px;
+        }
+
+        .option {
+            border: 2px solid #e3e8ef;
+            border-radius: 15px;
+            padding: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #263b58;
+            transition: .2s;
+            background: #fff;
+        }
+
+        .option:hover {
+            border-color: #9cb8eb;
+            background: #f8fbff;
+        }
+
+        .option.selected {
+            border-color: #2864df;
+            background: #eef4ff;
+        }
+
+        .option input {
+            width: 19px;
+            height: 19px;
+            accent-color: #2864df;
+            flex-shrink: 0;
+        }
+
+        /* SUBMIT */
+        .submit-area {
+            margin-top: 25px;
+            background: white;
+            padding: 18px;
+            border-radius: 20px;
+            border: 1px solid #e1e7ef;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            background: #2864df;
+            color: white;
+            padding: 16px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .submit-btn:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        /* RESULT */
+        .result {
+            display: none;
+            background: white;
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid #dfe6ef;
+            margin-top: 30px;
+        }
+
+        .result-score {
+            font-size: 52px;
+            font-weight: 900;
+            color: #2864df;
+            margin: 10px 0;
+        }
+
+        .result-percent {
+            font-size: 22px;
+            color: #52657e;
+            margin-bottom: 20px;
+        }
+
+        .result-message {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #173f73;
+            color: white;
+            padding: 13px 25px;
+            border-radius: 13px;
+            font-weight: 700;
+        }
+
+        /* LOADING */
+        .loading {
+            text-align: center;
+            padding: 70px 10px;
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        .error {
+            background: #fff2f2;
+            color: #b42318;
+            padding: 18px;
+            border-radius: 15px;
+            margin-top: 25px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 600px) {
+
+            .header-inner {
+                align-items: center;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .timer {
+                font-size: 15px;
+                padding: 9px 12px;
+            }
+
+            .intro h1 {
+                font-size: 28px;
+            }
+
+            .question-card {
+                padding: 17px;
+                border-radius: 18px;
+            }
+
+            .question-text {
+                font-size: 18px;
+            }
+
+            .option {
+                padding: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <div class="brand">
+            منصة النجاح
+            <span>التعليمية</span>
+        </div>
+
+        <div id="timer" class="timer">
+            30:00
+        </div>
+
+    </div>
+</header>
+
+
+<main class="container">
+
+    <section class="intro">
+        <h1 id="quizTitle">اختبر نفسك</h1>
+        <p id="quizDescription">
+            لديك 50 سؤالًا لإكمال الاختبار.
+        </p>
+    </section>
+
+    <div id="loading" class="loading">
+        جارٍ تحميل الاختبار...
+    </div>
+
+    <div id="quizArea" style="display:none;">
+
+        <div class="progress-box">
+            <div class="progress-top">
+                <span>تقدمك في الاختبار</span>
+                <span id="answeredCount">0 / 50</span>
+            </div>
+
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div id="questionsContainer"></div>
+
+        <div class="submit-area">
+            <button id="submitBtn" class="submit-btn">
+                إنهاء الاختبار
+            </button>
+        </div>
+
+    </div>
+
+
+    <div id="errorBox" class="error" style="display:none;"></div>
+
+
+    <section id="result" class="result">
+
+        <h2>انتهى الاختبار</h2>
+
+        <div id="score" class="result-score">
+            0 / 50
+        </div>
+
+        <div id="percentage" class="result-percent">
+            0%
+        </div>
+
+        <div id="resultMessage" class="result-message"></div>
+
+        <a href="category.html" class="back-btn">
+            العودة إلى الفئات
+        </a>
+
+    </section>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   1. إعداد Supabase
+   ========================================================= */
+
+const SUPABASE_URL = "https://xujyaopbswocfvzxryvc.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_8yjs_ITrdMd43HccwKAnEQ_9iGkWtFl";
+
+const { createClient } = supabase;
+
+const db = createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+
+/* =========================================================
+   2. إعدادات الاختبار
+   ========================================================= */
+
+const TOTAL_QUESTIONS = 50;
+const DURATION_SECONDS = 30 * 60;
+
+const params = new URLSearchParams(window.location.search);
+const quizId = params.get("quiz");
+
+
+/* =========================================================
+   3. المتغيرات
+   ========================================================= */
+
+let quiz = null;
+let questions = [];
+let answers = {};
+
+let endTime = null;
+let timerInterval = null;
+
+let isFinished = false;
+
+
+/* =========================================================
+   4. عناصر الصفحة
+   ========================================================= */
+
+const loading = document.getElementById("loading");
+const quizArea = document.getElementById("quizArea");
+const questionsContainer = document.getElementById("questionsContainer");
+
+const quizTitle = document.getElementById("quizTitle");
+const quizDescription = document.getElementById("quizDescription");
+
+const timerElement = document.getElementById("timer");
+
+const answeredCount = document.getElementById("answeredCount");
+const progressFill = document.getElementById("progressFill");
+
+const submitBtn = document.getElementById("submitBtn");
+
+const resultBox = document.getElementById("result");
+const scoreElement = document.getElementById("score");
+const percentageElement = document.getElementById("percentage");
+const resultMessage = document.getElementById("resultMessage");
+
+const errorBox = document.getElementById("errorBox");
+
+
+/* =========================================================
+   5. التحقق من quiz ID
+   ========================================================= */
+
+if (!quizId) {
+
+    showError(
+        "لم يتم تحديد الاختبار. تأكد من أن رابط الاختبار يحتوي على معرّف الاختبار."
+    );
+
+} else {
+
+    loadQuiz();
+
+}
+
+
+/* =========================================================
+   6. تحميل الاختبار
+   ========================================================= */
+
+async function loadQuiz() {
+
+    try {
+
+        const { data: quizData, error: quizError } =
+            await db
+                .from("quizzes")
+                .select("*")
+                .eq("id", quizId)
+                .single();
+
+        if (quizError) {
+            throw quizError;
+        }
+
+        quiz = quizData;
+
+        quizTitle.textContent =
+            quiz.title || "اختبر نفسك";
+
+        quizDescription.textContent =
+            "50 سؤالًا • 30 دقيقة";
+
+
+
+        /* -------------------------------------------------
+           جلب الأسئلة
+        ------------------------------------------------- */
+
+        const { data: questionData, error: questionError } =
+            await db
+                .from("questions")
+                .select(`
+                    id,
+                    quiz_id,
+                    question_text,
+                    explanation,
+                    display_order
+                `)
+                .eq("quiz_id", quizId)
+                .order("display_order", {
+                    ascending: true
+                });
+
+        if (questionError) {
+            throw questionError;
+        }
+
+        if (!questionData || questionData.length < TOTAL_QUESTIONS) {
+
+            throw new Error(
+                `هذا الاختبار يحتوي حاليًا على ${questionData?.length || 0} سؤالًا فقط، بينما يحتاج الاختبار إلى 50 سؤالًا.`
+            );
+
+        }
+
+
+        /* -------------------------------------------------
+           خلط الأسئلة واختيار 50
+        ------------------------------------------------- */
+
+        questions = shuffleArray(questionData)
+            .slice(0, TOTAL_QUESTIONS);
+
+
+
+        /* -------------------------------------------------
+           جلب الخيارات الأربعة
+        ------------------------------------------------- */
+
+        const questionIds =
+            questions.map(q => q.id);
+
+        const { data: optionsData, error: optionsError } =
+            await db
+                .from("question_options")
+                .select(`
+                    id,
+                    question_id,
+                    option_text,
+                    is_correct,
+                    display_order
+                `)
+                .in("question_id", questionIds)
+                .order("display_order", {
+                    ascending: true
+                });
+
+        if (optionsError) {
+            throw optionsError;
+        }
+
+
+        /* -------------------------------------------------
+           ربط الخيارات بالأسئلة
+        ------------------------------------------------- */
+
+        questions = questions.map(question => {
+
+            const options =
+                optionsData
+                    .filter(
+                        option =>
+                            option.question_id === question.id
+                    )
+                    .sort(
+                        (a, b) =>
+                            a.display_order - b.display_order
+                    );
+
+            if (options.length !== 4) {
+
+                throw new Error(
+                    `السؤال رقم ${question.display_order} لا يحتوي على أربعة خيارات.`
+                );
+
+            }
+
+            return {
+                ...question,
+                options
+            };
+
+        });
+
+
+        /* -------------------------------------------------
+           استرجاع التقدم المحفوظ
+        ------------------------------------------------- */
+
+        restoreProgress();
+
+
+        /* -------------------------------------------------
+           عرض الأسئلة
+        ------------------------------------------------- */
+
+        renderQuestions();
+
+
+        loading.style.display = "none";
+        quizArea.style.display = "block";
+
+
+        startTimer();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showError(
+            "حدث خطأ أثناء تحميل الاختبار: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   7. خلط المصفوفة
+   ========================================================= */
+
+function shuffleArray(array) {
+
+    const copy = [...array];
+
+    for (
+        let i = copy.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+        [copy[i], copy[j]] =
+            [copy[j], copy[i]];
+
+    }
+
+    return copy;
+}
+
+
+/* =========================================================
+   8. مفتاح التخزين المحلي
+   ========================================================= */
+
+function getStorageKey() {
+
+    return `quiz_progress_${quizId}`;
+
+}
+
+
+/* =========================================================
+   9. حفظ التقدم
+   ========================================================= */
+
+function saveProgress() {
+
+    if (isFinished) {
+        return;
+    }
+
+    const data = {
+
+        quizId,
+
+        questionIds:
+            questions.map(q => q.id),
+
+        answers,
+
+        endTime,
+
+        savedAt:
+            Date.now()
+
+    };
+
+    localStorage.setItem(
+        getStorageKey(),
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =========================================================
+   10. استرجاع التقدم
+   ========================================================= */
+
+function restoreProgress() {
+
+    const saved =
+        localStorage.getItem(
+            getStorageKey()
+        );
+
+    if (!saved) {
+
+        endTime =
+            Date.now() +
+            DURATION_SECONDS * 1000;
+
+        saveProgress();
+
+        return;
+    }
+
+    try {
+
+        const data =
+            JSON.parse(saved);
+
+
+        /*
+         * نتحقق أن الأسئلة نفسها
+         * موجودة في المحاولة المحفوظة.
+         */
+
+        if (
+            Array.isArray(data.questionIds) &&
+            data.questionIds.length === TOTAL_QUESTIONS
+        ) {
+
+            const questionMap =
+                new Map(
+                    questions.map(q => [q.id, q])
+                );
+
+            const restoredQuestions =
+                data.questionIds
+                    .map(id => questionMap.get(id))
+                    .filter(Boolean);
+
+            if (
+                restoredQuestions.length === TOTAL_QUESTIONS
+            ) {
+
+                questions =
+                    restoredQuestions;
+
+            }
+
+        }
+
+
+        answers =
+            data.answers || {};
+
+        endTime =
+            data.endTime ||
+            (
+                Date.now() +
+                DURATION_SECONDS * 1000
+            );
+
+
+        /* إذا انتهى الوقت أثناء إغلاق الصفحة */
+
+        if (Date.now() >= endTime) {
+
+            setTimeout(() => {
+
+                finishQuiz(true);
+
+            }, 100);
+
+        }
+
+    } catch (e) {
+
+        console.error(
+            "تعذر استرجاع التقدم",
+            e
+        );
+
+        endTime =
+            Date.now() +
+            DURATION_SECONDS * 1000;
+
+        saveProgress();
+
+    }
+
+}
+
+
+/* =========================================================
+   11. عرض الأسئلة
+   ========================================================= */
+
+function renderQuestions() {
+
+    questionsContainer.innerHTML = "";
+
+
+    questions.forEach(
+        (question, index) => {
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "question-card";
+
+
+            const number =
+                document.createElement("div");
+
+            number.className =
+                "question-number";
+
+            number.textContent =
+                `السؤال ${index + 1} من 50`;
+
+
+            const text =
+                document.createElement("div");
+
+            text.className =
+                "question-text";
+
+            text.textContent =
+                question.question_text;
+
+
+            const options =
+                document.createElement("div");
+
+            options.className =
+                "options";
+
+
+            question.options.forEach(
+                option => {
+
+                    const label =
+                        document.createElement("label");
+
+                    label.className =
+                        "option";
+
+
+                    const input =
+                        document.createElement("input");
+
+                    input.type =
+                        "radio";
+
+                    input.name =
+                        `question_${question.id}`;
+
+                    input.value =
+                        option.id;
+
+
+                    if (
+                        answers[question.id] ===
+                        option.id
+                    ) {
+
+                        input.checked = true;
+
+                        label.classList.add(
+                            "selected"
+                        );
+
+                    }
+
+
+                    input.addEventListener(
+                        "change",
+                        () => {
+
+                            answers[question.id] =
+                                option.id;
+
+                            updateProgress();
+
+                            saveProgress();
+
+
+                            document
+                                .querySelectorAll(
+                                    `input[name="question_${question.id}"]`
+                                )
+                                .forEach(
+                                    radio => {
+
+                                        radio
+                                            .closest(".option")
+                                            .classList.remove(
+                                                "selected"
+                                            );
+
+                                    }
+                                );
+
+                            label.classList.add(
+                                "selected"
+                            );
+
+                        }
+                    );
+
+
+                    label.appendChild(input);
+
+                    const span =
+                        document.createElement("span");
+
+                    span.textContent =
+                        option.option_text;
+
+                    label.appendChild(span);
+
+                    options.appendChild(label);
+
+                }
+            );
+
+
+            card.appendChild(number);
+            card.appendChild(text);
+            card.appendChild(options);
+
+            questionsContainer.appendChild(card);
+
+        }
+    );
+
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   12. تحديث شريط التقدم
+   ========================================================= */
+
+function updateProgress() {
+
+    const count =
+        Object.keys(answers).length;
+
+    answeredCount.textContent =
+        `${count} / ${TOTAL_QUESTIONS}`;
+
+    const percentage =
+        (count / TOTAL_QUESTIONS) * 100;
+
+    progressFill.style.width =
+        `${percentage}%`;
+
+}
+
+
+/* =========================================================
+   13. العداد
+   ========================================================= */
+
+function startTimer() {
+
+    updateTimer();
+
+    timerInterval =
+        setInterval(
+            updateTimer,
+            1000
+        );
+
+}
+
+
+function updateTimer() {
+
+    if (isFinished) {
+        return;
+    }
+
+
+    const remaining =
+        Math.max(
+            0,
+            endTime - Date.now()
+        );
+
+
+    const totalSeconds =
+        Math.floor(
+            remaining / 1000
+        );
+
+
+    const minutes =
+        Math.floor(
+            totalSeconds / 60
+        );
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    timerElement.textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+
+    if (totalSeconds <= 300) {
+
+        timerElement.classList.add(
+            "warning"
+        );
+
+    }
+
+
+    if (remaining <= 0) {
+
+        clearInterval(
+            timerInterval
+        );
+
+        finishQuiz(true);
+
+    }
+
+}
+
+
+/* =========================================================
+   14. زر إنهاء الاختبار
+   ========================================================= */
+
+submitBtn.addEventListener(
+    "click",
+    () => {
+
+        const unanswered =
+            TOTAL_QUESTIONS -
+            Object.keys(answers).length;
+
+
+        if (unanswered > 0) {
+
+            const confirmed =
+                confirm(
+                    `لم تجب عن ${unanswered} سؤالًا.\n\nهل تريد إنهاء الاختبار الآن؟`
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+        }
+
+
+        finishQuiz(false);
+
+    }
+);
+
+
+/* =========================================================
+   15. إنهاء الاختبار
+   ========================================================= */
+
+async function finishQuiz(autoFinished = false) {
+
+    if (isFinished) {
+        return;
+    }
+
+    isFinished = true;
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    submitBtn.disabled = true;
+
+
+    /* -----------------------------------------------------
+       التصحيح
+    ----------------------------------------------------- */
+
+    let score = 0;
+
+
+    questions.forEach(
+        question => {
+
+            const selectedId =
+                answers[question.id];
+
+
+            if (!selectedId) {
+                return;
+            }
+
+
+            const selectedOption =
+                question.options.find(
+                    option =>
+                        option.id === selectedId
+                );
+
+
+            if (
+                selectedOption &&
+                selectedOption.is_correct === true
+            ) {
+
+                score++;
+
+            }
+
+        }
+    );
+
+
+    const percentage =
+        Number(
+            (
+                score /
+                TOTAL_QUESTIONS *
+                100
+            ).toFixed(2)
+        );
+
+
+    /* -----------------------------------------------------
+       عرض النتيجة
+    ----------------------------------------------------- */
+
+    quizArea.style.display =
+        "none";
+
+    resultBox.style.display =
+        "block";
+
+
+    scoreElement.textContent =
+        `${score} / ${TOTAL_QUESTIONS}`;
+
+    percentageElement.textContent =
+        `${percentage}%`;
+
+
+    if (autoFinished) {
+
+        resultMessage.textContent =
+            "انتهى الوقت، وتم إنهاء الاختبار وتصحيح إجاباتك تلقائيًا.";
+
+    } else {
+
+        resultMessage.textContent =
+            "تم إنهاء الاختبار وتصحيح إجاباتك.";
+
+    }
+
+
+    /* -----------------------------------------------------
+       حفظ النتيجة في Supabase
+    ----------------------------------------------------- */
+
+    await saveResult(
+        score,
+        percentage
+    );
+
+
+    /* -----------------------------------------------------
+       حذف التقدم المؤقت
+    ----------------------------------------------------- */
+
+    localStorage.removeItem(
+        getStorageKey()
+    );
+
+}
+
+
+/* =========================================================
+   16. حفظ النتيجة
+   ========================================================= */
+
+async function saveResult(
+    score,
+    percentage
+) {
+
+    try {
+
+        const {
+            data: {
+                user
+            }
+        } =
+            await db.auth.getUser();
+
+
+        /*
+         * لا يمكن حفظ النتيجة إذا لم يكن
+         * الطالب مسجل الدخول.
+         */
+
+        if (!user) {
+
+            console.warn(
+                "الطالب غير مسجل الدخول، لن يتم حفظ النتيجة في قاعدة البيانات."
+            );
+
+            return;
+
+        }
+
+
+        /* -------------------------------------------------
+           البحث عن النتيجة الحالية
+        ------------------------------------------------- */
+
+        const {
+            data: existing,
+            error: existingError
+        } =
+            await db
+                .from("quiz_results")
+                .select("*")
+                .eq("user_id", user.id)
+                .eq("quiz_id", quizId)
+                .maybeSingle();
+
+
+        if (existingError) {
+            throw existingError;
+        }
+
+
+        /* -------------------------------------------------
+           أول محاولة
+        ------------------------------------------------- */
+
+        if (!existing) {
+
+            const {
+                error
+            } =
+                await db
+                    .from("quiz_results")
+                    .insert({
+
+                        user_id:
+                            user.id,
+
+                        quiz_id:
+                            quizId,
+
+                        best_score:
+                            score,
+
+                        best_percentage:
+                            percentage,
+
+                        attempts_count:
+                            1,
+
+                        last_attempt_at:
+                            new Date().toISOString(),
+
+                        best_attempt_at:
+                            new Date().toISOString()
+
+                    });
+
+
+            if (error) {
+                throw error;
+            }
+
+            return;
+
+        }
+
+
+        /* -------------------------------------------------
+           تحديث المحاولات
+        ------------------------------------------------- */
+
+        const isBetter =
+            score >
+            existing.best_score;
+
+
+        const updateData = {
+
+            attempts_count:
+                existing.attempts_count + 1,
+
+            last_attempt_at:
+                new Date().toISOString(),
+
+            updated_at:
+                new Date().toISOString()
+
+        };
+
+
+        if (isBetter) {
+
+            updateData.best_score =
+                score;
+
+            updateData.best_percentage =
+                percentage;
+
+            updateData.best_attempt_at =
+                new Date().toISOString();
+
+        }
+
+
+        const {
+            error: updateError
+        } =
+            await db
+                .from("quiz_results")
+                .update(updateData)
+                .eq("user_id", user.id)
+                .eq("quiz_id", quizId);
+
+
+        if (updateError) {
+            throw updateError;
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "خطأ أثناء حفظ النتيجة:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   17. عرض الخطأ
+   ========================================================= */
+
+function showError(message) {
+
+    loading.style.display =
+        "none";
+
+    quizArea.style.display =
+        "none";
+
+    errorBox.style.display =
+        "block";
+
+    errorBox.textContent =
+        message;
+
+}
+
+</script>
+
+</body>
+</html>
