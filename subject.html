@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>المادة | منصة النجاح التعليمية</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+
+            --primary: #123b6d;
+            --primary-dark: #0d2d52;
+            --secondary: #f59e0b;
+
+            --background: #f5f8fc;
+            --card: #ffffff;
+
+            --text: #14213d;
+            --muted: #64748b;
+
+            --border: #e2e8f0;
+
+            --soft-blue: #eff6ff;
+            --soft-gold: #fff7ed;
+
+            --shadow:
+                0 8px 25px
+                rgba(18, 59, 109, 0.07);
+        }
+
+
+        /* =========================
+           الوضع الليلي
+        ========================== */
+
+        body.dark {
+
+            --background: #0f172a;
+            --card: #172033;
+
+            --text: #f8fafc;
+            --muted: #aab5c5;
+
+            --border: #29364d;
+
+            --soft-blue: #1e293b;
+            --soft-gold: #292016;
+
+            --shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.25);
+        }
+
+
+        body {
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Tahoma,
+                Arial,
+                sans-serif;
+
+            background: var(--background);
+            color: var(--text);
+
+            min-height: 100vh;
+
+            transition:
+                background .25s ease,
+                color .25s ease;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
+
+            background: var(--card);
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        .header-inner {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 11px 16px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+
+        /* الشعار */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            text-decoration: none;
+
+            color: var(--primary);
+        }
+
+
+        .brand-logo {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            background: #eef5ff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 22px;
+
+            font-weight: 800;
+        }
+
+
+        .brand-name {
+
+            font-size: 17px;
+
+            line-height: 1.15;
+
+            font-weight: 800;
+        }
+
+
+        .brand-name span {
+
+            display: block;
+
+            color: var(--secondary);
+
+            margin-top: 2px;
+        }
+
+
+        /* الإضافيات */
+
+        .header-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+        }
+
+
+        .action-btn {
+
+            width: 36px;
+            height: 36px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 10px;
+
+            background: var(--card);
+
+            color: var(--primary);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+        }
+
+
+        .action-btn svg {
+
+            width: 18px;
+            height: 18px;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        main {
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding: 42px 16px 70px;
+        }
+
+
+        /* =========================
+           عنوان المادة
+        ========================== */
+
+        .page-heading {
+
+            text-align: center;
+
+            margin-bottom: 38px;
+        }
+
+
+        .page-heading h1 {
+
+            color: var(--primary);
+
+            font-size:
+                clamp(30px, 7vw, 44px);
+
+            font-weight: 800;
+
+            margin-bottom: 10px;
+        }
+
+
+        body.dark .page-heading h1 {
+
+            color: #ffffff;
+        }
+
+
+        .page-heading p {
+
+            color: var(--muted);
+
+            font-size: 15px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =========================
+           الأقسام
+        ========================== */
+
+        .section {
+
+            margin-bottom: 42px;
+        }
+
+
+        .section-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .section-heading h2 {
+
+            color: var(--primary);
+
+            font-size: 25px;
+
+            white-space: nowrap;
+        }
+
+
+        body.dark .section-heading h2 {
+
+            color: #ffffff;
+        }
+
+
+        .line {
+
+            flex: 1;
+
+            height: 1px;
+
+            background: var(--border);
+        }
+
+
+        /* =========================
+           شبكة الملفات
+        ========================== */
+
+        .files-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 16px;
+        }
+
+
+        /*
+           البطاقة كلها رابط
+        */
+
+        .file-card {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            text-decoration: none;
+
+            color: var(--text);
+
+            background: var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 17px;
+
+            padding: 18px;
+
+            min-height: 95px;
+
+            box-shadow: var(--shadow);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                border-color .2s ease;
+        }
+
+
+        .file-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            border-color:
+                var(--secondary);
+
+            box-shadow:
+                0 14px 30px
+                rgba(18,59,109,.11);
+        }
+
+
+        .file-icon {
+
+            flex-shrink: 0;
+
+            width: 52px;
+            height: 52px;
+
+            border-radius: 14px;
+
+            background: var(--soft-blue);
+
+            color: var(--primary);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .file-icon svg {
+
+            width: 25px;
+            height: 25px;
+        }
+
+
+        .file-info {
+
+            min-width: 0;
+        }
+
+
+        .file-info h3 {
+
+            font-size: 17px;
+
+            color: var(--primary);
+
+            margin-bottom: 5px;
+        }
+
+
+        body.dark .file-info h3 {
+
+            color: #ffffff;
+        }
+
+
+        .file-info p {
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        .file-type {
+
+            margin-top: 6px;
+
+            display: inline-block;
+
+            color: var(--secondary);
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           عدم وجود ملفات
+        ========================== */
+
+        .empty-message {
+
+            background: var(--card);
+
+            border:
+                1px dashed var(--border);
+
+            border-radius: 17px;
+
+            padding: 30px 20px;
+
+            text-align: center;
+
+            color: var(--muted);
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           زر العودة
+        ========================== */
+
+        .back-button {
+
+            display: block;
+
+            width: fit-content;
+
+            margin: 10px auto 0;
+
+            text-decoration: none;
+
+            color: var(--primary);
+
+            background: var(--card);
+
+            border:
+                1px solid var(--border);
+
+            padding: 11px 20px;
+
+            border-radius: 12px;
+
+            font-weight: 700;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           الهاتف
+        ========================== */
+
+        @media (max-width: 760px) {
+
+            .header-inner {
+
+                padding:
+                    10px 12px;
+            }
+
+
+            .brand-logo {
+
+                width: 39px;
+                height: 39px;
+
+                font-size: 20px;
+            }
+
+
+            .brand-name {
+
+                font-size: 15px;
+            }
+
+
+            .action-btn {
+
+                width: 34px;
+                height: 34px;
+            }
+
+
+            main {
+
+                padding:
+                    35px 14px 60px;
+            }
+
+
+            .page-heading {
+
+                margin-bottom: 30px;
+            }
+
+
+            .page-heading h1 {
+
+                font-size: 31px;
+            }
+
+
+            .page-heading p {
+
+                font-size: 14px;
+            }
+
+
+            .section-heading h2 {
+
+                font-size: 22px;
+            }
+
+
+            .files-grid {
+
+                grid-template-columns: 1fr;
+
+                gap: 13px;
+            }
+
+
+            .file-card {
+
+                padding: 16px;
+
+                min-height: 88px;
+
+                border-radius: 15px;
+            }
+
+
+            .file-icon {
+
+                width: 47px;
+                height: 47px;
+            }
+
+
+            .file-info h3 {
+
+                font-size: 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     رأس الصفحة
+========================== -->
+
+<header>
+
+    <div class="header-inner">
+
+
+        <!-- الشعار والاسم -->
+
+        <a
+            href="index.html"
+            class="brand"
+        >
+
+            <div class="brand-logo">
+                ن
+            </div>
+
+            <div class="brand-name">
+
+                منصة النجاح
+
+                <span>
+                    التعليمية
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- الإضافيات -->
+
+        <div class="header-actions">
+
+
+            <!-- الحساب -->
+
+            <button
+                class="action-btn"
+                onclick="showAccount()"
+                aria-label="الحساب"
+                title="الحساب"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+
+                    <circle
+                        cx="12"
+                        cy="8"
+                        r="4"
+                    ></circle>
+
+                    <path
+                        d="M4 21c0-4 3.5-7 8-7s8 3 8 7"
+                    ></path>
+
+                </svg>
+
+            </button>
+
+
+            <!-- الوضع الليلي -->
+
+            <button
+                class="action-btn"
+                onclick="toggleDarkMode()"
+                aria-label="الوضع الليلي"
+                title="الوضع الليلي"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+
+                    <path
+                        d="M21 12.8A8.5 8.5 0 1 1 11.2 3
+                        6.7 6.7 0 0 0 21 12.8Z"
+                    ></path>
+
+                </svg>
+
+            </button>
+
+
+            <!-- اللغة -->
+
+            <button
+                class="action-btn"
+                onclick="toggleLanguage()"
+                aria-label="اللغة"
+                title="تغيير اللغة"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="9"
+                    ></circle>
+
+                    <path
+                        d="M3 12h18"
+                    ></path>
+
+                    <path
+                        d="M12 3c3 3 3 15 0 18"
+                    ></path>
+
+                    <path
+                        d="M12 3c-3 3-3 15 0 18"
+                    ></path>
+
+                </svg>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     المحتوى
+========================== -->
+
+<main>
+
+
+    <!-- عنوان المادة -->
+
+    <section class="page-heading">
+
+        <h1 id="subjectTitle">
+            اللغة العربية
+        </h1>
+
+        <p id="subjectDescription">
+            الكتب والملخصات والتمارين المحلولة الخاصة بالمادة.
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         الكتب والملخصات
+    ========================== -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <h2>
+                الكتب والملخصات
+            </h2>
+
+            <div class="line"></div>
+
+        </div>
+
+
+        <div
+            id="booksGrid"
+            class="files-grid"
+        >
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         تمارين محلولة
+    ========================== -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <h2>
+                تمارين محلولة
+            </h2>
+
+            <div class="line"></div>
+
+        </div>
+
+
+        <div
+            id="solvedExercisesGrid"
+            class="files-grid"
+        >
+
+        </div>
+
+    </section>
+
+
+
+    <!-- العودة -->
+
+    <a
+        href="#"
+        id="backButton"
+        class="back-button"
+    >
+        العودة إلى الفئة
+    </a>
+
+
+</main>
+
+
+
+<script>
+
+
+    /* =========================
+       قراءة معلومات الرابط
+    ========================== */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const category =
+        params.get("category") || "arabic";
+
+
+    const subjectIndex =
+        parseInt(
+            params.get("subject") || "0",
+            10
+        );
+
+
+
+    /* =========================
+       مواد الفئات
+    ========================== */
+
+    const categoryData = {
+
+        arabic: [
+
+            "اللغة العربية",
+
+            "التربية الإسلامية",
+
+            "الرياضيات"
+
+        ],
+
+        french: [
+
+            "اللغة الفرنسية",
+
+            "العلوم الطبيعية",
+
+            "الرياضيات"
+
+        ],
+
+        double: [
+
+            "اللغة العربية",
+
+            "اللغة الفرنسية",
+
+            "الرياضيات"
+
+        ]
+
+    };
+
+
+    const subjects =
+        categoryData[category] ||
+        categoryData.arabic;
+
+
+    const subjectName =
+        subjects[subjectIndex] ||
+        subjects[0];
+
+
+
+    /* =========================
+       عنوان المادة
+    ========================== */
+
+    document.getElementById(
+        "subjectTitle"
+    ).textContent =
+        subjectName;
+
+
+    document.getElementById(
+        "subjectDescription"
+    ).textContent =
+        "الكتب والملخصات والتمارين المحلولة الخاصة بـ " +
+        subjectName + ".";
+
+
+
+    /* =========================
+       العودة إلى الفئة
+    ========================== */
+
+    document.getElementById(
+        "backButton"
+    ).href =
+        "category.html?category=" +
+        encodeURIComponent(category);
+
+
+
+    /* =========================
+       بيانات تجريبية مؤقتة
+    ========================== */
+
+    /*
+       هذه البيانات مؤقتة فقط
+       لاختبار شكل الصفحة.
+
+       لاحقًا سيتم استبدالها
+       بالبيانات الحقيقية من Supabase.
+    */
+
+
+    const books = [
+
+        {
+            title:
+                "كتاب المادة",
+
+            description:
+                "ملف PDF تعليمي",
+
+            url:
+                "#"
+        },
+
+        {
+            title:
+                "ملخص المادة",
+
+            description:
+                "ملخص شامل للمراجعة",
+
+            url:
+                "#"
+        }
+
+    ];
+
+
+    const solvedExercises = [
+
+        {
+            title:
+                "تمارين محلولة 01",
+
+            description:
+                "مجموعة تمارين محلولة بصيغة PDF",
+
+            url:
+                "#"
+        },
+
+        {
+            title:
+                "تمارين محلولة 02",
+
+            description:
+                "مجموعة إضافية من التمارين المحلولة",
+
+            url:
+                "#"
+        }
+
+    ];
+
+
+
+    /* =========================
+       أيقونة PDF
+    ========================== */
+
+    function fileIcon() {
+
+        return `
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+            >
+
+                <path
+                    d="M6 2h8l4 4v16H6z"
+                ></path>
+
+                <path
+                    d="M14 2v5h5"
+                ></path>
+
+                <path
+                    d="M9 13h6"
+                ></path>
+
+                <path
+                    d="M9 17h6"
+                ></path>
+
+            </svg>
+
+        `;
+    }
+
+
+
+    /* =========================
+       عرض الملفات
+    ========================== */
+
+    function renderFiles(
+        files,
+        containerId
+    ) {
+
+        const container =
+            document.getElementById(
+                containerId
+            );
+
+
+        container.innerHTML = "";
+
+
+        if (
+            !files ||
+            files.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="empty-message">
+
+                    لا توجد ملفات متاحة حاليًا.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        files.forEach(
+            function(file) {
+
+                const link =
+                    document.createElement("a");
+
+
+                /*
+                   البطاقة كلها هي الرابط
+                */
+
+                link.className =
+                    "file-card";
+
+
+                link.href =
+                    file.url;
+
+
+                /*
+                   فتح PDF في صفحة جديدة
+                */
+
+                link.target =
+                    "_blank";
+
+
+                link.rel =
+                    "noopener noreferrer";
+
+
+                link.innerHTML = `
+
+                    <div class="file-icon">
+
+                        ${fileIcon()}
+
+                    </div>
+
+
+                    <div class="file-info">
+
+                        <h3>
+                            ${escapeHtml(file.title)}
+                        </h3>
+
+                        <p>
+                            ${escapeHtml(file.description)}
+                        </p>
+
+                        <span class="file-type">
+                            PDF
+                        </span>
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(
+                    link
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* عرض الكتب */
+
+    renderFiles(
+        books,
+        "booksGrid"
+    );
+
+
+    /* عرض التمارين المحلولة */
+
+    renderFiles(
+        solvedExercises,
+        "solvedExercisesGrid"
+    );
+
+
+
+    /* =========================
+       الوضع الليلي
+    ========================== */
+
+    function toggleDarkMode() {
+
+        document.body.classList.toggle(
+            "dark"
+        );
+
+
+        const isDark =
+            document.body.classList.contains(
+                "dark"
+            );
+
+
+        localStorage.setItem(
+            "nejah_dark_mode",
+            isDark ? "1" : "0"
+        );
+
+    }
+
+
+    if (
+        localStorage.getItem(
+            "nejah_dark_mode"
+        ) === "1"
+    ) {
+
+        document.body.classList.add(
+            "dark"
+        );
+
+    }
+
+
+
+    /* =========================
+       اللغة
+    ========================== */
+
+    function toggleLanguage() {
+
+        alert(
+            "تغيير اللغة سيتم تفعيله لاحقًا."
+        );
+
+    }
+
+
+
+    /* =========================
+       الحساب
+    ========================== */
+
+    function showAccount() {
+
+        alert(
+            "معلومات الحساب سيتم ربطها بنظام تسجيل الدخول."
+        );
+
+    }
+
+
+
+    /* =========================
+       حماية النصوص
+    ========================== */
+
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            text;
+
+        return div.innerHTML;
+    }
+
+</script>
+
+
+</body>
+
+</html>
