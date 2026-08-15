@@ -4,169 +4,395 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>اختيار الفئة | منصة النجاح التعليمية</title>
+    <title>اختر فئتك | منصة النجاح التعليمية</title>
 
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         :root {
             --primary: #123b6d;
+            --primary-dark: #0b2d54;
             --secondary: #f59e0b;
             --bg: #f5f8fc;
-            --text: #17233c;
+            --card: #ffffff;
+            --text: #14213d;
             --muted: #64748b;
-            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 10px 30px rgba(18, 59, 109, 0.08);
+        }
+
+        body.dark {
+            --bg: #0f172a;
+            --card: #172033;
+            --text: #f8fafc;
+            --muted: #aab5c5;
+            --border: #29364d;
+            --shadow: 0 10px 30px rgba(0,0,0,0.25);
         }
 
         body {
-            font-family: Arial, "Tahoma", sans-serif;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Tahoma,
+                Arial,
+                sans-serif;
+
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
+            transition: background .25s ease, color .25s ease;
         }
 
-        /* ===== الهيدر ===== */
+        /* =========================
+           HEADER
+        ========================== */
 
         header {
-            background: var(--white);
-            padding: 28px 20px 24px;
-            text-align: center;
-            border-bottom: 1px solid #e5e7eb;
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .logo {
-            font-size: 30px;
-            font-weight: 800;
-            margin-bottom: 25px;
-        }
-
-        .logo .success {
-            color: var(--secondary);
-        }
-
-        .logo .education {
-            color: var(--primary);
-        }
-
-        /* ===== المحتوى ===== */
-
-        main {
+        .header-inner {
             max-width: 1100px;
             margin: auto;
-            padding: 60px 20px 80px;
+            padding: 14px 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
         }
 
-        .welcome {
-            text-align: center;
-            margin-bottom: 50px;
-        }
+        /* الشعار والاسم في اليمين */
 
-        .welcome h1 {
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
             color: var(--primary);
-            font-size: 42px;
-            margin-bottom: 18px;
+            min-width: 0;
         }
 
-        .welcome p {
+        .brand-logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eef5ff;
+            color: var(--primary);
+
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .brand-name {
+            line-height: 1.1;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .brand-name span {
+            display: block;
+            color: var(--secondary);
+            margin-top: 3px;
+        }
+
+        /* الإضافيات في اليسار */
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            background: var(--card);
+            color: var(--primary);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .action-btn:hover {
+            background: #f1f5f9;
+            transform: translateY(-1px);
+        }
+
+        .action-btn svg {
+            width: 19px;
+            height: 19px;
+        }
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        main {
+            max-width: 900px;
+            margin: auto;
+            padding: 55px 20px 80px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 42px;
+        }
+
+        .intro h1 {
+            color: var(--primary);
+            font-size: clamp(30px, 7vw, 48px);
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        body.dark .intro h1 {
+            color: #ffffff;
+        }
+
+        .intro p {
             color: var(--muted);
-            font-size: 20px;
+            font-size: 17px;
             line-height: 1.8;
         }
 
-        /* ===== بطاقات الفئات ===== */
+        /* =========================
+           CATEGORY CARDS
+        ========================== */
 
         .categories {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
+            gap: 22px;
         }
 
         .category-card {
-            background: var(--white);
-            border-radius: 22px;
-            padding: 45px 25px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
-            transition: 0.25s ease;
+            position: relative;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+
+            padding: 34px 24px;
+
+            min-height: 270px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            box-shadow: var(--shadow);
+
+            cursor: pointer;
             text-decoration: none;
-            color: inherit;
-            display: block;
+            color: var(--text);
+
+            overflow: hidden;
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                border-color .25s ease;
+        }
+
+        .category-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            width: 6px;
+            height: 100%;
+
+            background: var(--accent);
         }
 
         .category-card:hover {
-            transform: translateY(-7px);
-            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.14);
+            transform: translateY(-5px);
+            box-shadow: 0 18px 40px rgba(18,59,109,.14);
+            border-color: var(--accent);
+        }
+
+        .category-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
         }
 
         .category-icon {
-            font-size: 65px;
-            margin-bottom: 25px;
+            width: 58px;
+            height: 58px;
+
+            border-radius: 16px;
+
+            background: var(--icon-bg);
+            color: var(--accent);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-icon svg {
+            width: 31px;
+            height: 31px;
+        }
+
+        .category-number {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 700;
         }
 
         .category-card h2 {
+            font-size: 25px;
             color: var(--primary);
-            font-size: 28px;
-            margin-bottom: 28px;
+            margin-top: 28px;
         }
 
-        .choose-btn {
-            display: inline-block;
-            background: var(--secondary);
+        body.dark .category-card h2 {
+            color: #ffffff;
+        }
+
+        .category-card p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-top: 9px;
+        }
+
+        .category-button {
+            margin-top: 25px;
+
+            width: 100%;
+            padding: 13px;
+
+            border-radius: 13px;
+
+            background: var(--accent);
             color: white;
-            padding: 14px 35px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: bold;
+
+            text-align: center;
+            font-weight: 700;
+            font-size: 15px;
         }
 
-        /* ===== الفوتر ===== */
+        /* ألوان الفئات */
+
+        .arabic {
+            --accent: #2563eb;
+            --icon-bg: #eff6ff;
+        }
+
+        .french {
+            --accent: #16a34a;
+            --icon-bg: #ecfdf5;
+        }
+
+        .double {
+            --accent: #f59e0b;
+            --icon-bg: #fff7ed;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
 
         footer {
-            background: #102f54;
-            color: white;
             text-align: center;
-            padding: 45px 20px;
+            padding: 25px 20px;
+            color: var(--muted);
+            font-size: 13px;
         }
 
-        footer h2 {
-            font-size: 26px;
-            margin-bottom: 15px;
-        }
+        /* =========================
+           MOBILE
+        ========================== */
 
-        footer p {
-            color: #cbd5e1;
-            font-size: 16px;
-        }
+        @media (max-width: 760px) {
 
-        /* ===== الهاتف ===== */
-
-        @media (max-width: 800px) {
-
-            .logo {
-                font-size: 25px;
+            .header-inner {
+                padding: 12px 15px;
             }
 
-            .welcome h1 {
-                font-size: 34px;
+            .brand-logo {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
             }
 
-            .welcome p {
-                font-size: 17px;
+            .brand-name {
+                font-size: 16px;
+            }
+
+            .header-actions {
+                gap: 5px;
+            }
+
+            .action-btn {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+            }
+
+            main {
+                padding: 42px 15px 60px;
+            }
+
+            .intro {
+                margin-bottom: 30px;
+            }
+
+            .intro h1 {
+                font-size: 32px;
+            }
+
+            .intro p {
+                font-size: 15px;
             }
 
             .categories {
                 grid-template-columns: 1fr;
-                max-width: 500px;
-                margin: auto;
+                gap: 16px;
             }
 
             .category-card {
-                padding: 35px 20px;
+                min-height: 225px;
+                padding: 26px 21px;
+                border-radius: 20px;
+            }
+
+            .category-card h2 {
+                font-size: 23px;
+                margin-top: 20px;
+            }
+
+            .category-button {
+                padding: 12px;
             }
         }
     </style>
@@ -174,110 +400,324 @@
 
 <body>
 
-    <!-- ===== رأس الصفحة ===== -->
+<header>
 
-    <header>
+    <div class="header-inner">
 
-        <div class="logo">
-            <span class="success">النجاح</span>
-            <span class="education"> التعليمية</span>
+        <!-- الشعار والاسم في اليمين -->
+
+        <a href="index.html" class="brand">
+
+            <div class="brand-logo">
+                ن
+            </div>
+
+            <div class="brand-name">
+                منصة النجاح
+                <span>التعليمية</span>
+            </div>
+
+        </a>
+
+        <!-- الإضافيات في اليسار -->
+
+        <div class="header-actions">
+
+            <!-- الحساب -->
+
+            <button
+                class="action-btn"
+                onclick="showAccount()"
+                title="الحساب"
+                aria-label="الحساب"
+            >
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="2">
+                    <circle cx="12" cy="8" r="4"></circle>
+                    <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
+                </svg>
+            </button>
+
+            <!-- الوضع الليلي -->
+
+            <button
+                class="action-btn"
+                onclick="toggleDarkMode()"
+                title="الوضع الليلي"
+                aria-label="الوضع الليلي"
+            >
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="2">
+                    <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3
+                             6.7 6.7 0 0 0 21 12.8Z">
+                    </path>
+                </svg>
+            </button>
+
+            <!-- اللغة -->
+
+            <button
+                class="action-btn"
+                onclick="toggleLanguage()"
+                title="تغيير اللغة"
+                aria-label="تغيير اللغة"
+            >
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="2">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M3 12h18"></path>
+                    <path d="M12 3c3 3 3 15 0 18"></path>
+                    <path d="M12 3c-3 3-3 15 0 18"></path>
+                </svg>
+            </button>
+
         </div>
 
-    </header>
+    </div>
+
+</header>
 
 
-    <!-- ===== المحتوى الرئيسي ===== -->
+<main>
 
-    <main>
+    <section class="intro">
 
-        <section class="welcome">
-
-            <h1>اختر فئتك 🎓</h1>
-
-            <p>
-                اختر الفئة التي تنتمي إليها للوصول إلى المحتوى التعليمي
-                والاختبارات الخاصة بك.
-            </p>
-
-        </section>
-
-
-        <section class="categories">
-
-            <!-- المعلم العربي -->
-
-            <a href="arabic-teacher.html" class="category-card">
-
-                <div class="category-icon">
-                    👨‍🏫
-                </div>
-
-                <h2>
-                    المعلم العربي
-                </h2>
-
-                <span class="choose-btn">
-                    دخول إلى الفئة
-                </span>
-
-            </a>
-
-
-            <!-- المعلم الفرنسي -->
-
-            <a href="french-teacher.html" class="category-card">
-
-                <div class="category-icon">
-                    👨‍🏫
-                </div>
-
-                <h2>
-                    المعلم الفرنسي
-                </h2>
-
-                <span class="choose-btn">
-                    دخول إلى الفئة
-                </span>
-
-            </a>
-
-
-            <!-- المعلم المزدوج -->
-
-            <a href="dual-teacher.html" class="category-card">
-
-                <div class="category-icon">
-                    👨‍🏫
-                </div>
-
-                <h2>
-                    المعلم المزدوج
-                </h2>
-
-                <span class="choose-btn">
-                    دخول إلى الفئة
-                </span>
-
-            </a>
-
-        </section>
-
-    </main>
-
-
-    <!-- ===== الفوتر ===== -->
-
-    <footer>
-
-        <h2>
-            منصة النجاح التعليمية
-        </h2>
+        <h1>اختر فئتك</h1>
 
         <p>
-            دورات تكوين المعلمين والاستعداد للمسابقات
+            اختر الفئة التي تنتمي إليها للوصول إلى
+            المواد والاختبارات الخاصة بك.
         </p>
 
-    </footer>
+    </section>
+
+
+    <section class="categories">
+
+
+        <!-- المعلم العربي -->
+
+        <a
+            href="category.html?category=arabic"
+            class="category-card arabic"
+        >
+
+            <div>
+
+                <div class="category-top">
+
+                    <div class="category-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.8">
+
+                            <path d="M4 19.5A2.5 2.5 0 0 1
+                                     6.5 17H20"></path>
+
+                            <path d="M6.5 2H20v20H6.5
+                                     A2.5 2.5 0 0 1
+                                     4 19.5v-15
+                                     A2.5 2.5 0 0 1
+                                     6.5 2Z"></path>
+
+                        </svg>
+
+                    </div>
+
+                    <span class="category-number">
+                        01
+                    </span>
+
+                </div>
+
+                <h2>المعلم العربي</h2>
+
+                <p>
+                    مسار التحضير الخاص بالمعلم العربي.
+                </p>
+
+            </div>
+
+            <div class="category-button">
+                دخول إلى الفئة
+            </div>
+
+        </a>
+
+
+        <!-- المعلم الفرنسي -->
+
+        <a
+            href="category.html?category=french"
+            class="category-card french"
+        >
+
+            <div>
+
+                <div class="category-top">
+
+                    <div class="category-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.8">
+
+                            <path d="M4 5h16"></path>
+                            <path d="M8 3v4"></path>
+                            <path d="M16 3v4"></path>
+
+                            <rect x="4" y="5"
+                                  width="16"
+                                  height="15"
+                                  rx="2"></rect>
+
+                            <path d="M8 11h8"></path>
+                            <path d="M8 15h5"></path>
+
+                        </svg>
+
+                    </div>
+
+                    <span class="category-number">
+                        02
+                    </span>
+
+                </div>
+
+                <h2>المعلم الفرنسي</h2>
+
+                <p>
+                    مسار التحضير الخاص بالمعلم الفرنسي.
+                </p>
+
+            </div>
+
+            <div class="category-button">
+                دخول إلى الفئة
+            </div>
+
+        </a>
+
+
+        <!-- المعلم المزدوج -->
+
+        <a
+            href="category.html?category=double"
+            class="category-card double"
+        >
+
+            <div>
+
+                <div class="category-top">
+
+                    <div class="category-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.8">
+
+                            <path d="M4 4h7v7H4z"></path>
+                            <path d="M13 4h7v7h-7z"></path>
+                            <path d="M4 13h7v7H4z"></path>
+                            <path d="M13 13h7v7h-7z"></path>
+
+                        </svg>
+
+                    </div>
+
+                    <span class="category-number">
+                        03
+                    </span>
+
+                </div>
+
+                <h2>المعلم المزدوج</h2>
+
+                <p>
+                    مسار التحضير الخاص بالمعلم المزدوج.
+                </p>
+
+            </div>
+
+            <div class="category-button">
+                دخول إلى الفئة
+            </div>
+
+        </a>
+
+
+    </section>
+
+</main>
+
+
+<footer>
+    © 2026 منصة النجاح التعليمية — جميع الحقوق محفوظة
+</footer>
+
+
+<script>
+
+    /* =========================
+       الوضع الليلي
+    ========================== */
+
+    function toggleDarkMode() {
+
+        document.body.classList.toggle("dark");
+
+        const dark =
+            document.body.classList.contains("dark");
+
+        localStorage.setItem(
+            "nejah_dark_mode",
+            dark ? "1" : "0"
+        );
+    }
+
+
+    /* استرجاع الوضع السابق */
+
+    if (
+        localStorage.getItem("nejah_dark_mode") === "1"
+    ) {
+        document.body.classList.add("dark");
+    }
+
+
+    /* =========================
+       اللغة
+    ========================== */
+
+    function toggleLanguage() {
+
+        alert(
+            "سيتم تفعيل تغيير اللغة في المرحلة القادمة."
+        );
+
+    }
+
+
+    /* =========================
+       الحساب
+    ========================== */
+
+    function showAccount() {
+
+        alert(
+            "معلومات الحساب ستظهر هنا بعد ربط الصفحة بنظام تسجيل الدخول."
+        );
+
+    }
+
+</script>
 
 </body>
 </html>
