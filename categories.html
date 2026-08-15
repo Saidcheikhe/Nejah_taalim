@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>اختيار الفئة | منصة النجاح التعليمية</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #123b6d;
+            --secondary: #f59e0b;
+            --bg: #f5f8fc;
+            --text: #17233c;
+            --muted: #64748b;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: Arial, "Tahoma", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ===== الهيدر ===== */
+
+        header {
+            background: var(--white);
+            padding: 28px 20px 24px;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .logo .success {
+            color: var(--secondary);
+        }
+
+        .logo .education {
+            color: var(--primary);
+        }
+
+        /* ===== المحتوى ===== */
+
+        main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 60px 20px 80px;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .welcome h1 {
+            color: var(--primary);
+            font-size: 42px;
+            margin-bottom: 18px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 20px;
+            line-height: 1.8;
+        }
+
+        /* ===== بطاقات الفئات ===== */
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .category-card {
+            background: var(--white);
+            border-radius: 22px;
+            padding: 45px 25px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+            transition: 0.25s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .category-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.14);
+        }
+
+        .category-icon {
+            font-size: 65px;
+            margin-bottom: 25px;
+        }
+
+        .category-card h2 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 28px;
+        }
+
+        .choose-btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ===== الفوتر ===== */
+
+        footer {
+            background: #102f54;
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        footer h2 {
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: #cbd5e1;
+            font-size: 16px;
+        }
+
+        /* ===== الهاتف ===== */
+
+        @media (max-width: 800px) {
+
+            .logo {
+                font-size: 25px;
+            }
+
+            .welcome h1 {
+                font-size: 34px;
+            }
+
+            .welcome p {
+                font-size: 17px;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: auto;
+            }
+
+            .category-card {
+                padding: 35px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== رأس الصفحة ===== -->
+
+    <header>
+
+        <div class="logo">
+            <span class="success">النجاح</span>
+            <span class="education"> التعليمية</span>
+        </div>
+
+    </header>
+
+
+    <!-- ===== المحتوى الرئيسي ===== -->
+
+    <main>
+
+        <section class="welcome">
+
+            <h1>اختر فئتك 🎓</h1>
+
+            <p>
+                اختر الفئة التي تنتمي إليها للوصول إلى المحتوى التعليمي
+                والاختبارات الخاصة بك.
+            </p>
+
+        </section>
+
+
+        <section class="categories">
+
+            <!-- المعلم العربي -->
+
+            <a href="arabic-teacher.html" class="category-card">
+
+                <div class="category-icon">
+                    👨‍🏫
+                </div>
+
+                <h2>
+                    المعلم العربي
+                </h2>
+
+                <span class="choose-btn">
+                    دخول إلى الفئة
+                </span>
+
+            </a>
+
+
+            <!-- المعلم الفرنسي -->
+
+            <a href="french-teacher.html" class="category-card">
+
+                <div class="category-icon">
+                    👨‍🏫
+                </div>
+
+                <h2>
+                    المعلم الفرنسي
+                </h2>
+
+                <span class="choose-btn">
+                    دخول إلى الفئة
+                </span>
+
+            </a>
+
+
+            <!-- المعلم المزدوج -->
+
+            <a href="dual-teacher.html" class="category-card">
+
+                <div class="category-icon">
+                    👨‍🏫
+                </div>
+
+                <h2>
+                    المعلم المزدوج
+                </h2>
+
+                <span class="choose-btn">
+                    دخول إلى الفئة
+                </span>
+
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- ===== الفوتر ===== -->
+
+    <footer>
+
+        <h2>
+            منصة النجاح التعليمية
+        </h2>
+
+        <p>
+            دورات تكوين المعلمين والاستعداد للمسابقات
+        </p>
+
+    </footer>
+
+</body>
+</html>
