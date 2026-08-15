@@ -1,319 +1,736 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>المعلم العربي | منصة النجاح التعليمية</title>
 
+
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+
         :root {
+
             --primary: #123b6d;
             --primary-dark: #0d2d52;
             --secondary: #f59e0b;
+
             --bg: #f5f8fc;
             --text: #17233c;
             --muted: #64748b;
+
             --white: #ffffff;
             --border: #e2e8f0;
+
         }
+
 
         body {
+
             font-family: Arial, "Tahoma", sans-serif;
+
             background: var(--bg);
+
             color: var(--text);
+
             min-height: 100vh;
+
         }
 
-        /* ===== الهيدر ===== */
+
+        /* ================= HEADER ================= */
 
         header {
+
             background: var(--white);
-            padding: 22px 25px;
+
             border-bottom: 1px solid var(--border);
-            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+
+            box-shadow:
+                0 2px 10px rgba(15, 23, 42, 0.05);
+
+            padding: 18px 25px;
+
         }
+
 
         .header-content {
+
             max-width: 1150px;
+
             margin: auto;
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             gap: 20px;
+
         }
+
+
+        /* ================= LOGO ================= */
 
         .logo {
-            font-size: 28px;
+
+            font-size: 27px;
+
             font-weight: 800;
+
             white-space: nowrap;
+
         }
+
 
         .logo .success {
+
             color: var(--secondary);
+
         }
+
 
         .logo .education {
+
             color: var(--primary);
+
         }
+
+
+        /* ================= HEADER BUTTONS ================= */
+
+        .header-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .header-btn {
+
+            border: none;
+
+            background: #f1f5f9;
+
+            color: var(--primary);
+
+            padding: 10px 16px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+        }
+
+
+        .header-btn:hover {
+
+            background: #e2e8f0;
+
+        }
+
 
         .back-btn {
+
             text-decoration: none;
+
             background: var(--primary);
+
             color: white;
-            padding: 12px 22px;
-            border-radius: 10px;
+
+            padding: 10px 17px;
+
+            border-radius: 9px;
+
             font-weight: bold;
+
+            font-size: 14px;
+
         }
 
-        /* ===== المحتوى ===== */
+
+        /* ================= ACCOUNT POPUP ================= */
+
+        .account-popup {
+
+            position: fixed;
+
+            top: 75px;
+
+            left: 25px;
+
+            width: 320px;
+
+            max-width: calc(100% - 40px);
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 15px;
+
+            padding: 22px;
+
+            box-shadow:
+                0 15px 40px rgba(15, 23, 42, 0.18);
+
+            display: none;
+
+            z-index: 9999;
+
+        }
+
+
+        .account-popup.show {
+
+            display: block;
+
+        }
+
+
+        .account-popup h3 {
+
+            color: var(--primary);
+
+            margin-bottom: 18px;
+
+            font-size: 21px;
+
+        }
+
+
+        .account-row {
+
+            border-bottom: 1px solid #edf1f5;
+
+            padding: 10px 0;
+
+        }
+
+
+        .account-row:last-of-type {
+
+            border-bottom: none;
+
+        }
+
+
+        .account-label {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .account-value {
+
+            color: var(--text);
+
+            font-weight: bold;
+
+            word-break: break-word;
+
+        }
+
+
+        .active-status {
+
+            color: #15803d;
+
+        }
+
+
+        .logout-btn {
+
+            width: 100%;
+
+            margin-top: 18px;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #dc2626;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        /* ================= MAIN ================= */
 
         main {
+
             max-width: 1150px;
+
             margin: auto;
-            padding: 45px 20px 70px;
+
+            padding: 50px 20px 70px;
+
         }
+
+
+        /* ================= PAGE TITLE ================= */
 
         .page-title {
+
             text-align: center;
+
             margin-bottom: 45px;
+
         }
+
 
         .page-title h1 {
+
             color: var(--primary);
-            font-size: 42px;
+
+            font-size: 40px;
+
             margin-bottom: 12px;
+
         }
+
 
         .page-title p {
+
             color: var(--muted);
-            font-size: 19px;
+
+            font-size: 18px;
+
         }
 
-        /* ===== معلومات الحساب ===== */
 
-        .account-box {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 25px;
-            margin-bottom: 35px;
-            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
-        }
-
-        .account-box h2 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        .account-info {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .info-item {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 16px;
-        }
-
-        .info-item span {
-            display: block;
-            color: var(--muted);
-            margin-bottom: 7px;
-            font-size: 14px;
-        }
-
-        .info-item strong {
-            color: var(--text);
-            font-size: 17px;
-        }
-
-        .active {
-            color: #15803d !important;
-        }
-
-        /* ===== المواد ===== */
+        /* ================= SUBJECTS ================= */
 
         .section {
-            margin-bottom: 40px;
+
+            margin-bottom: 45px;
+
         }
+
 
         .section-title {
+
             color: var(--primary);
-            font-size: 30px;
-            margin-bottom: 20px;
+
+            font-size: 29px;
+
+            margin-bottom: 22px;
+
         }
+
 
         .subjects {
+
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 20px;
+
         }
+
 
         .subject {
+
             background: var(--white);
+
             border: 1px solid var(--border);
-            border-radius: 18px;
+
+            border-radius: 17px;
+
             padding: 30px 20px;
+
             text-align: center;
-            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+
+            box-shadow:
+                0 6px 18px rgba(15, 23, 42, 0.05);
+
+            transition: 0.2s ease;
+
         }
 
-        .subject-icon {
-            font-size: 42px;
-            margin-bottom: 15px;
+
+        .subject:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 10px 25px rgba(15, 23, 42, 0.09);
+
         }
+
 
         .subject h3 {
+
             color: var(--primary);
-            font-size: 23px;
+
+            font-size: 22px;
+
         }
 
-        /* ===== الكتب والاختبارات ===== */
+
+        /* ================= RESOURCES ================= */
 
         .resource-area {
+
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
             gap: 25px;
+
         }
+
 
         .resource-box {
+
             background: var(--white);
+
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 30px;
+
+            border-radius: 19px;
+
+            padding: 32px 25px;
+
             text-align: center;
-            box-shadow: 0 7px 22px rgba(15, 23, 42, 0.06);
+
+            box-shadow:
+                0 7px 22px rgba(15, 23, 42, 0.06);
+
         }
 
-        .resource-icon {
-            font-size: 55px;
-            margin-bottom: 15px;
-        }
 
         .resource-box h3 {
+
             color: var(--primary);
-            font-size: 27px;
+
+            font-size: 26px;
+
             margin-bottom: 12px;
+
         }
+
 
         .resource-box p {
+
             color: var(--muted);
+
             line-height: 1.8;
+
             margin-bottom: 22px;
+
         }
+
 
         .resource-btn {
+
             display: inline-block;
+
             background: var(--secondary);
+
             color: white;
+
             text-decoration: none;
-            padding: 13px 28px;
-            border-radius: 10px;
+
+            padding: 12px 27px;
+
+            border-radius: 9px;
+
             font-weight: bold;
+
         }
 
-        /* ===== ملاحظة ===== */
+
+        .resource-btn:hover {
+
+            background: #d97706;
+
+        }
+
+
+        /* ================= NOTICE ================= */
 
         .notice {
+
             background: #fff8e8;
+
             border: 1px solid #f6c453;
-            border-radius: 16px;
-            padding: 20px;
+
+            border-radius: 14px;
+
+            padding: 18px;
+
             color: #7c5700;
+
             line-height: 1.8;
+
             text-align: center;
+
             margin-top: 25px;
+
         }
 
-        /* ===== الفوتر ===== */
+
+        /* ================= FOOTER ================= */
 
         footer {
+
             background: var(--primary-dark);
+
             color: white;
+
             text-align: center;
-            padding: 40px 20px;
+
+            padding: 38px 20px;
+
         }
+
 
         footer h2 {
-            margin-bottom: 12px;
+
+            margin-bottom: 10px;
+
         }
+
 
         footer p {
+
             color: #cbd5e1;
+
         }
 
-        /* ===== الهاتف ===== */
+
+        /* ================= MOBILE ================= */
 
         @media (max-width: 800px) {
 
             .header-content {
+
                 flex-direction: column;
+
             }
 
-            .logo {
-                font-size: 25px;
+
+            .header-actions {
+
+                width: 100%;
+
+                justify-content: center;
+
+                flex-wrap: wrap;
+
             }
+
 
             .page-title h1 {
-                font-size: 34px;
+
+                font-size: 33px;
+
             }
 
-            .account-info,
+
             .subjects,
+
             .resource-area {
+
                 grid-template-columns: 1fr;
+
             }
 
-            .section-title {
-                font-size: 27px;
+
+            .account-popup {
+
+                left: 20px;
+
+                right: 20px;
+
+                width: auto;
+
             }
 
-            .resource-box {
-                padding: 25px 18px;
-            }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <!-- ===== رأس الصفحة ===== -->
+
+    <!-- ================= HEADER ================= -->
 
     <header>
 
         <div class="header-content">
 
+
             <div class="logo">
-                <span class="success">النجاح</span>
-                <span class="education"> التعليمية</span>
+
+                <span class="success">
+                    النجاح
+                </span>
+
+                <span class="education">
+                    التعليمية
+                </span>
+
             </div>
 
-            <a href="categories.html" class="back-btn">
-                ← العودة إلى الفئات
-            </a>
+
+            <div class="header-actions">
+
+
+                <button
+                    class="header-btn"
+                    id="accountButton"
+                >
+                    حسابي
+                </button>
+
+
+                <a
+                    href="categories.html"
+                    class="back-btn"
+                >
+                    العودة إلى الفئات
+                </a>
+
+
+            </div>
 
         </div>
 
     </header>
 
 
-    <!-- ===== المحتوى الرئيسي ===== -->
+
+    <!-- ================= ACCOUNT POPUP ================= -->
+
+    <div
+        class="account-popup"
+        id="accountPopup"
+    >
+
+        <h3>
+            معلومات الحساب
+        </h3>
+
+
+        <div class="account-row">
+
+            <span class="account-label">
+                البريد الإلكتروني
+            </span>
+
+            <span
+                class="account-value"
+                id="userEmail"
+            >
+                جاري التحميل...
+            </span>
+
+        </div>
+
+
+        <div class="account-row">
+
+            <span class="account-label">
+                حالة الحساب
+            </span>
+
+            <span class="account-value active-status">
+                نشط
+            </span>
+
+        </div>
+
+
+        <div class="account-row">
+
+            <span class="account-label">
+                الفئة
+            </span>
+
+            <span class="account-value">
+                المعلم العربي
+            </span>
+
+        </div>
+
+
+        <div class="account-row">
+
+            <span class="account-label">
+                مدة الاشتراك
+            </span>
+
+            <span class="account-value">
+                غير محددة
+            </span>
+
+        </div>
+
+
+        <button
+            class="logout-btn"
+            id="logoutButton"
+        >
+            تسجيل الخروج
+        </button>
+
+    </div>
+
+
+
+    <!-- ================= MAIN ================= -->
 
     <main>
 
+
         <section class="page-title">
 
-            <h1>👨‍🏫 المعلم العربي</h1>
+            <h1>
+                المعلم العربي
+            </h1>
 
             <p>
                 مرحبًا بك في المساحة الخاصة بالمعلم العربي
@@ -322,53 +739,20 @@
         </section>
 
 
-        <!-- ===== معلومات الحساب ===== -->
 
-        <section class="account-box">
-
-            <h2>👤 معلومات الحساب</h2>
-
-            <div class="account-info">
-
-                <div class="info-item">
-                    <span>البريد الإلكتروني</span>
-                    <strong id="userEmail">
-                        سيتم عرضه بعد تسجيل الدخول
-                    </strong>
-                </div>
-
-                <div class="info-item">
-                    <span>حالة الحساب</span>
-                    <strong class="active">
-                        ● نشط
-                    </strong>
-                </div>
-
-                <div class="info-item">
-                    <span>حالة الاشتراك</span>
-                    <strong>
-                        مفتوح
-                    </strong>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ===== المواد ===== -->
+        <!-- ================= SUBJECTS ================= -->
 
         <section class="section">
 
             <h2 class="section-title">
-                📚 مواد المعلم العربي
+                مواد المعلم العربي
             </h2>
+
 
             <div class="subjects">
 
-                <div class="subject">
 
-                    <div class="subject-icon">📖</div>
+                <div class="subject">
 
                     <h3>
                         اللغة العربية
@@ -379,8 +763,6 @@
 
                 <div class="subject">
 
-                    <div class="subject-icon">🕌</div>
-
                     <h3>
                         التربية الإسلامية
                     </h3>
@@ -390,93 +772,97 @@
 
                 <div class="subject">
 
-                    <div class="subject-icon">📐</div>
-
                     <h3>
-                        الرياضيات بالعربية
+                        الرياضيات
                     </h3>
 
                 </div>
+
 
             </div>
 
         </section>
 
 
-        <!-- ===== الكتب والاختبارات ===== -->
+
+        <!-- ================= RESOURCES ================= -->
 
         <section class="section">
 
             <h2 class="section-title">
-                🎓 محتوى الفئة
+                المحتوى التعليمي
             </h2>
 
+
             <div class="resource-area">
+
 
                 <!-- الكتب -->
 
                 <div class="resource-box">
-
-                    <div class="resource-icon">
-                        📚
-                    </div>
 
                     <h3>
                         الكتب والملفات
                     </h3>
 
                     <p>
-                        تصفح جميع الكتب والملفات التعليمية
-                        الخاصة بالمعلم العربي.
+                        جميع الكتب والملفات التعليمية
+                        الخاصة بفئة المعلم العربي.
                     </p>
 
-                    <a href="#" class="resource-btn">
+                    <a
+                        href="#"
+                        class="resource-btn"
+                    >
                         عرض الكتب
                     </a>
 
                 </div>
 
 
+
                 <!-- الاختبارات -->
 
                 <div class="resource-box">
-
-                    <div class="resource-icon">
-                        📝
-                    </div>
 
                     <h3>
                         الاختبارات
                     </h3>
 
                     <p>
-                        اختر المادة ثم المستوى للوصول
-                        إلى الاختبارات الخاصة بك.
+                        اختر المادة ثم المستوى
+                        للوصول إلى الاختبارات.
                     </p>
 
-                    <a href="#" class="resource-btn">
+                    <a
+                        href="#"
+                        class="resource-btn"
+                    >
                         عرض الاختبارات
                     </a>
 
                 </div>
+
 
             </div>
 
 
             <div class="notice">
 
-                💡
-                سيتم ربط الكتب والاختبارات بقاعدة البيانات
-                وإظهار المحتوى الفعلي في المرحلة التالية.
+                سيتم ربط الكتب والاختبارات
+                بقاعدة البيانات في المرحلة القادمة.
 
             </div>
 
+
         </section>
+
 
     </main>
 
 
-    <!-- ===== الفوتر ===== -->
+
+    <!-- ================= FOOTER ================= -->
 
     <footer>
 
@@ -490,5 +876,130 @@
 
     </footer>
 
+
+
+    <!-- ================= SUPABASE ================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://xujyaopbswocfvzxryvc.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_8yjs_ITrdMd43HccwKAnEQ_9iGkWtFl";
+
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        /* ================= ACCOUNT ================= */
+
+        const accountButton =
+            document.getElementById(
+                "accountButton"
+            );
+
+
+        const accountPopup =
+            document.getElementById(
+                "accountPopup"
+            );
+
+
+        accountButton.addEventListener(
+            "click",
+            function () {
+
+                accountPopup.classList.toggle(
+                    "show"
+                );
+
+            }
+        );
+
+
+        /* ================= LOAD USER ================= */
+
+        async function loadUser() {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.getSession();
+
+
+            if (
+                error ||
+                !data.session
+            ) {
+
+                window.location.href =
+                    "index.html#login";
+
+                return;
+
+            }
+
+
+            document.getElementById(
+                "userEmail"
+            ).textContent =
+                data.session.user.email || "";
+
+        }
+
+
+        loadUser();
+
+
+        /* ================= LOGOUT ================= */
+
+        document.getElementById(
+            "logoutButton"
+        ).addEventListener(
+            "click",
+            async function () {
+
+                await supabaseClient.auth.signOut();
+
+                window.location.href =
+                    "index.html";
+
+            }
+        );
+
+
+        /* ================= CLOSE ACCOUNT ================= */
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    !accountPopup.contains(event.target) &&
+                    event.target !== accountButton
+                ) {
+
+                    accountPopup.classList.remove(
+                        "show"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+
 </body>
+
 </html>
