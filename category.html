@@ -29,6 +29,7 @@
         :root {
 
             --primary: #123b6d;
+            --primary-dark: #0d2d52;
 
             --secondary: #f59e0b;
 
@@ -44,13 +45,17 @@
 
             --soft-blue: #eff6ff;
 
-            --soft-orange: #fff7ed;
+            --soft-gold: #fff7ed;
 
             --shadow:
-                0 10px 30px
-                rgba(18, 59, 109, 0.08);
+                0 8px 25px
+                rgba(18, 59, 109, 0.07);
         }
 
+
+        /* =========================
+           الوضع الليلي
+        ========================== */
 
         body.dark {
 
@@ -66,7 +71,7 @@
 
             --soft-blue: #1e293b;
 
-            --soft-orange: #292016;
+            --soft-gold: #292016;
 
             --shadow:
                 0 10px 30px
@@ -94,14 +99,13 @@
                 100vh;
 
             transition:
-                background 0.25s ease,
-                color 0.25s ease;
+                background .25s ease,
+                color .25s ease;
         }
 
 
-
         /* =========================
-           رأس الصفحة
+           الرأس
         ========================== */
 
         header {
@@ -148,73 +152,29 @@
         }
 
 
-
-        /* اسم المنصة */
+        /* الاسم المؤقت للمنصة
+           سنستبدله بالشعار الحقيقي لاحقًا */
 
         .brand {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                9px;
 
             text-decoration:
                 none;
 
             color:
                 var(--primary);
-        }
-
-
-        .brand-logo {
-
-            width:
-                42px;
-
-            height:
-                42px;
-
-            border-radius:
-                12px;
-
-            background:
-                #eef5ff;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            font-size:
-                22px;
 
             font-weight:
                 800;
-        }
-
-
-        .brand-name {
 
             font-size:
-                17px;
+                18px;
 
             line-height:
-                1.15;
-
-            font-weight:
-                800;
+                1.2;
         }
 
 
-        .brand-name span {
+        .brand span {
 
             display:
                 block;
@@ -227,9 +187,8 @@
         }
 
 
-
         /* =========================
-           أزرار الإضافيات
+           الأزرار العلوية
         ========================== */
 
         .header-actions {
@@ -241,10 +200,7 @@
                 center;
 
             gap:
-                5px;
-
-            position:
-                relative;
+                6px;
         }
 
 
@@ -279,6 +235,16 @@
 
             cursor:
                 pointer;
+
+            transition:
+                .2s ease;
+        }
+
+
+        .action-btn:hover {
+
+            border-color:
+                var(--secondary);
         }
 
 
@@ -292,149 +258,26 @@
         }
 
 
-
         /* =========================
-           نافذة الحساب
-        ========================== */
-
-        .account-menu {
-
-            display:
-                none;
-
-            position:
-                absolute;
-
-            left:
-                0;
-
-            top:
-                45px;
-
-            width:
-                260px;
-
-            background:
-                var(--card);
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                16px;
-
-            padding:
-                18px;
-
-            box-shadow:
-                0 15px 40px
-                rgba(0,0,0,0.12);
-
-            z-index:
-                200;
-        }
-
-
-        .account-menu.show {
-
-            display:
-                block;
-        }
-
-
-        .account-menu h3 {
-
-            color:
-                var(--primary);
-
-            margin-bottom:
-                14px;
-
-            font-size:
-                18px;
-        }
-
-
-        body.dark .account-menu h3 {
-
-            color:
-                #ffffff;
-        }
-
-
-        .account-row {
-
-            padding:
-                10px 0;
-
-            border-bottom:
-                1px solid var(--border);
-        }
-
-
-        .account-row:last-child {
-
-            border-bottom:
-                none;
-        }
-
-
-        .account-label {
-
-            display:
-                block;
-
-            color:
-                var(--muted);
-
-            font-size:
-                12px;
-
-            margin-bottom:
-                4px;
-        }
-
-
-        .account-value {
-
-            font-weight:
-                700;
-
-            color:
-                var(--text);
-
-            font-size:
-                14px;
-        }
-
-
-        .active-status {
-
-            color:
-                #16a34a;
-        }
-
-
-
-        /* =========================
-           المحتوى
+           المحتوى الرئيسي
         ========================== */
 
         main {
 
             max-width:
-                1000px;
+                950px;
 
             margin:
                 auto;
 
             padding:
-                42px 16px 70px;
+                45px 16px 70px;
         }
 
 
-
-        /* عنوان الفئة */
+        /* =========================
+           عنوان الصفحة
+        ========================== */
 
         .page-heading {
 
@@ -442,7 +285,7 @@
                 center;
 
             margin-bottom:
-                38px;
+                40px;
         }
 
 
@@ -452,13 +295,13 @@
                 var(--primary);
 
             font-size:
-                clamp(30px, 7vw, 45px);
+                clamp(32px, 8vw, 48px);
 
             font-weight:
                 800;
 
             margin-bottom:
-                10px;
+                12px;
         }
 
 
@@ -478,16 +321,22 @@
                 16px;
 
             line-height:
-                1.8;
+                1.9;
         }
 
 
-
         /* =========================
-           عنوان الأقسام
+           عناوين الأقسام
         ========================== */
 
-        .section-heading {
+        .section {
+
+            margin-bottom:
+                50px;
+        }
+
+
+        .section-title {
 
             display:
                 flex;
@@ -495,32 +344,38 @@
             align-items:
                 center;
 
-            justify-content:
-                space-between;
+            gap:
+                14px;
 
-            margin:
-                35px 0 18px;
+            margin-bottom:
+                20px;
         }
 
 
-        .section-heading h2 {
-
-            font-size:
-                27px;
+        .section-title h2 {
 
             color:
                 var(--primary);
+
+            font-size:
+                28px;
+
+            font-weight:
+                800;
+
+            white-space:
+                nowrap;
         }
 
 
-        body.dark .section-heading h2 {
+        body.dark .section-title h2 {
 
             color:
                 #ffffff;
         }
 
 
-        .section-heading-line {
+        .section-line {
 
             flex:
                 1;
@@ -530,18 +385,14 @@
 
             background:
                 var(--border);
-
-            margin-right:
-                18px;
         }
 
 
-
         /* =========================
-           المواد
+           بطاقات المواد
         ========================== */
 
-        .subjects {
+        .subjects-grid {
 
             display:
                 grid;
@@ -550,11 +401,14 @@
                 repeat(3, 1fr);
 
             gap:
-                18px;
+                16px;
         }
 
 
         .subject-card {
+
+            text-decoration:
+                none;
 
             background:
                 var(--card);
@@ -563,19 +417,38 @@
                 1px solid var(--border);
 
             border-radius:
-                20px;
+                18px;
 
             padding:
-                23px 20px;
+                25px 18px;
 
             min-height:
-                205px;
+                145px;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            text-align:
+                center;
 
             box-shadow:
                 var(--shadow);
 
+            color:
+                var(--text);
+
             transition:
                 transform .2s ease,
+                border-color .2s ease,
                 box-shadow .2s ease;
         }
 
@@ -585,19 +458,22 @@
             transform:
                 translateY(-4px);
 
+            border-color:
+                var(--secondary);
+
             box-shadow:
-                0 16px 35px
-                rgba(18,59,109,0.12);
+                0 14px 30px
+                rgba(18,59,109,.12);
         }
 
 
         .subject-icon {
 
             width:
-                50px;
+                52px;
 
             height:
-                50px;
+                52px;
 
             border-radius:
                 14px;
@@ -618,30 +494,30 @@
                 center;
 
             margin-bottom:
-                18px;
+                14px;
         }
 
 
         .subject-icon svg {
 
             width:
-                26px;
+                27px;
 
             height:
-                26px;
+                27px;
         }
 
 
         .subject-card h3 {
 
-            font-size:
-                21px;
-
             color:
                 var(--primary);
 
-            margin-bottom:
-                8px;
+            font-size:
+                19px;
+
+            font-weight:
+                800;
         }
 
 
@@ -652,7 +528,328 @@
         }
 
 
-        .subject-card p {
+        /* =========================
+           قسم الاختبارات
+        ========================== */
+
+        .tests-box {
+
+            background:
+                var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                22px;
+
+            padding:
+                25px;
+
+            box-shadow:
+                var(--shadow);
+        }
+
+
+        .tests-description {
+
+            color:
+                var(--muted);
+
+            text-align:
+                center;
+
+            font-size:
+                15px;
+
+            line-height:
+                1.9;
+
+            margin-bottom:
+                22px;
+        }
+
+
+        /* =========================
+           عنصر المادة داخل الاختبارات
+        ========================== */
+
+        .test-subject {
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                15px;
+
+            margin-bottom:
+                12px;
+
+            overflow:
+                hidden;
+
+            background:
+                var(--card);
+        }
+
+
+        .test-subject:last-child {
+
+            margin-bottom:
+                0;
+        }
+
+
+        .test-subject-button {
+
+            width:
+                100%;
+
+            border:
+                0;
+
+            background:
+                transparent;
+
+            color:
+                var(--text);
+
+            padding:
+                18px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                15px;
+
+            cursor:
+                pointer;
+
+            font-family:
+                inherit;
+
+            font-size:
+                17px;
+
+            font-weight:
+                800;
+
+            text-align:
+                right;
+        }
+
+
+        .test-subject-button:hover {
+
+            background:
+                var(--soft-blue);
+        }
+
+
+        .test-subject-name {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+        }
+
+
+        .test-subject-icon {
+
+            width:
+                38px;
+
+            height:
+                38px;
+
+            border-radius:
+                10px;
+
+            background:
+                var(--soft-blue);
+
+            color:
+                var(--primary);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+        }
+
+
+        .test-subject-icon svg {
+
+            width:
+                20px;
+
+            height:
+                20px;
+        }
+
+
+        .arrow {
+
+            width:
+                10px;
+
+            height:
+                10px;
+
+            border-left:
+                2px solid var(--muted);
+
+            border-bottom:
+                2px solid var(--muted);
+
+            transform:
+                rotate(-45deg);
+
+            transition:
+                transform .25s ease;
+        }
+
+
+        .test-subject.open .arrow {
+
+            transform:
+                rotate(135deg);
+        }
+
+
+        /* =========================
+           مستويات الاختبار
+        ========================== */
+
+        .levels {
+
+            max-height:
+                0;
+
+            overflow:
+                hidden;
+
+            transition:
+                max-height .35s ease;
+        }
+
+
+        .test-subject.open .levels {
+
+            max-height:
+                300px;
+        }
+
+
+        .levels-inner {
+
+            border-top:
+                1px solid var(--border);
+
+            padding:
+                10px;
+        }
+
+
+        .level-link {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            text-decoration:
+                none;
+
+            color:
+                var(--text);
+
+            background:
+                var(--background);
+
+            border:
+                1px solid transparent;
+
+            border-radius:
+                11px;
+
+            padding:
+                14px 15px;
+
+            margin:
+                6px 0;
+
+            font-size:
+                15px;
+
+            font-weight:
+                700;
+
+            transition:
+                .2s ease;
+        }
+
+
+        .level-link:hover {
+
+            border-color:
+                var(--secondary);
+
+            background:
+                var(--soft-gold);
+
+            color:
+                var(--primary);
+        }
+
+
+        .level-arrow {
+
+            font-size:
+                16px;
+
+            color:
+                var(--secondary);
+        }
+
+
+        /* =========================
+           التذييل
+        ========================== */
+
+        footer {
+
+            border-top:
+                1px solid var(--border);
+
+            background:
+                var(--card);
+
+            text-align:
+                center;
+
+            padding:
+                22px 15px;
 
             color:
                 var(--muted);
@@ -661,173 +858,129 @@
                 13px;
 
             line-height:
-                1.7;
-
-            margin-bottom:
-                15px;
+                1.8;
         }
 
 
-        .subject-button {
-
-            display:
-                inline-block;
-
-            text-decoration:
-                none;
+        footer strong {
 
             color:
                 var(--primary);
-
-            font-size:
-                13px;
-
-            font-weight:
-                700;
         }
 
+
+        body.dark footer strong {
+
+            color:
+                #ffffff;
+        }
 
 
         /* =========================
-           الاختبارات
+           نافذة الحساب
         ========================== */
 
-        .tests-section {
+        .account-overlay {
 
-            margin-top:
-                48px;
-        }
+            position:
+                fixed;
 
-
-        .tests-box {
+            inset:
+                0;
 
             background:
-                linear-gradient(
-                    135deg,
-                    #123b6d,
-                    #1e568f
-                );
+                rgba(0,0,0,.45);
 
-            border-radius:
-                24px;
+            z-index:
+                200;
+
+            display:
+                none;
+
+            align-items:
+                flex-start;
+
+            justify-content:
+                center;
 
             padding:
-                28px 22px;
+                80px 16px 20px;
+        }
 
-            color:
-                white;
+
+        .account-overlay.show {
+
+            display:
+                flex;
+        }
+
+
+        .account-box {
+
+            width:
+                100%;
+
+            max-width:
+                400px;
+
+            background:
+                var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                20px;
+
+            padding:
+                25px;
 
             box-shadow:
-                0 15px 35px
-                rgba(18,59,109,0.18);
+                0 20px 50px
+                rgba(0,0,0,.2);
         }
 
 
-        .tests-box h2 {
+        .account-header {
 
-            font-size:
-                28px;
+            display:
+                flex;
 
-            margin-bottom:
-                10px;
-        }
+            align-items:
+                center;
 
-
-        .tests-box p {
-
-            color:
-                rgba(255,255,255,.82);
-
-            line-height:
-                1.8;
-
-            font-size:
-                14px;
+            justify-content:
+                space-between;
 
             margin-bottom:
                 22px;
         }
 
 
-        .test-materials {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap:
-                12px;
-        }
-
-
-        .test-material {
-
-            display:
-                block;
-
-            text-decoration:
-                none;
-
-            background:
-                rgba(255,255,255,.12);
-
-            border:
-                1px solid
-                rgba(255,255,255,.18);
-
-            color:
-                white;
-
-            padding:
-                15px 10px;
-
-            border-radius:
-                13px;
-
-            text-align:
-                center;
-
-            font-weight:
-                700;
-
-            font-size:
-                14px;
-
-            transition:
-                .2s;
-        }
-
-
-        .test-material:hover {
-
-            background:
-                rgba(255,255,255,.2);
-        }
-
-
-
-        /* =========================
-           العودة
-        ========================== */
-
-        .back-button {
-
-            display:
-                block;
-
-            width:
-                fit-content;
-
-            margin:
-                35px auto 0;
-
-            text-decoration:
-                none;
+        .account-header h3 {
 
             color:
                 var(--primary);
+
+            font-size:
+                22px;
+        }
+
+
+        body.dark .account-header h3 {
+
+            color:
+                #ffffff;
+        }
+
+
+        .close-account {
+
+            width:
+                34px;
+
+            height:
+                34px;
 
             border:
                 1px solid var(--border);
@@ -835,19 +988,67 @@
             background:
                 var(--card);
 
-            padding:
-                11px 20px;
+            color:
+                var(--muted);
 
             border-radius:
-                12px;
+                9px;
 
-            font-weight:
-                700;
+            cursor:
+                pointer;
 
             font-size:
-                14px;
+                20px;
         }
 
+
+        .account-info {
+
+            background:
+                var(--background);
+
+            border-radius:
+                13px;
+
+            padding:
+                15px;
+
+            margin-bottom:
+                10px;
+        }
+
+
+        .account-info span {
+
+            display:
+                block;
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            margin-bottom:
+                5px;
+        }
+
+
+        .account-info strong {
+
+            color:
+                var(--text);
+
+            font-size:
+                15px;
+        }
+
+
+        .status-active {
+
+            color:
+                #16a34a !important;
+        }
 
 
         /* =========================
@@ -863,20 +1064,7 @@
             }
 
 
-            .brand-logo {
-
-                width:
-                    39px;
-
-                height:
-                    39px;
-
-                font-size:
-                    20px;
-            }
-
-
-            .brand-name {
+            .brand {
 
                 font-size:
                     15px;
@@ -896,7 +1084,7 @@
             main {
 
                 padding:
-                    35px 14px 60px;
+                    35px 14px 55px;
             }
 
 
@@ -910,7 +1098,7 @@
             .page-heading h1 {
 
                 font-size:
-                    31px;
+                    34px;
             }
 
 
@@ -921,64 +1109,86 @@
             }
 
 
-            .section-heading h2 {
+            .section-title h2 {
 
                 font-size:
-                    24px;
+                    23px;
             }
 
 
-            .subjects {
+            .subjects-grid {
 
                 grid-template-columns:
                     1fr;
 
                 gap:
-                    14px;
+                    12px;
             }
 
 
             .subject-card {
 
                 min-height:
-                    auto;
+                    100px;
 
                 padding:
-                    21px 18px;
+                    18px;
+
+                flex-direction:
+                    row;
+
+                justify-content:
+                    flex-start;
+
+                text-align:
+                    right;
+
+                gap:
+                    15px;
             }
 
 
-            .test-materials {
+            .subject-icon {
 
-                grid-template-columns:
-                    1fr;
+                margin-bottom:
+                    0;
+
+                flex-shrink:
+                    0;
+            }
+
+
+            .subject-card h3 {
+
+                font-size:
+                    18px;
             }
 
 
             .tests-box {
 
                 padding:
-                    24px 18px;
-
-                border-radius:
-                    20px;
+                    15px;
             }
 
 
-            .tests-box h2 {
+            .test-subject-button {
+
+                padding:
+                    15px;
 
                 font-size:
-                    25px;
+                    16px;
             }
 
 
-            .account-menu {
+            .test-subject-icon {
 
                 width:
-                    240px;
+                    35px;
 
-                left:
-                    -5px;
+                height:
+                    35px;
             }
 
         }
@@ -992,7 +1202,7 @@
 
 
 <!-- =========================
-     HEADER
+     الرأس
 ========================== -->
 
 <header>
@@ -1000,26 +1210,19 @@
     <div class="header-inner">
 
 
-        <!-- الشعار والاسم -->
+        <!-- اسم المنصة مؤقتًا
+             سنضيف الشعار الحقيقي لاحقًا -->
 
         <a
             href="index.html"
             class="brand"
         >
 
-            <div class="brand-logo">
-                ن
-            </div>
+            منصة النجاح
 
-            <div class="brand-name">
-
-                منصة النجاح
-
-                <span>
-                    التعليمية
-                </span>
-
-            </div>
+            <span>
+                التعليمية
+            </span>
 
         </a>
 
@@ -1033,7 +1236,7 @@
 
             <button
                 class="action-btn"
-                onclick="toggleAccount()"
+                onclick="showAccount()"
                 aria-label="الحساب"
                 title="الحساب"
             >
@@ -1060,7 +1263,6 @@
             </button>
 
 
-
             <!-- الوضع الليلي -->
 
             <button
@@ -1085,7 +1287,6 @@
                 </svg>
 
             </button>
-
 
 
             <!-- اللغة -->
@@ -1126,65 +1327,6 @@
 
             </button>
 
-
-
-            <!-- نافذة الحساب -->
-
-            <div
-                id="accountMenu"
-                class="account-menu"
-            >
-
-                <h3>
-                    معلومات الحساب
-                </h3>
-
-
-                <div class="account-row">
-
-                    <span class="account-label">
-                        البريد الإلكتروني
-                    </span>
-
-                    <span
-                        id="accountEmail"
-                        class="account-value"
-                    >
-                        سيتم عرضه بعد تسجيل الدخول
-                    </span>
-
-                </div>
-
-
-                <div class="account-row">
-
-                    <span class="account-label">
-                        حالة الحساب
-                    </span>
-
-                    <span
-                        class="account-value active-status"
-                    >
-                        نشط
-                    </span>
-
-                </div>
-
-
-                <div class="account-row">
-
-                    <span class="account-label">
-                        حالة الاشتراك
-                    </span>
-
-                    <span class="account-value">
-                        مفتوح
-                    </span>
-
-                </div>
-
-            </div>
-
         </div>
 
     </div>
@@ -1194,22 +1336,23 @@
 
 
 <!-- =========================
-     MAIN
+     المحتوى
 ========================== -->
 
 <main>
 
 
-    <!-- عنوان الفئة -->
+    <!-- عنوان الصفحة -->
 
     <section class="page-heading">
 
         <h1 id="categoryTitle">
-            المعلم العربي
+            اختر فئتك
         </h1>
 
         <p id="categoryDescription">
-            مرحبًا بك في المساحة الخاصة بفئتك.
+            اختر الفئة التي تنتمي إليها للوصول
+            إلى محتوى التحضير الخاص بك.
         </p>
 
     </section>
@@ -1220,22 +1363,22 @@
          المواد
     ========================== -->
 
-    <section>
+    <section class="section">
 
-        <div class="section-heading">
+        <div class="section-title">
 
             <h2>
                 المواد
             </h2>
 
-            <div class="section-heading-line"></div>
+            <div class="section-line"></div>
 
         </div>
 
 
         <div
-            id="subjectsContainer"
-            class="subjects"
+            id="subjectsGrid"
+            class="subjects-grid"
         >
 
         </div>
@@ -1245,38 +1388,39 @@
 
 
     <!-- =========================
-         الاختبارات
+         اختبر نفسك
     ========================== -->
 
-    <section class="tests-section">
+    <section class="section">
 
-        <div class="section-heading">
+        <div class="section-title">
 
             <h2>
                 اختبر نفسك
             </h2>
 
-            <div class="section-heading-line"></div>
+            <div class="section-line"></div>
 
         </div>
 
 
         <div class="tests-box">
 
-            <h2>
-                اختبر نفسك
-            </h2>
 
-            <p>
-                اختبارات QCM تساعدك على قياس مستوى استعدادك،
-                مع وجود ثلاثة مستويات لكل مادة،
-                و150 سؤالًا لكل مادة.
+            <p class="tests-description">
+
+                اختر المادة والمستوى المناسب للبدء في الاختبارات.
+                <br>
+
+                <strong>
+                    لكل مادة 150 سؤالًا.
+                </strong>
+
             </p>
 
 
             <div
-                id="testMaterials"
-                class="test-materials"
+                id="testsSubjects"
             >
 
             </div>
@@ -1286,18 +1430,101 @@
     </section>
 
 
-
-    <!-- العودة -->
-
-    <a
-        href="categories.html"
-        class="back-button"
-    >
-        العودة إلى الفئات
-    </a>
-
-
 </main>
+
+
+
+<!-- =========================
+     التذييل
+========================== -->
+
+<footer>
+
+    © 2026
+
+    <strong>
+        منصة النجاح التعليمية
+    </strong>
+
+    — جميع الحقوق محفوظة
+
+</footer>
+
+
+
+<!-- =========================
+     نافذة الحساب
+========================== -->
+
+<div
+    id="accountOverlay"
+    class="account-overlay"
+    onclick="closeAccountOutside(event)"
+>
+
+    <div
+        class="account-box"
+        onclick="event.stopPropagation()"
+    >
+
+        <div class="account-header">
+
+            <h3>
+                معلومات الحساب
+            </h3>
+
+            <button
+                class="close-account"
+                onclick="closeAccount()"
+                aria-label="إغلاق"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="account-info">
+
+            <span>
+                البريد الإلكتروني
+            </span>
+
+            <strong>
+                سيتم عرضه بعد تسجيل الدخول
+            </strong>
+
+        </div>
+
+
+        <div class="account-info">
+
+            <span>
+                حالة الحساب
+            </span>
+
+            <strong class="status-active">
+                ● نشط
+            </strong>
+
+        </div>
+
+
+        <div class="account-info">
+
+            <span>
+                حالة الاشتراك
+            </span>
+
+            <strong>
+                مفتوح
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
 
 
 
@@ -1305,10 +1532,25 @@
 
 
     /* =========================
+       قراءة الفئة من الرابط
+    ========================== */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const category =
+        params.get("category") || "arabic";
+
+
+
+    /* =========================
        بيانات الفئات
     ========================== */
 
-    const categories = {
+    const categoryData = {
 
         arabic: {
 
@@ -1316,33 +1558,15 @@
                 "المعلم العربي",
 
             description:
-                "مرحبًا بك في المساحة الخاصة بالمعلم العربي.",
+                "مسار التحضير الخاص بالمعلم العربي.",
 
             subjects: [
 
-                {
-                    name:
-                        "اللغة العربية",
+                "اللغة العربية",
 
-                    description:
-                        "الدروس والكتب والأرشيفات الخاصة باللغة العربية."
-                },
+                "التربية الإسلامية",
 
-                {
-                    name:
-                        "التربية الإسلامية",
-
-                    description:
-                        "الدروس والكتب والأرشيفات الخاصة بالتربية الإسلامية."
-                },
-
-                {
-                    name:
-                        "الرياضيات",
-
-                    description:
-                        "الدروس والكتب والأرشيفات الخاصة بالرياضيات."
-                }
+                "الرياضيات"
 
             ]
 
@@ -1355,33 +1579,15 @@
                 "المعلم الفرنسي",
 
             description:
-                "مرحبًا بك في المساحة الخاصة بالمعلم الفرنسي.",
+                "مسار التحضير الخاص بالمعلم الفرنسي.",
 
             subjects: [
 
-                {
-                    name:
-                        "اللغة الفرنسية",
+                "اللغة الفرنسية",
 
-                    description:
-                        "الدروس والكتب والأرشيفات الخاصة باللغة الفرنسية."
-                },
+                "العلوم الطبيعية",
 
-                {
-                    name:
-                        "العلوم الطبيعية",
-
-                    description:
-                        "الدروس والكتب والأرشيفات الخاصة بالعلوم الطبيعية."
-                },
-
-                {
-                    name:
-                        "الرياضيات",
-
-                    description:
-                        "الدروس والكتب والأرشيفات الخاصة بالرياضيات."
-                }
+                "الرياضيات"
 
             ]
 
@@ -1394,33 +1600,15 @@
                 "المعلم المزدوج",
 
             description:
-                "مرحبًا بك في المساحة الخاصة بالمعلم المزدوج.",
+                "مسار التحضير الخاص بالمعلم المزدوج.",
 
             subjects: [
 
-                {
-                    name:
-                        "اللغة العربية",
+                "اللغة العربية",
 
-                    description:
-                        "الدروس والكتب والأرشيفات الخاصة باللغة العربية."
-                },
+                "اللغة الفرنسية",
 
-                {
-                    name:
-                        "اللغة الفرنسية",
-
-                    description:
-                        "الدروس والكتب والأرشيفات الخاصة باللغة الفرنسية."
-                },
-
-                {
-                    name:
-                        "الرياضيات",
-
-                    description:
-                        "الدروس والكتب والأرشيفات الخاصة بالرياضيات."
-                }
+                "الرياضيات"
 
             ]
 
@@ -1429,29 +1617,14 @@
     };
 
 
-
-    /* =========================
-       الحصول على الفئة من الرابط
-    ========================== */
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    const categoryKey =
-        params.get("category") || "arabic";
-
-
     const currentCategory =
-        categories[categoryKey] ||
-        categories.arabic;
+        categoryData[category] ||
+        categoryData.arabic;
 
 
 
     /* =========================
-       عنوان الصفحة
+       تحديث العنوان
     ========================== */
 
     document.getElementById(
@@ -1468,178 +1641,342 @@
 
 
     /* =========================
-       إنشاء المواد
+       أيقونة المادة
     ========================== */
 
-    const subjectsContainer =
-        document.getElementById(
-            "subjectsContainer"
-        );
+    function subjectIcon() {
 
+        return `
 
-    subjectsContainer.innerHTML = "";
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+            >
 
+                <path
+                    d="M4 5.5A2.5 2.5 0 0 1
+                    6.5 3H20v16H6.5
+                    A2.5 2.5 0 0 0 4
+                    21.5z"
+                ></path>
 
-    currentCategory.subjects.forEach(
-        function(subject, index) {
+                <path
+                    d="M4 5.5v16"
+                ></path>
 
+                <path
+                    d="M8 7h8"
+                ></path>
 
-            const card =
-                document.createElement("div");
+                <path
+                    d="M8 11h8"
+                ></path>
 
+            </svg>
 
-            card.className =
-                "subject-card";
-
-
-            card.innerHTML = `
-
-                <div class="subject-icon">
-
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                    >
-
-                        <path
-                            d="M4 5.5
-                               A2.5 2.5 0 0 1
-                               6.5 3H20v17H6.5
-                               A2.5 2.5 0 0 1
-                               4 17.5v-12Z"
-                        ></path>
-
-                        <path
-                            d="M4 17.5
-                               A2.5 2.5 0 0 1
-                               6.5 15H20"
-                        ></path>
-
-                    </svg>
-
-                </div>
-
-
-                <h3>
-                    ${escapeHtml(subject.name)}
-                </h3>
-
-
-                <p>
-                    ${escapeHtml(subject.description)}
-                </p>
-
-
-                <a
-                    href="subject.html?category=${categoryKey}&subject=${index}"
-                    class="subject-button"
-                >
-                    فتح المادة
-                </a>
-
-            `;
-
-
-            subjectsContainer.appendChild(
-                card
-            );
-
-        }
-    );
-
-
-
-    /* =========================
-       اختبارات المواد
-    ========================== */
-
-    const testMaterials =
-        document.getElementById(
-            "testMaterials"
-        );
-
-
-    testMaterials.innerHTML = "";
-
-
-    currentCategory.subjects.forEach(
-        function(subject, index) {
-
-
-            const link =
-                document.createElement("a");
-
-
-            link.className =
-                "test-material";
-
-
-            link.href =
-                `tests.html?category=${categoryKey}&subject=${index}`;
-
-
-            link.textContent =
-                subject.name;
-
-
-            testMaterials.appendChild(
-                link
-            );
-
-        }
-    );
-
-
-
-    /* =========================
-       الحساب
-    ========================== */
-
-    function toggleAccount() {
-
-        const menu =
-            document.getElementById(
-                "accountMenu"
-            );
-
-
-        menu.classList.toggle(
-            "show"
-        );
-
+        `;
     }
 
 
 
-    /* إغلاق الحساب عند الضغط خارج النافذة */
+    /* =========================
+       أيقونة الاختبار
+    ========================== */
 
-    document.addEventListener(
-        "click",
-        function(event) {
+    function testIcon() {
 
-            const menu =
-                document.getElementById(
-                    "accountMenu"
-                );
+        return `
 
-            const button =
-                event.target.closest(
-                    ".action-btn"
-                );
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+            >
+
+                <rect
+                    x="4"
+                    y="3"
+                    width="16"
+                    height="18"
+                    rx="2"
+                ></rect>
+
+                <path
+                    d="M8 7h8"
+                ></path>
+
+                <path
+                    d="M8 11h2"
+                ></path>
+
+                <path
+                    d="M14 11h2"
+                ></path>
+
+                <path
+                    d="M8 15h2"
+                ></path>
+
+                <path
+                    d="M14 15h2"
+                ></path>
+
+            </svg>
+
+        `;
+    }
 
 
-            if (
-                !menu.contains(event.target) &&
-                !button
-            ) {
 
-                menu.classList.remove(
-                    "show"
+    /* =========================
+       إنشاء رابط المادة
+    ========================== */
+
+    function createSubjectCard(
+        subject,
+        index
+    ) {
+
+        const link =
+            document.createElement("a");
+
+
+        link.className =
+            "subject-card";
+
+
+        /*
+           الانتقال إلى subject.html
+           مع إرسال الفئة ورقم المادة
+        */
+
+        link.href =
+            "subject.html?category=" +
+            encodeURIComponent(category) +
+            "&subject=" +
+            index;
+
+
+        link.innerHTML = `
+
+            <div class="subject-icon">
+
+                ${subjectIcon()}
+
+            </div>
+
+            <h3>
+                ${escapeHtml(subject)}
+            </h3>
+
+        `;
+
+
+        return link;
+    }
+
+
+
+    /* =========================
+       عرض المواد
+    ========================== */
+
+    const subjectsGrid =
+        document.getElementById(
+            "subjectsGrid"
+        );
+
+
+    currentCategory.subjects.forEach(
+        function(subject, index) {
+
+            subjectsGrid.appendChild(
+                createSubjectCard(
+                    subject,
+                    index
+                )
+            );
+
+        }
+    );
+
+
+
+    /* =========================
+       إنشاء مادة اختبار
+    ========================== */
+
+    function createTestSubject(
+        subject,
+        index
+    ) {
+
+        const wrapper =
+            document.createElement("div");
+
+
+        wrapper.className =
+            "test-subject";
+
+
+        wrapper.innerHTML = `
+
+            <button
+                class="test-subject-button"
+                type="button"
+            >
+
+                <span class="test-subject-name">
+
+                    <span class="test-subject-icon">
+
+                        ${testIcon()}
+
+                    </span>
+
+                    <span>
+                        ${escapeHtml(subject)}
+                    </span>
+
+                </span>
+
+
+                <span class="arrow"></span>
+
+            </button>
+
+
+            <div class="levels">
+
+                <div class="levels-inner">
+
+                    <a
+                        class="level-link"
+                        href="quiz.html?category=${encodeURIComponent(category)}&subject=${index}&level=1"
+                    >
+
+                        <span>
+                            المستوى الأول
+                        </span>
+
+                        <span class="level-arrow">
+                            ←
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        class="level-link"
+                        href="quiz.html?category=${encodeURIComponent(category)}&subject=${index}&level=2"
+                    >
+
+                        <span>
+                            المستوى الثاني
+                        </span>
+
+                        <span class="level-arrow">
+                            ←
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        class="level-link"
+                        href="quiz.html?category=${encodeURIComponent(category)}&subject=${index}&level=3"
+                    >
+
+                        <span>
+                            المستوى الثالث
+                        </span>
+
+                        <span class="level-arrow">
+                            ←
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        const button =
+            wrapper.querySelector(
+                ".test-subject-button"
+            );
+
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                /*
+                   إذا فتحنا مادة،
+                   نغلق المواد الأخرى
+                */
+
+                document
+                    .querySelectorAll(
+                        ".test-subject.open"
+                    )
+                    .forEach(
+                        function(openItem) {
+
+                            if (
+                                openItem !== wrapper
+                            ) {
+
+                                openItem.classList.remove(
+                                    "open"
+                                );
+
+                            }
+
+                        }
+                    );
+
+
+                wrapper.classList.toggle(
+                    "open"
                 );
 
             }
+        );
+
+
+        return wrapper;
+    }
+
+
+
+    /* =========================
+       عرض مواد الاختبارات
+    ========================== */
+
+    const testsSubjects =
+        document.getElementById(
+            "testsSubjects"
+        );
+
+
+    currentCategory.subjects.forEach(
+        function(subject, index) {
+
+            testsSubjects.appendChild(
+
+                createTestSubject(
+                    subject,
+                    index
+                )
+
+            );
 
         }
     );
@@ -1686,7 +2023,7 @@
 
 
     /* =========================
-       اللغة
+       تغيير اللغة
     ========================== */
 
     function toggleLanguage() {
@@ -1700,19 +2037,67 @@
 
 
     /* =========================
+       الحساب
+    ========================== */
+
+    function showAccount() {
+
+        document
+            .getElementById(
+                "accountOverlay"
+            )
+            .classList.add(
+                "show"
+            );
+
+    }
+
+
+    function closeAccount() {
+
+        document
+            .getElementById(
+                "accountOverlay"
+            )
+            .classList.remove(
+                "show"
+            );
+
+    }
+
+
+    function closeAccountOutside(event) {
+
+        if (
+            event.target.id ===
+            "accountOverlay"
+        ) {
+
+            closeAccount();
+
+        }
+
+    }
+
+
+
+    /* =========================
        حماية النصوص
     ========================== */
 
     function escapeHtml(text) {
 
         const div =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
         div.textContent =
             text;
 
         return div.innerHTML;
     }
+
 
 </script>
 
