@@ -1,623 +1,1404 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>اختبر نفسك - منصة النجاح التعليمية</title>
 
+    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
     <style>
+
         * {
             box-sizing: border-box;
         }
 
         body {
+
             margin: 0;
+
             background: #f4f7fb;
+
             color: #173f73;
-            font-family: Arial, Tahoma, sans-serif;
+
+            font-family:
+                Arial,
+                Tahoma,
+                sans-serif;
         }
+
 
         .container {
-            width: min(900px, 94%);
-            margin: auto;
-            padding-bottom: 40px;
+
+            width:
+                min(900px, 94%);
+
+            margin:
+                auto;
+
+            padding-bottom:
+                40px;
         }
 
-        /* HEADER */
+
+        /* =========================
+           HEADER
+        ========================== */
+
         header {
-            background: white;
-            border-bottom: 1px solid #e3e8ef;
-            padding: 16px 0;
-            position: sticky;
-            top: 0;
-            z-index: 50;
+
+            background:
+                white;
+
+            border-bottom:
+                1px solid #e3e8ef;
+
+            padding:
+                16px 0;
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                50;
         }
+
 
         .header-inner {
-            width: min(900px, 94%);
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
+
+            width:
+                min(900px, 94%);
+
+            margin:
+                auto;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
         }
+
 
         .brand {
-            font-size: 22px;
-            font-weight: 800;
-            line-height: 1.15;
+
+            font-size:
+                22px;
+
+            font-weight:
+                800;
+
+            line-height:
+                1.15;
         }
+
 
         .brand span {
-            color: #f59e0b;
-            display: block;
+
+            color:
+                #f59e0b;
+
+            display:
+                block;
         }
+
 
         .timer {
-            background: #fff4f4;
-            border: 1px solid #ffd2d2;
-            color: #d92d20;
-            padding: 10px 16px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 18px;
-            direction: ltr;
-            white-space: nowrap;
+
+            background:
+                #fff4f4;
+
+            border:
+                1px solid #ffd2d2;
+
+            color:
+                #d92d20;
+
+            padding:
+                10px 16px;
+
+            border-radius:
+                14px;
+
+            font-weight:
+                800;
+
+            font-size:
+                18px;
+
+            direction:
+                ltr;
+
+            white-space:
+                nowrap;
         }
+
 
         .timer.warning {
-            background: #fff8e6;
-            color: #b76e00;
-            border-color: #ffe0a3;
+
+            background:
+                #fff8e6;
+
+            color:
+                #b76e00;
+
+            border-color:
+                #ffe0a3;
         }
 
-        /* INTRO */
+
+        /* =========================
+           INTRO
+        ========================== */
+
         .intro {
-            padding: 30px 0 20px;
+
+            padding:
+                30px 0 20px;
         }
+
 
         .intro h1 {
-            margin: 0 0 10px;
-            font-size: 32px;
+
+            margin:
+                0 0 10px;
+
+            font-size:
+                32px;
         }
+
 
         .intro p {
-            margin: 0;
-            color: #667892;
-            font-size: 17px;
+
+            margin:
+                0;
+
+            color:
+                #667892;
+
+            font-size:
+                17px;
         }
 
-        /* PROGRESS */
+
+        /* =========================
+           PROGRESS
+        ========================== */
+
         .progress-box {
-            background: white;
-            padding: 16px;
-            border-radius: 18px;
-            margin-bottom: 18px;
-            border: 1px solid #e2e8f0;
+
+            background:
+                white;
+
+            padding:
+                16px;
+
+            border-radius:
+                18px;
+
+            margin-bottom:
+                18px;
+
+            border:
+                1px solid #e2e8f0;
         }
+
 
         .progress-top {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 9px;
-            color: #64748b;
-            font-weight: 700;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                9px;
+
+            color:
+                #64748b;
+
+            font-weight:
+                700;
         }
+
 
         .progress-bar {
-            height: 9px;
-            background: #e8edf4;
-            border-radius: 20px;
-            overflow: hidden;
+
+            height:
+                9px;
+
+            background:
+                #e8edf4;
+
+            border-radius:
+                20px;
+
+            overflow:
+                hidden;
         }
+
 
         .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: #2864df;
-            transition: width .25s ease;
+
+            height:
+                100%;
+
+            width:
+                0%;
+
+            background:
+                #2864df;
+
+            transition:
+                width .25s ease;
         }
 
-        /* QUESTIONS */
+
+        /* =========================
+           QUESTIONS
+        ========================== */
+
         .question-card {
-            background: white;
-            border: 1px solid #e1e7ef;
-            border-radius: 22px;
-            padding: 22px;
-            margin-bottom: 18px;
-            box-shadow: 0 5px 18px rgba(20, 50, 90, .04);
+
+            background:
+                white;
+
+            border:
+                1px solid #e1e7ef;
+
+            border-radius:
+                22px;
+
+            padding:
+                22px;
+
+            margin-bottom:
+                18px;
+
+            box-shadow:
+                0 5px 18px rgba(20,50,90,.04);
         }
+
 
         .question-number {
-            color: #2864df;
-            font-weight: 800;
-            margin-bottom: 12px;
+
+            color:
+                #2864df;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                12px;
         }
+
 
         .question-text {
-            font-size: 20px;
-            font-weight: 700;
-            line-height: 1.8;
-            color: #172b4d;
-            margin-bottom: 18px;
+
+            font-size:
+                20px;
+
+            font-weight:
+                700;
+
+            line-height:
+                1.8;
+
+            color:
+                #172b4d;
+
+            margin-bottom:
+                18px;
         }
+
 
         .options {
-            display: grid;
-            gap: 11px;
+
+            display:
+                grid;
+
+            gap:
+                11px;
         }
+
 
         .option {
-            border: 2px solid #e3e8ef;
-            border-radius: 15px;
-            padding: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #263b58;
-            transition: .2s;
-            background: #fff;
+
+            border:
+                2px solid #e3e8ef;
+
+            border-radius:
+                15px;
+
+            padding:
+                14px;
+
+            cursor:
+                pointer;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+            color:
+                #263b58;
+
+            transition:
+                .2s;
+
+            background:
+                #fff;
         }
+
 
         .option:hover {
-            border-color: #9cb8eb;
-            background: #f8fbff;
+
+            border-color:
+                #9cb8eb;
+
+            background:
+                #f8fbff;
         }
+
 
         .option.selected {
-            border-color: #2864df;
-            background: #eef4ff;
+
+            border-color:
+                #2864df;
+
+            background:
+                #eef4ff;
         }
+
 
         .option input {
-            width: 19px;
-            height: 19px;
-            accent-color: #2864df;
-            flex-shrink: 0;
+
+            width:
+                19px;
+
+            height:
+                19px;
+
+            accent-color:
+                #2864df;
+
+            flex-shrink:
+                0;
         }
 
-        /* SUBMIT */
+
+        /* =========================
+           SUBMIT
+        ========================== */
+
         .submit-area {
-            margin-top: 25px;
-            background: white;
-            padding: 18px;
-            border-radius: 20px;
-            border: 1px solid #e1e7ef;
+
+            margin-top:
+                25px;
+
+            background:
+                white;
+
+            padding:
+                18px;
+
+            border-radius:
+                20px;
+
+            border:
+                1px solid #e1e7ef;
         }
+
 
         .submit-btn {
-            width: 100%;
-            border: none;
-            background: #2864df;
-            color: white;
-            padding: 16px;
-            border-radius: 15px;
-            font-size: 18px;
-            font-weight: 800;
-            cursor: pointer;
+
+            width:
+                100%;
+
+            border:
+                none;
+
+            background:
+                #2864df;
+
+            color:
+                white;
+
+            padding:
+                16px;
+
+            border-radius:
+                15px;
+
+            font-size:
+                18px;
+
+            font-weight:
+                800;
+
+            cursor:
+                pointer;
         }
+
 
         .submit-btn:disabled {
-            opacity: .6;
-            cursor: not-allowed;
+
+            opacity:
+                .6;
+
+            cursor:
+                not-allowed;
         }
 
-        /* RESULT */
+
+        /* =========================
+           RESULT
+        ========================== */
+
         .result {
-            display: none;
-            background: white;
-            border-radius: 24px;
-            padding: 30px 20px;
-            text-align: center;
-            border: 1px solid #dfe6ef;
-            margin-top: 30px;
+
+            display:
+                none;
+
+            background:
+                white;
+
+            border-radius:
+                24px;
+
+            padding:
+                30px 20px;
+
+            text-align:
+                center;
+
+            border:
+                1px solid #dfe6ef;
+
+            margin-top:
+                30px;
         }
+
 
         .result-score {
-            font-size: 52px;
-            font-weight: 900;
-            color: #2864df;
-            margin: 10px 0;
+
+            font-size:
+                52px;
+
+            font-weight:
+                900;
+
+            color:
+                #2864df;
+
+            margin:
+                10px 0;
         }
+
 
         .result-percent {
-            font-size: 22px;
-            color: #52657e;
-            margin-bottom: 20px;
+
+            font-size:
+                22px;
+
+            color:
+                #52657e;
+
+            margin-bottom:
+                20px;
         }
+
 
         .result-message {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 25px;
+
+            font-size:
+                18px;
+
+            font-weight:
+                700;
+
+            margin-bottom:
+                25px;
         }
+
 
         .back-btn {
-            display: inline-block;
-            text-decoration: none;
-            background: #173f73;
-            color: white;
-            padding: 13px 25px;
-            border-radius: 13px;
-            font-weight: 700;
+
+            display:
+                inline-block;
+
+            text-decoration:
+                none;
+
+            background:
+                #173f73;
+
+            color:
+                white;
+
+            padding:
+                13px 25px;
+
+            border-radius:
+                13px;
+
+            font-weight:
+                700;
         }
 
-        /* LOADING */
+
+        /* =========================
+           LOADING
+        ========================== */
+
         .loading {
-            text-align: center;
-            padding: 70px 10px;
-            color: #64748b;
-            font-size: 18px;
+
+            text-align:
+                center;
+
+            padding:
+                70px 10px;
+
+            color:
+                #64748b;
+
+            font-size:
+                18px;
         }
+
 
         .error {
-            background: #fff2f2;
-            color: #b42318;
-            padding: 18px;
-            border-radius: 15px;
-            margin-top: 25px;
-            line-height: 1.7;
+
+            background:
+                #fff2f2;
+
+            color:
+                #b42318;
+
+            padding:
+                18px;
+
+            border-radius:
+                15px;
+
+            margin-top:
+                25px;
+
+            line-height:
+                1.7;
         }
+
 
         @media (max-width: 600px) {
 
             .header-inner {
-                align-items: center;
+
+                align-items:
+                    center;
             }
+
 
             .brand {
-                font-size: 18px;
+
+                font-size:
+                    18px;
             }
+
 
             .timer {
-                font-size: 15px;
-                padding: 9px 12px;
+
+                font-size:
+                    15px;
+
+                padding:
+                    9px 12px;
             }
+
 
             .intro h1 {
-                font-size: 28px;
+
+                font-size:
+                    28px;
             }
+
 
             .question-card {
-                padding: 17px;
-                border-radius: 18px;
+
+                padding:
+                    17px;
+
+                border-radius:
+                    18px;
             }
+
 
             .question-text {
-                font-size: 18px;
+
+                font-size:
+                    18px;
             }
 
+
             .option {
-                padding: 13px;
+
+                padding:
+                    13px;
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <header>
+
     <div class="header-inner">
 
         <div class="brand">
+
             منصة النجاح
-            <span>التعليمية</span>
+
+            <span>
+                التعليمية
+            </span>
+
         </div>
 
-        <div id="timer" class="timer">
+
+        <div
+            id="timer"
+            class="timer"
+        >
             30:00
         </div>
 
     </div>
+
 </header>
+
 
 
 <main class="container">
 
+
     <section class="intro">
-        <h1 id="quizTitle">اختبر نفسك</h1>
+
+        <h1 id="quizTitle">
+            اختبر نفسك
+        </h1>
+
         <p id="quizDescription">
-            لديك 50 سؤالًا لإكمال الاختبار.
+            جارٍ تحميل الاختبار...
         </p>
+
     </section>
 
-    <div id="loading" class="loading">
-        جارٍ تحميل الاختبار...
+
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        جارٍ التحقق من الحساب وتحميل الاختبار...
     </div>
 
-    <div id="quizArea" style="display:none;">
+
+
+    <div
+        id="quizArea"
+        style="display:none;"
+    >
+
 
         <div class="progress-box">
+
             <div class="progress-top">
-                <span>تقدمك في الاختبار</span>
-                <span id="answeredCount">0 / 50</span>
+
+                <span>
+                    تقدمك في الاختبار
+                </span>
+
+                <span id="answeredCount">
+                    0 / 50
+                </span>
+
             </div>
+
 
             <div class="progress-bar">
-                <div id="progressFill" class="progress-fill"></div>
+
+                <div
+                    id="progressFill"
+                    class="progress-fill"
+                ></div>
+
             </div>
+
         </div>
 
-        <div id="questionsContainer"></div>
+
+
+        <div
+            id="questionsContainer"
+        ></div>
+
+
 
         <div class="submit-area">
-            <button id="submitBtn" class="submit-btn">
+
+            <button
+                id="submitBtn"
+                class="submit-btn"
+            >
                 إنهاء الاختبار
             </button>
+
         </div>
+
 
     </div>
 
 
-    <div id="errorBox" class="error" style="display:none;"></div>
+
+    <div
+        id="errorBox"
+        class="error"
+        style="display:none;"
+    ></div>
 
 
-    <section id="result" class="result">
 
-        <h2>انتهى الاختبار</h2>
+    <section
+        id="result"
+        class="result"
+    >
 
-        <div id="score" class="result-score">
+        <h2>
+            انتهى الاختبار
+        </h2>
+
+
+        <div
+            id="score"
+            class="result-score"
+        >
             0 / 50
         </div>
 
-        <div id="percentage" class="result-percent">
+
+        <div
+            id="percentage"
+            class="result-percent"
+        >
             0%
         </div>
 
-        <div id="resultMessage" class="result-message"></div>
 
-        <a href="category.html" class="back-btn">
+        <div
+            id="resultMessage"
+            class="result-message"
+        ></div>
+
+
+        <a
+            href="categories.html"
+            class="back-btn"
+        >
             العودة إلى الفئات
         </a>
 
     </section>
 
+
 </main>
+
 
 
 <script>
 
-/* =========================================================
+/* =====================================================
    1. إعداد Supabase
-   ========================================================= */
+===================================================== */
 
-const SUPABASE_URL = "https://xujyaopbswocfvzxryvc.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_8yjs_ITrdMd43HccwKAnEQ_9iGkWtFl";
-
-const { createClient } = supabase;
-
-const db = createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
+const SUPABASE_URL =
+    "https://xujyaopbswocfvzxryvc.supabase.co";
 
 
-/* =========================================================
-   2. إعدادات الاختبار
-   ========================================================= */
+const SUPABASE_ANON_KEY =
+    "sb_publishable_8yjs_ITrdMd43HccwKAnEQ_9iGkWtFl";
+
+
+const { createClient } =
+    window.supabase;
+
+
+const db =
+    createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+
+/* =====================================================
+   2. إعداد الاختبار
+===================================================== */
 
 const TOTAL_QUESTIONS = 50;
-const DURATION_SECONDS = 30 * 60;
 
-const params = new URLSearchParams(window.location.search);
-const quizId = params.get("quiz");
+const DEFAULT_DURATION_SECONDS =
+    30 * 60;
 
 
-/* =========================================================
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const quizId =
+    params.get("quiz");
+
+
+
+/* =====================================================
    3. المتغيرات
-   ========================================================= */
+===================================================== */
 
 let quiz = null;
+
 let questions = [];
+
 let answers = {};
 
 let endTime = null;
+
 let timerInterval = null;
 
 let isFinished = false;
 
+let durationSeconds =
+    DEFAULT_DURATION_SECONDS;
 
-/* =========================================================
+
+
+/* =====================================================
    4. عناصر الصفحة
-   ========================================================= */
+===================================================== */
 
-const loading = document.getElementById("loading");
-const quizArea = document.getElementById("quizArea");
-const questionsContainer = document.getElementById("questionsContainer");
-
-const quizTitle = document.getElementById("quizTitle");
-const quizDescription = document.getElementById("quizDescription");
-
-const timerElement = document.getElementById("timer");
-
-const answeredCount = document.getElementById("answeredCount");
-const progressFill = document.getElementById("progressFill");
-
-const submitBtn = document.getElementById("submitBtn");
-
-const resultBox = document.getElementById("result");
-const scoreElement = document.getElementById("score");
-const percentageElement = document.getElementById("percentage");
-const resultMessage = document.getElementById("resultMessage");
-
-const errorBox = document.getElementById("errorBox");
-
-
-/* =========================================================
-   5. التحقق من quiz ID
-   ========================================================= */
-
-if (!quizId) {
-
-    showError(
-        "لم يتم تحديد الاختبار. تأكد من أن رابط الاختبار يحتوي على معرّف الاختبار."
+const loading =
+    document.getElementById(
+        "loading"
     );
 
-} else {
 
-    loadQuiz();
+const quizArea =
+    document.getElementById(
+        "quizArea"
+    );
+
+
+const questionsContainer =
+    document.getElementById(
+        "questionsContainer"
+    );
+
+
+const quizTitle =
+    document.getElementById(
+        "quizTitle"
+    );
+
+
+const quizDescription =
+    document.getElementById(
+        "quizDescription"
+    );
+
+
+const timerElement =
+    document.getElementById(
+        "timer"
+    );
+
+
+const answeredCount =
+    document.getElementById(
+        "answeredCount"
+    );
+
+
+const progressFill =
+    document.getElementById(
+        "progressFill"
+    );
+
+
+const submitBtn =
+    document.getElementById(
+        "submitBtn"
+    );
+
+
+const resultBox =
+    document.getElementById(
+        "result"
+    );
+
+
+const scoreElement =
+    document.getElementById(
+        "score"
+    );
+
+
+const percentageElement =
+    document.getElementById(
+        "percentage"
+    );
+
+
+const resultMessage =
+    document.getElementById(
+        "resultMessage"
+    );
+
+
+const errorBox =
+    document.getElementById(
+        "errorBox"
+    );
+
+
+
+/* =====================================================
+   5. التحقق من تسجيل الدخول
+===================================================== */
+
+async function checkAuthentication() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await db.auth.getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Session error:",
+                error
+            );
+
+            window.location.href =
+                "index.html";
+
+            return false;
+        }
+
+
+        if (
+            !data ||
+            !data.session
+        ) {
+
+            window.location.href =
+                "index.html";
+
+            return false;
+        }
+
+
+        return true;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Authentication error:",
+            error
+        );
+
+
+        window.location.href =
+            "index.html";
+
+
+        return false;
+    }
 
 }
 
 
-/* =========================================================
-   6. تحميل الاختبار
-   ========================================================= */
+
+/* =====================================================
+   6. التحقق من quiz ID
+===================================================== */
+
+async function initializeQuiz() {
+
+    const authenticated =
+        await checkAuthentication();
+
+
+    if (!authenticated) {
+        return;
+    }
+
+
+    if (!quizId) {
+
+        showError(
+            "لم يتم تحديد الاختبار. تأكد من صحة رابط الاختبار."
+        );
+
+        return;
+    }
+
+
+    await loadQuiz();
+
+}
+
+
+initializeQuiz();
+
+
+
+/* =====================================================
+   7. تحميل الاختبار
+===================================================== */
 
 async function loadQuiz() {
 
     try {
 
-        const { data: quizData, error: quizError } =
+        const {
+            data: quizData,
+            error: quizError
+        } =
             await db
                 .from("quizzes")
-                .select("*")
-                .eq("id", quizId)
+                .select(
+                    "*"
+                )
+                .eq(
+                    "id",
+                    quizId
+                )
                 .single();
+
 
         if (quizError) {
             throw quizError;
         }
 
-        quiz = quizData;
 
-        quizTitle.textContent =
-            quiz.title || "اختبر نفسك";
-
-        quizDescription.textContent =
-            "50 سؤالًا • 30 دقيقة";
-
-
-
-        /* -------------------------------------------------
-           جلب الأسئلة
-        ------------------------------------------------- */
-
-        const { data: questionData, error: questionError } =
-            await db
-                .from("questions")
-                .select(`
-                    id,
-                    quiz_id,
-                    question_text,
-                    explanation,
-                    display_order
-                `)
-                .eq("quiz_id", quizId)
-                .order("display_order", {
-                    ascending: true
-                });
-
-        if (questionError) {
-            throw questionError;
-        }
-
-        if (!questionData || questionData.length < TOTAL_QUESTIONS) {
+        if (!quizData) {
 
             throw new Error(
-                `هذا الاختبار يحتوي حاليًا على ${questionData?.length || 0} سؤالًا فقط، بينما يحتاج الاختبار إلى 50 سؤالًا.`
+                "الاختبار غير موجود."
             );
 
         }
 
 
-        /* -------------------------------------------------
-           خلط الأسئلة واختيار 50
-        ------------------------------------------------- */
+        /* =========================
+           التحقق من نشر الاختبار
+        ========================== */
 
-        questions = shuffleArray(questionData)
-            .slice(0, TOTAL_QUESTIONS);
+        if (
+            quizData.is_published === false
+        ) {
+
+            throw new Error(
+                "هذا الاختبار غير متاح حاليًا."
+            );
+
+        }
+
+
+        quiz =
+            quizData;
+
+
+        /* =========================
+           بيانات الاختبار
+        ========================== */
+
+        quizTitle.textContent =
+            quiz.title ||
+            "اختبر نفسك";
+
+
+        durationSeconds =
+            Number(
+                quiz.duration_minutes
+            ) > 0
+
+                ? Number(
+                    quiz.duration_minutes
+                ) * 60
+
+                : DEFAULT_DURATION_SECONDS;
+
+
+        quizDescription.textContent =
+            `${TOTAL_QUESTIONS} سؤالًا • ${Math.floor(durationSeconds / 60)} دقيقة`;
 
 
 
-        /* -------------------------------------------------
-           جلب الخيارات الأربعة
-        ------------------------------------------------- */
+        /* =================================================
+           جلب الأسئلة
+        ================================================= */
+
+        const {
+            data: questionData,
+            error: questionError
+        } =
+            await db
+                .from("questions")
+                .select(
+                    `
+                    id,
+                    quiz_id,
+                    question_text,
+                    explanation,
+                    display_order
+                    `
+                )
+                .eq(
+                    "quiz_id",
+                    quizId
+                )
+                .order(
+                    "display_order",
+                    {
+                        ascending:
+                            true
+                    }
+                );
+
+
+        if (questionError) {
+            throw questionError;
+        }
+
+
+        if (
+            !questionData ||
+            questionData.length < TOTAL_QUESTIONS
+        ) {
+
+            throw new Error(
+                `هذا الاختبار يحتوي حاليًا على ${questionData?.length || 0} سؤالًا فقط، بينما يحتاج إلى ${TOTAL_QUESTIONS} سؤالًا.`
+            );
+
+        }
+
+
+        /* =================================================
+           اختيار 50 سؤالًا عشوائيًا
+        ================================================= */
+
+        questions =
+            shuffleArray(
+                questionData
+            ).slice(
+                0,
+                TOTAL_QUESTIONS
+            );
+
+
+
+        /* =================================================
+           جلب الخيارات
+        ================================================= */
 
         const questionIds =
-            questions.map(q => q.id);
+            questions.map(
+                question =>
+                    question.id
+            );
 
-        const { data: optionsData, error: optionsError } =
+
+        const {
+            data: optionsData,
+            error: optionsError
+        } =
             await db
                 .from("question_options")
-                .select(`
+                .select(
+                    `
                     id,
                     question_id,
                     option_text,
                     is_correct,
                     display_order
-                `)
-                .in("question_id", questionIds)
-                .order("display_order", {
-                    ascending: true
-                });
+                    `
+                )
+                .in(
+                    "question_id",
+                    questionIds
+                )
+                .order(
+                    "display_order",
+                    {
+                        ascending:
+                            true
+                    }
+                );
+
 
         if (optionsError) {
             throw optionsError;
         }
 
 
-        /* -------------------------------------------------
+        if (
+            !optionsData ||
+            optionsData.length === 0
+        ) {
+
+            throw new Error(
+                "لم يتم العثور على خيارات الأسئلة."
+            );
+
+        }
+
+
+
+        /* =================================================
            ربط الخيارات بالأسئلة
-        ------------------------------------------------- */
+        ================================================= */
 
-        questions = questions.map(question => {
+        questions =
+            questions.map(
+                question => {
 
-            const options =
-                optionsData
-                    .filter(
-                        option =>
-                            option.question_id === question.id
-                    )
-                    .sort(
-                        (a, b) =>
-                            a.display_order - b.display_order
-                    );
-
-            if (options.length !== 4) {
-
-                throw new Error(
-                    `السؤال رقم ${question.display_order} لا يحتوي على أربعة خيارات.`
-                );
-
-            }
-
-            return {
-                ...question,
-                options
-            };
-
-        });
+                    const options =
+                        optionsData
+                            .filter(
+                                option =>
+                                    option.question_id ===
+                                    question.id
+                            )
+                            .sort(
+                                (a, b) =>
+                                    a.display_order -
+                                    b.display_order
+                            );
 
 
-        /* -------------------------------------------------
-           استرجاع التقدم المحفوظ
-        ------------------------------------------------- */
+                    if (
+                        options.length !== 4
+                    ) {
+
+                        throw new Error(
+                            `السؤال رقم ${question.display_order} لا يحتوي على أربعة خيارات.`
+                        );
+
+                    }
+
+
+                    const correctOptions =
+                        options.filter(
+                            option =>
+                                option.is_correct === true
+                        );
+
+
+                    if (
+                        correctOptions.length !== 1
+                    ) {
+
+                        throw new Error(
+                            `السؤال رقم ${question.display_order} يجب أن يحتوي على إجابة صحيحة واحدة فقط.`
+                        );
+
+                    }
+
+
+                    return {
+
+                        ...question,
+
+                        options
+
+                    };
+
+                }
+            );
+
+
+
+        /* =================================================
+           استرجاع التقدم
+        ================================================= */
 
         restoreProgress();
 
 
-        /* -------------------------------------------------
+
+        /* =================================================
            عرض الأسئلة
-        ------------------------------------------------- */
+        ================================================= */
 
         renderQuestions();
 
 
-        loading.style.display = "none";
-        quizArea.style.display = "block";
+        loading.style.display =
+            "none";
+
+
+        quizArea.style.display =
+            "block";
 
 
         startTimer();
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
-        console.error(error);
+        console.error(
+            "Quiz loading error:",
+            error
+        );
+
 
         showError(
             "حدث خطأ أثناء تحميل الاختبار: " +
@@ -629,48 +1410,68 @@ async function loadQuiz() {
 }
 
 
-/* =========================================================
-   7. خلط المصفوفة
-   ========================================================= */
+
+/* =====================================================
+   8. خلط المصفوفة
+===================================================== */
 
 function shuffleArray(array) {
 
-    const copy = [...array];
+    const copy =
+        [...array];
+
 
     for (
-        let i = copy.length - 1;
+        let i =
+            copy.length - 1;
+
         i > 0;
+
         i--
     ) {
 
         const j =
             Math.floor(
-                Math.random() * (i + 1)
+                Math.random() *
+                (i + 1)
             );
 
-        [copy[i], copy[j]] =
-            [copy[j], copy[i]];
+
+        [
+            copy[i],
+            copy[j]
+        ] =
+        [
+            copy[j],
+            copy[i]
+        ];
 
     }
 
+
     return copy;
+
 }
 
 
-/* =========================================================
-   8. مفتاح التخزين المحلي
-   ========================================================= */
+
+/* =====================================================
+   9. مفتاح التخزين المحلي
+===================================================== */
 
 function getStorageKey() {
 
-    return `quiz_progress_${quizId}`;
+    return (
+        `quiz_progress_${quizId}`
+    );
 
 }
 
 
-/* =========================================================
-   9. حفظ التقدم
-   ========================================================= */
+
+/* =====================================================
+   10. حفظ التقدم
+===================================================== */
 
 function saveProgress() {
 
@@ -678,33 +1479,50 @@ function saveProgress() {
         return;
     }
 
+
     const data = {
 
-        quizId,
+        quizId:
+
+            quizId,
 
         questionIds:
-            questions.map(q => q.id),
 
-        answers,
+            questions.map(
+                q =>
+                    q.id
+            ),
 
-        endTime,
+        answers:
+
+            answers,
+
+        endTime:
+
+            endTime,
 
         savedAt:
+
             Date.now()
 
     };
 
+
     localStorage.setItem(
+
         getStorageKey(),
+
         JSON.stringify(data)
+
     );
 
 }
 
 
-/* =========================================================
-   10. استرجاع التقدم
-   ========================================================= */
+
+/* =====================================================
+   11. استرجاع التقدم
+===================================================== */
 
 function restoreProgress() {
 
@@ -713,45 +1531,65 @@ function restoreProgress() {
             getStorageKey()
         );
 
+
     if (!saved) {
 
         endTime =
             Date.now() +
-            DURATION_SECONDS * 1000;
+            durationSeconds * 1000;
+
 
         saveProgress();
 
         return;
+
     }
+
 
     try {
 
         const data =
-            JSON.parse(saved);
+            JSON.parse(
+                saved
+            );
 
 
-        /*
-         * نتحقق أن الأسئلة نفسها
-         * موجودة في المحاولة المحفوظة.
-         */
+        /* =========================
+           استرجاع ترتيب الأسئلة
+        ========================== */
 
         if (
-            Array.isArray(data.questionIds) &&
-            data.questionIds.length === TOTAL_QUESTIONS
+            Array.isArray(
+                data.questionIds
+            ) &&
+            data.questionIds.length ===
+                TOTAL_QUESTIONS
         ) {
 
             const questionMap =
                 new Map(
-                    questions.map(q => [q.id, q])
+                    questions.map(
+                        q =>
+                            [
+                                q.id,
+                                q
+                            ]
+                    )
                 );
+
 
             const restoredQuestions =
                 data.questionIds
-                    .map(id => questionMap.get(id))
+                    .map(
+                        id =>
+                            questionMap.get(id)
+                    )
                     .filter(Boolean);
 
+
             if (
-                restoredQuestions.length === TOTAL_QUESTIONS
+                restoredQuestions.length ===
+                TOTAL_QUESTIONS
             ) {
 
                 questions =
@@ -765,36 +1603,51 @@ function restoreProgress() {
         answers =
             data.answers || {};
 
+
         endTime =
             data.endTime ||
             (
                 Date.now() +
-                DURATION_SECONDS * 1000
+                durationSeconds * 1000
             );
 
 
-        /* إذا انتهى الوقت أثناء إغلاق الصفحة */
+        /* =========================
+           إذا انتهى الوقت
+        ========================== */
 
-        if (Date.now() >= endTime) {
+        if (
+            Date.now() >=
+            endTime
+        ) {
 
-            setTimeout(() => {
+            setTimeout(
+                () => {
 
-                finishQuiz(true);
+                    finishQuiz(
+                        true
+                    );
 
-            }, 100);
+                },
+                100
+            );
 
         }
 
-    } catch (e) {
+    }
+
+    catch (error) {
 
         console.error(
-            "تعذر استرجاع التقدم",
-            e
+            "تعذر استرجاع التقدم:",
+            error
         );
+
 
         endTime =
             Date.now() +
-            DURATION_SECONDS * 1000;
+            durationSeconds * 1000;
+
 
         saveProgress();
 
@@ -803,73 +1656,105 @@ function restoreProgress() {
 }
 
 
-/* =========================================================
-   11. عرض الأسئلة
-   ========================================================= */
+
+/* =====================================================
+   12. عرض الأسئلة
+===================================================== */
 
 function renderQuestions() {
 
-    questionsContainer.innerHTML = "";
+    questionsContainer.innerHTML =
+        "";
 
 
     questions.forEach(
-        (question, index) => {
+        (
+            question,
+            index
+        ) => {
+
 
             const card =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             card.className =
                 "question-card";
 
 
             const number =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             number.className =
                 "question-number";
 
+
             number.textContent =
-                `السؤال ${index + 1} من 50`;
+                `السؤال ${index + 1} من ${TOTAL_QUESTIONS}`;
+
 
 
             const text =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             text.className =
                 "question-text";
+
 
             text.textContent =
                 question.question_text;
 
 
+
             const options =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             options.className =
                 "options";
+
 
 
             question.options.forEach(
                 option => {
 
                     const label =
-                        document.createElement("label");
+                        document.createElement(
+                            "label"
+                        );
+
 
                     label.className =
                         "option";
 
 
                     const input =
-                        document.createElement("input");
+                        document.createElement(
+                            "input"
+                        );
+
 
                     input.type =
                         "radio";
 
+
                     input.name =
                         `question_${question.id}`;
 
+
                     input.value =
                         option.id;
+
 
 
                     if (
@@ -877,7 +1762,9 @@ function renderQuestions() {
                         option.id
                     ) {
 
-                        input.checked = true;
+                        input.checked =
+                            true;
+
 
                         label.classList.add(
                             "selected"
@@ -886,16 +1773,22 @@ function renderQuestions() {
                     }
 
 
+
                     input.addEventListener(
                         "change",
                         () => {
 
-                            answers[question.id] =
+                            answers[
+                                question.id
+                            ] =
                                 option.id;
+
 
                             updateProgress();
 
+
                             saveProgress();
+
 
 
                             document
@@ -906,13 +1799,17 @@ function renderQuestions() {
                                     radio => {
 
                                         radio
-                                            .closest(".option")
-                                            .classList.remove(
+                                            .closest(
+                                                ".option"
+                                            )
+                                            .classList
+                                            .remove(
                                                 "selected"
                                             );
 
                                     }
                                 );
+
 
                             label.classList.add(
                                 "selected"
@@ -922,27 +1819,54 @@ function renderQuestions() {
                     );
 
 
-                    label.appendChild(input);
+
+                    label.appendChild(
+                        input
+                    );
+
 
                     const span =
-                        document.createElement("span");
+                        document.createElement(
+                            "span"
+                        );
+
 
                     span.textContent =
                         option.option_text;
 
-                    label.appendChild(span);
 
-                    options.appendChild(label);
+                    label.appendChild(
+                        span
+                    );
+
+
+                    options.appendChild(
+                        label
+                    );
 
                 }
             );
 
 
-            card.appendChild(number);
-            card.appendChild(text);
-            card.appendChild(options);
 
-            questionsContainer.appendChild(card);
+            card.appendChild(
+                number
+            );
+
+
+            card.appendChild(
+                text
+            );
+
+
+            card.appendChild(
+                options
+            );
+
+
+            questionsContainer.appendChild(
+                card
+            );
 
         }
     );
@@ -953,20 +1877,29 @@ function renderQuestions() {
 }
 
 
-/* =========================================================
-   12. تحديث شريط التقدم
-   ========================================================= */
+
+/* =====================================================
+   13. تحديث التقدم
+===================================================== */
 
 function updateProgress() {
 
     const count =
-        Object.keys(answers).length;
+        Object.keys(
+            answers
+        ).length;
+
 
     answeredCount.textContent =
         `${count} / ${TOTAL_QUESTIONS}`;
 
+
     const percentage =
-        (count / TOTAL_QUESTIONS) * 100;
+        (
+            count /
+            TOTAL_QUESTIONS
+        ) * 100;
+
 
     progressFill.style.width =
         `${percentage}%`;
@@ -974,13 +1907,15 @@ function updateProgress() {
 }
 
 
-/* =========================================================
-   13. العداد
-   ========================================================= */
+
+/* =====================================================
+   14. المؤقت
+===================================================== */
 
 function startTimer() {
 
     updateTimer();
+
 
     timerInterval =
         setInterval(
@@ -989,6 +1924,7 @@ function startTimer() {
         );
 
 }
+
 
 
 function updateTimer() {
@@ -1001,7 +1937,8 @@ function updateTimer() {
     const remaining =
         Math.max(
             0,
-            endTime - Date.now()
+            endTime -
+            Date.now()
         );
 
 
@@ -1016,6 +1953,7 @@ function updateTimer() {
             totalSeconds / 60
         );
 
+
     const seconds =
         totalSeconds % 60;
 
@@ -1024,7 +1962,9 @@ function updateTimer() {
         `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
 
-    if (totalSeconds <= 300) {
+    if (
+        totalSeconds <= 300
+    ) {
 
         timerElement.classList.add(
             "warning"
@@ -1033,22 +1973,28 @@ function updateTimer() {
     }
 
 
-    if (remaining <= 0) {
+    if (
+        remaining <= 0
+    ) {
 
         clearInterval(
             timerInterval
         );
 
-        finishQuiz(true);
+
+        finishQuiz(
+            true
+        );
 
     }
 
 }
 
 
-/* =========================================================
-   14. زر إنهاء الاختبار
-   ========================================================= */
+
+/* =====================================================
+   15. زر إنهاء الاختبار
+===================================================== */
 
 submitBtn.addEventListener(
     "click",
@@ -1056,15 +2002,20 @@ submitBtn.addEventListener(
 
         const unanswered =
             TOTAL_QUESTIONS -
-            Object.keys(answers).length;
+            Object.keys(
+                answers
+            ).length;
 
 
-        if (unanswered > 0) {
+        if (
+            unanswered > 0
+        ) {
 
             const confirmed =
                 confirm(
                     `لم تجب عن ${unanswered} سؤالًا.\n\nهل تريد إنهاء الاختبار الآن؟`
                 );
+
 
             if (!confirmed) {
                 return;
@@ -1073,23 +2024,30 @@ submitBtn.addEventListener(
         }
 
 
-        finishQuiz(false);
+        finishQuiz(
+            false
+        );
 
     }
 );
 
 
-/* =========================================================
-   15. إنهاء الاختبار
-   ========================================================= */
 
-async function finishQuiz(autoFinished = false) {
+/* =====================================================
+   16. إنهاء الاختبار
+===================================================== */
+
+async function finishQuiz(
+    autoFinished = false
+) {
 
     if (isFinished) {
         return;
     }
 
-    isFinished = true;
+
+    isFinished =
+        true;
 
 
     clearInterval(
@@ -1097,21 +2055,26 @@ async function finishQuiz(autoFinished = false) {
     );
 
 
-    submitBtn.disabled = true;
+    submitBtn.disabled =
+        true;
 
 
-    /* -----------------------------------------------------
+
+    /* =========================
        التصحيح
-    ----------------------------------------------------- */
+    ========================== */
 
-    let score = 0;
+    let score =
+        0;
 
 
     questions.forEach(
         question => {
 
             const selectedId =
-                answers[question.id];
+                answers[
+                    question.id
+                ];
 
 
             if (!selectedId) {
@@ -1122,13 +2085,15 @@ async function finishQuiz(autoFinished = false) {
             const selectedOption =
                 question.options.find(
                     option =>
-                        option.id === selectedId
+                        option.id ===
+                        selectedId
                 );
 
 
             if (
                 selectedOption &&
-                selectedOption.is_correct === true
+                selectedOption.is_correct ===
+                    true
             ) {
 
                 score++;
@@ -1137,6 +2102,7 @@ async function finishQuiz(autoFinished = false) {
 
         }
     );
+
 
 
     const percentage =
@@ -1149,12 +2115,14 @@ async function finishQuiz(autoFinished = false) {
         );
 
 
-    /* -----------------------------------------------------
+
+    /* =========================
        عرض النتيجة
-    ----------------------------------------------------- */
+    ========================== */
 
     quizArea.style.display =
         "none";
+
 
     resultBox.style.display =
         "block";
@@ -1162,6 +2130,7 @@ async function finishQuiz(autoFinished = false) {
 
     scoreElement.textContent =
         `${score} / ${TOTAL_QUESTIONS}`;
+
 
     percentageElement.textContent =
         `${percentage}%`;
@@ -1172,7 +2141,9 @@ async function finishQuiz(autoFinished = false) {
         resultMessage.textContent =
             "انتهى الوقت، وتم إنهاء الاختبار وتصحيح إجاباتك تلقائيًا.";
 
-    } else {
+    }
+
+    else {
 
         resultMessage.textContent =
             "تم إنهاء الاختبار وتصحيح إجاباتك.";
@@ -1180,9 +2151,10 @@ async function finishQuiz(autoFinished = false) {
     }
 
 
-    /* -----------------------------------------------------
-       حفظ النتيجة في Supabase
-    ----------------------------------------------------- */
+
+    /* =========================
+       حفظ النتيجة
+    ========================== */
 
     await saveResult(
         score,
@@ -1190,9 +2162,9 @@ async function finishQuiz(autoFinished = false) {
     );
 
 
-    /* -----------------------------------------------------
+    /* =========================
        حذف التقدم المؤقت
-    ----------------------------------------------------- */
+    ========================== */
 
     localStorage.removeItem(
         getStorageKey()
@@ -1201,9 +2173,10 @@ async function finishQuiz(autoFinished = false) {
 }
 
 
-/* =========================================================
-   16. حفظ النتيجة
-   ========================================================= */
+
+/* =====================================================
+   17. حفظ النتيجة في quiz_results
+===================================================== */
 
 async function saveResult(
     score,
@@ -1215,30 +2188,38 @@ async function saveResult(
         const {
             data: {
                 user
-            }
+            },
+            error: userError
         } =
             await db.auth.getUser();
 
 
-        /*
-         * لا يمكن حفظ النتيجة إذا لم يكن
-         * الطالب مسجل الدخول.
-         */
+        if (
+            userError
+        ) {
+
+            console.error(
+                userError
+            );
+
+            return;
+        }
+
 
         if (!user) {
 
             console.warn(
-                "الطالب غير مسجل الدخول، لن يتم حفظ النتيجة في قاعدة البيانات."
+                "المستخدم غير مسجل الدخول."
             );
 
             return;
-
         }
 
 
-        /* -------------------------------------------------
-           البحث عن النتيجة الحالية
-        ------------------------------------------------- */
+
+        /* =========================
+           البحث عن نتيجة سابقة
+        ========================== */
 
         const {
             data: existing,
@@ -1247,8 +2228,14 @@ async function saveResult(
             await db
                 .from("quiz_results")
                 .select("*")
-                .eq("user_id", user.id)
-                .eq("quiz_id", quizId)
+                .eq(
+                    "user_id",
+                    user.id
+                )
+                .eq(
+                    "quiz_id",
+                    quizId
+                )
                 .maybeSingle();
 
 
@@ -1257,11 +2244,17 @@ async function saveResult(
         }
 
 
-        /* -------------------------------------------------
+
+        /* =========================
            أول محاولة
-        ------------------------------------------------- */
+        ========================== */
 
         if (!existing) {
+
+            const now =
+                new Date()
+                    .toISOString();
+
 
             const {
                 error
@@ -1286,10 +2279,13 @@ async function saveResult(
                             1,
 
                         last_attempt_at:
-                            new Date().toISOString(),
+                            now,
 
                         best_attempt_at:
-                            new Date().toISOString()
+                            now,
+
+                        updated_at:
+                            now
 
                     });
 
@@ -1298,18 +2294,24 @@ async function saveResult(
                 throw error;
             }
 
-            return;
 
+            return;
         }
 
 
-        /* -------------------------------------------------
+
+        /* =========================
            تحديث المحاولات
-        ------------------------------------------------- */
+        ========================== */
 
         const isBetter =
             score >
             existing.best_score;
+
+
+        const now =
+            new Date()
+                .toISOString();
 
 
         const updateData = {
@@ -1318,10 +2320,10 @@ async function saveResult(
                 existing.attempts_count + 1,
 
             last_attempt_at:
-                new Date().toISOString(),
+                now,
 
             updated_at:
-                new Date().toISOString()
+                now
 
         };
 
@@ -1331,11 +2333,13 @@ async function saveResult(
             updateData.best_score =
                 score;
 
+
             updateData.best_percentage =
                 percentage;
 
+
             updateData.best_attempt_at =
-                new Date().toISOString();
+                now;
 
         }
 
@@ -1345,17 +2349,26 @@ async function saveResult(
         } =
             await db
                 .from("quiz_results")
-                .update(updateData)
-                .eq("user_id", user.id)
-                .eq("quiz_id", quizId);
+                .update(
+                    updateData
+                )
+                .eq(
+                    "user_id",
+                    user.id
+                )
+                .eq(
+                    "quiz_id",
+                    quizId
+                );
 
 
         if (updateError) {
             throw updateError;
         }
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(
             "خطأ أثناء حفظ النتيجة:",
@@ -1367,20 +2380,26 @@ async function saveResult(
 }
 
 
-/* =========================================================
-   17. عرض الخطأ
-   ========================================================= */
 
-function showError(message) {
+/* =====================================================
+   18. عرض الخطأ
+===================================================== */
+
+function showError(
+    message
+) {
 
     loading.style.display =
         "none";
 
+
     quizArea.style.display =
         "none";
 
+
     errorBox.style.display =
         "block";
+
 
     errorBox.textContent =
         message;
@@ -1389,5 +2408,7 @@ function showError(message) {
 
 </script>
 
+
 </body>
+
 </html>
