@@ -1473,7 +1473,7 @@
                 البريد الإلكتروني
             </span>
 
-            <strong>
+            <strong id="accountEmail">
                 سيتم عرضه بعد تسجيل الدخول
             </strong>
 
@@ -1546,7 +1546,6 @@
     /* =====================================================
        بيانات الفئات
        
-       مهم:
        subjectId هو UUID الحقيقي الموجود في Supabase
     ====================================================== */
 
@@ -1792,13 +1791,15 @@
 
 
     currentCategory.subjects.forEach(
-        function(subject, index) {
+        function(subject) {
 
             const link =
                 document.createElement("a");
 
+
             link.className =
                 "subject-card";
+
 
             link.href =
                 "subject.html?category=" +
@@ -1807,6 +1808,7 @@
                 encodeURIComponent(
                     subject.subjectId
                 );
+
 
             link.innerHTML = `
 
@@ -1822,7 +1824,10 @@
 
             `;
 
-            subjectsGrid.appendChild(link);
+
+            subjectsGrid.appendChild(
+                link
+            );
 
         }
     );
@@ -1878,8 +1883,10 @@
                 "messageBox"
             );
 
+
         box.textContent =
             text;
+
 
         box.className =
             "message-box show " +
@@ -1899,8 +1906,10 @@
                 "messageBox"
             );
 
+
         box.className =
             "message-box";
+
 
         box.textContent =
             "";
@@ -1909,12 +1918,175 @@
 
 
     /* =====================================================
-       البحث عن الاختبار في Supabase
+       تحميل الاختبارات مسبقًا
        
-       نعتمد على:
-       subject_id + level
+       بدلًا من إرسال طلب إلى Supabase عند كل ضغطة
+       على المستوى، نجلب اختبارات مواد الفئة مرة واحدة
+       عند فتح الصفحة، ثم نستخدم النتائج من الذاكرة.
 
-       ثم نأخذ الاختبار الموجود.
+       هذا يحافظ على نفس المنطق:
+       subject_id + level
+    ====================================================== */
+
+    const quizCache =
+        new Map();
+
+
+    let quizzesLoadPromise =
+        null;
+
+
+    async function preloadQuizzes() {
+
+        /*
+           إذا كان هناك طلب تحميل جارٍ بالفعل،
+           نعيد نفس الطلب بدل إنشاء طلب جديد.
+        */
+
+        if (
+            quizzesLoadPromise
+        ) {
+
+            return quizzesLoadPromise;
+
+        }
+
+
+        const subjectIds =
+            currentCategory.subjects.map(
+                function(subject) {
+
+                    return subject.subjectId;
+
+                }
+            );
+
+
+        quizzesLoadPromise =
+            db
+                .from("quizzes")
+                .select(
+                    "id, subject_id, title, description, duration_minutes, is_published, created_at, level"
+                )
+                .in(
+                    "subject_id",
+                    subjectIds
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending:
+                            false
+                    }
+                )
+                .then(
+                    function(result) {
+
+                        const data =
+                            result.data;
+
+
+                        const error =
+                            result.error;
+
+
+                        if (error) {
+
+                            console.error(
+                                "Supabase preload error:",
+                                error
+                            );
+
+
+                            throw error;
+
+                        }
+
+
+                        quizCache.clear();
+
+
+                        /*
+                           لأن النتائج مرتبة من الأحدث
+                           إلى الأقدم، نأخذ أحدث اختبار
+                           لكل subject_id + level.
+                        */
+
+                        (
+                            data || []
+                        ).forEach(
+                            function(quiz) {
+
+                                const key =
+                                    quiz.subject_id +
+                                    "_" +
+                                    quiz.level;
+
+
+                                if (
+                                    !quizCache.has(
+                                        key
+                                    )
+                                ) {
+
+                                    quizCache.set(
+                                        key,
+                                        quiz
+                                    );
+
+                                }
+
+                            }
+                        );
+
+
+                        return quizCache;
+
+                    }
+                )
+                .catch(
+                    function(error) {
+
+                        /*
+                           في حالة الفشل نسمح بإعادة
+                           المحاولة لاحقًا.
+                        */
+
+                        quizzesLoadPromise =
+                            null;
+
+
+                        throw error;
+
+                    }
+                );
+
+
+        return quizzesLoadPromise;
+
+    }
+
+
+    /*
+       نبدأ تحميل الاختبارات فور فتح الصفحة،
+       وليس بعد ضغط المستخدم على المستوى.
+    */
+
+    preloadQuizzes()
+        .catch(
+            function(error) {
+
+                console.error(
+                    "Failed to preload quizzes:",
+                    error
+                );
+
+            }
+        );
+
+
+    /* =====================================================
+       فتح الاختبار
     ====================================================== */
 
     async function openQuiz(
@@ -1933,7 +2105,9 @@
                 "مستوى الاختبار غير صحيح."
             );
 
+
             return;
+
         }
 
 
@@ -1942,10 +2116,18 @@
         );
 
 
-        clickedLink.querySelector(
-            ".level-arrow"
-        ).textContent =
-            "…";
+        const arrow =
+            clickedLink.querySelector(
+                ".level-arrow"
+            );
+
+
+        if (arrow) {
+
+            arrow.textContent =
+                "…";
+
+        }
 
 
         hideMessage();
@@ -1953,63 +2135,47 @@
 
         try {
 
-            const { data, error } =
-                await db
-                    .from("quizzes")
-                    .select(
-                        "id, subject_id, title, description, duration_minutes, is_published, created_at, level"
-                    )
-                    .eq(
-                        "subject_id",
-                        subjectId
-                    )
-                    .eq(
-                        "level",
-                        dbLevel
-                    )
-                    .order(
-                        "created_at",
-                        {
-                            ascending:
-                                false
-                        }
-                    )
-                    .limit(1);
+            /*
+               في الحالة الطبيعية يكون التحميل
+               قد اكتمل مسبقًا، وبالتالي لا يوجد
+               طلب جديد عند الضغط.
+
+               وإذا ضغط المستخدم بسرعة شديدة قبل
+               اكتمال التحميل، ننتظر نفس الطلب الجاري.
+            */
+
+            await preloadQuizzes();
 
 
-            if (error) {
+            const key =
+                subjectId +
+                "_" +
+                dbLevel;
 
-                console.error(
-                    "Supabase error:",
-                    error
+
+            const quiz =
+                quizCache.get(
+                    key
                 );
 
-                throw error;
-            }
 
-
-            if (
-                !data ||
-                data.length === 0
-            ) {
+            if (!quiz) {
 
                 showMessage(
                     "لا يوجد اختبار لهذا المستوى حاليًا. سيتم إضافته قريبًا."
                 );
 
+
                 return;
+
             }
-
-
-            const quiz =
-                data[0];
 
 
             /*
                الانتقال إلى quiz.html
 
-               مهم جدًا:
-               quiz.html ينتظر parameter اسمه "quiz"
+               quiz.html ينتظر parameter اسمه:
+               quiz
             */
 
             const quizUrl =
@@ -2027,8 +2193,10 @@
         catch (error) {
 
             console.error(
+                "Quiz loading error:",
                 error
             );
+
 
             showMessage(
                 "حدث خطأ أثناء الاتصال بقاعدة البيانات. حاول مرة أخرى."
@@ -2042,10 +2210,13 @@
                 "loading"
             );
 
-            clickedLink.querySelector(
-                ".level-arrow"
-            ).textContent =
-                "←";
+
+            if (arrow) {
+
+                arrow.textContent =
+                    "←";
+
+            }
 
         }
 
@@ -2061,7 +2232,9 @@
     ) {
 
         const wrapper =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
 
         wrapper.className =
@@ -2239,6 +2412,7 @@
 
 
         return wrapper;
+
     }
 
 
@@ -2322,15 +2496,64 @@
        الحساب
     ====================================================== */
 
-    function showAccount() {
+    async function showAccount() {
 
-        document
-            .getElementById(
+        const overlay =
+            document.getElementById(
                 "accountOverlay"
-            )
-            .classList.add(
-                "show"
             );
+
+
+        const emailElement =
+            document.getElementById(
+                "accountEmail"
+            );
+
+
+        /*
+           محاولة الحصول على البريد الإلكتروني
+           من جلسة Supabase الحالية.
+        */
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await db
+                    .auth
+                    .getSession();
+
+
+            if (
+                !error &&
+                data &&
+                data.session &&
+                data.session.user
+            ) {
+
+                emailElement.textContent =
+                    data.session.user.email ||
+                    "غير متوفر";
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Account session error:",
+                error
+            );
+
+        }
+
+
+        overlay.classList.add(
+            "show"
+        );
 
     }
 
@@ -2377,10 +2600,13 @@
                 "div"
             );
 
+
         div.textContent =
             text;
 
+
         return div.innerHTML;
+
     }
 
 </script>
