@@ -2039,7 +2039,7 @@ async function finishQuiz(
     else {
 
         resultMessage.textContent =
-            "تم إنهاء الاختبار وتصحيح إجاباتك.";
+            "تم إنهاء الاختبار وتصحيح إجاباتك وفق استراتيجية +1 للصحيح، -1 للخطأ، و0 لغير المجاب.";
 
     }
 
@@ -2054,14 +2054,6 @@ async function finishQuiz(
         percentage
     );
 
-
-    /* =========================
-       حذف التقدم المؤقت
-    ========================== */
-
-    localStorage.removeItem(
-        getStorageKey()
-    );
 
 }
 
