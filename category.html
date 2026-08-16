@@ -768,6 +768,23 @@
                 pointer;
         }
 
+        .level-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
+
+        .best-score {
+            color: var(--secondary);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        body.dark .best-score {
+            color: #fbbf24;
+        }
+
         .level-link:hover {
 
             border-color:
@@ -1931,6 +1948,13 @@
     const quizCache =
         new Map();
 
+    /*
+       أفضل نسبة حققها الطالب لكل اختبار.
+       المفتاح = quiz_id
+    */
+    const bestResults =
+        new Map();
+
 
     let quizzesLoadPromise =
         null;
@@ -2073,6 +2097,16 @@
     */
 
     preloadQuizzes()
+        .then(
+            function() {
+                return loadBestResults();
+            }
+        )
+        .then(
+            function() {
+                updateBestScores();
+            }
+        )
         .catch(
             function(error) {
 
@@ -2083,6 +2117,197 @@
 
             }
         );
+
+
+    /* =====================================================
+       تحميل أعلى النتائج للطالب
+    ====================================================== */
+
+    async function loadBestResults() {
+
+        bestResults.clear();
+
+        try {
+
+            const {
+                data: {
+                    user
+                },
+                error: userError
+            } =
+                await db.auth.getUser();
+
+
+            if (
+                userError ||
+                !user
+            ) {
+                return;
+            }
+
+
+            const quizIds =
+                Array.from(
+                    quizCache.values()
+                ).map(
+                    function(quiz) {
+                        return quiz.id;
+                    }
+                );
+
+
+            if (
+                quizIds.length === 0
+            ) {
+                return;
+            }
+
+
+            const {
+                data,
+                error
+            } =
+                await db
+                    .from("quiz_results")
+                    .select(
+                        "quiz_id, best_percentage"
+                    )
+                    .eq(
+                        "user_id",
+                        user.id
+                    )
+                    .in(
+                        "quiz_id",
+                        quizIds
+                    );
+
+
+            if (error) {
+                console.error(
+                    "Best results loading error:",
+                    error
+                );
+                return;
+            }
+
+
+            (
+                data || []
+            ).forEach(
+                function(result) {
+
+                    bestResults.set(
+                        result.quiz_id,
+                        Number(
+                            result.best_percentage
+                        )
+                    );
+
+                }
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Best results error:",
+                error
+            );
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       تحديث أعلى نسبة تحت كل مستوى
+    ====================================================== */
+
+    function updateBestScores() {
+
+        document
+            .querySelectorAll(
+                ".level-link"
+            )
+            .forEach(
+                function(link) {
+
+                    const subjectId =
+                        link.dataset.subjectId;
+
+                    const levelNumber =
+                        Number(
+                            link.dataset.level
+                        );
+
+                    const dbLevel =
+                        levelMap[levelNumber];
+
+                    const quiz =
+                        quizCache.get(
+                            subjectId +
+                            "_" +
+                            dbLevel
+                        );
+
+                    const scoreElement =
+                        link.querySelector(
+                            ".best-score"
+                        );
+
+
+                    if (
+                        !scoreElement
+                    ) {
+                        return;
+                    }
+
+
+                    if (
+                        !quiz
+                    ) {
+
+                        scoreElement.textContent =
+                            "أعلى نسبة تقدم: —";
+
+                        return;
+
+                    }
+
+
+                    const bestPercentage =
+                        bestResults.get(
+                            quiz.id
+                        );
+
+
+                    if (
+                        Number.isFinite(
+                            bestPercentage
+                        )
+                    ) {
+
+                        scoreElement.textContent =
+                            "أعلى نسبة تقدم: " +
+                            bestPercentage +
+                            "%";
+
+                    }
+
+                    else {
+
+                        scoreElement.textContent =
+                            "أعلى نسبة تقدم: لم تُجرَ محاولة بعد";
+
+                    }
+
+                }
+            );
+
+    }
+
 
 
     /* =====================================================
@@ -2277,10 +2502,19 @@
                         href="#"
                         class="level-link"
                         data-level="1"
+                        data-subject-id="${subject.subjectId}"
                     >
 
-                        <span>
-                            ${levelNames[1]}
+                        <span class="level-info">
+
+                            <span>
+                                ${levelNames[1]}
+                            </span>
+
+                            <span class="best-score">
+                                أعلى نسبة تقدم: جارٍ التحميل...
+                            </span>
+
                         </span>
 
                         <span class="level-arrow">
@@ -2294,10 +2528,19 @@
                         href="#"
                         class="level-link"
                         data-level="2"
+                        data-subject-id="${subject.subjectId}"
                     >
 
-                        <span>
-                            ${levelNames[2]}
+                        <span class="level-info">
+
+                            <span>
+                                ${levelNames[2]}
+                            </span>
+
+                            <span class="best-score">
+                                أعلى نسبة تقدم: جارٍ التحميل...
+                            </span>
+
                         </span>
 
                         <span class="level-arrow">
@@ -2311,10 +2554,19 @@
                         href="#"
                         class="level-link"
                         data-level="3"
+                        data-subject-id="${subject.subjectId}"
                     >
 
-                        <span>
-                            ${levelNames[3]}
+                        <span class="level-info">
+
+                            <span>
+                                ${levelNames[3]}
+                            </span>
+
+                            <span class="best-score">
+                                أعلى نسبة تقدم: جارٍ التحميل...
+                            </span>
+
                         </span>
 
                         <span class="level-arrow">
