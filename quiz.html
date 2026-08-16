@@ -412,6 +412,36 @@
 
 
         /* =========================
+           CORRECTION STRATEGY
+        ========================== */
+
+        .strategy-box {
+            background: #fffaf0;
+            border: 1px solid #f4d28a;
+            border-right: 5px solid #f59e0b;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 18px;
+            color: #5f4a16;
+            line-height: 1.9;
+        }
+
+        .strategy-box h3 {
+            margin: 0 0 8px;
+            color: #8a5a00;
+            font-size: 18px;
+        }
+
+        .strategy-box p {
+            margin: 0;
+        }
+
+        .strategy-box strong {
+            color: #173f73;
+        }
+
+
+        /* =========================
            SUBMIT
         ========================== */
 
@@ -739,6 +769,24 @@
     >
 
 
+        <div class="strategy-box">
+
+            <h3>
+                📌 استراتيجية التصحيح
+            </h3>
+
+            <p>
+                الإجابة الصحيحة تزيد رصيدك
+                <strong>+1 نقطة</strong>،
+                والإجابة الخاطئة تسلب منك
+                <strong>-1 نقطة</strong>،
+                أما السؤال غير المجاب عليه فلا يغير النتيجة
+                <strong>(0)</strong>.
+            </p>
+
+        </div>
+
+
         <div class="progress-box">
 
             <div class="progress-top">
@@ -779,7 +827,7 @@
                 id="submitBtn"
                 class="submit-btn"
             >
-                إنهاء الاختبار
+                إنهاء الاختبار وإظهار النتيجة
             </button>
 
         </div>
@@ -827,6 +875,19 @@
             id="resultMessage"
             class="result-message"
         ></div>
+
+
+        <div
+            style="
+                margin-top:12px;
+                color:#64748b;
+                font-size:14px;
+                line-height:1.7;
+            "
+        >
+            يتم الاحتفاظ بأعلى نسبة حققتها في هذا الاختبار،
+            وليس بإجابات المحاولة الحالية.
+        </div>
 
 
         <a
@@ -1164,16 +1225,14 @@ async function loadQuiz() {
             "اختبر نفسك";
 
 
+        /*
+           المدة المعتمدة حاليًا للاختبارات: 30 دقيقة.
+           لا نعتمد على قيمة duration_minutes من قاعدة البيانات
+           حتى لا يظهر المستوى الأول لمدة 60 دقيقة بالخطأ.
+        */
+
         durationSeconds =
-            Number(
-                quiz.duration_minutes
-            ) > 0
-
-                ? Number(
-                    quiz.duration_minutes
-                ) * 60
-
-                : DEFAULT_DURATION_SECONDS;
+            DEFAULT_DURATION_SECONDS;
 
 
         quizDescription.textContent =
@@ -1366,10 +1425,10 @@ async function loadQuiz() {
 
 
         /* =================================================
-           استرجاع التقدم
+           بدء محاولة جديدة
         ================================================= */
 
-        restoreProgress();
+        startNewAttempt();
 
 
 
@@ -1456,206 +1515,32 @@ function shuffleArray(array) {
 
 
 /* =====================================================
-   9. مفتاح التخزين المحلي
+   9. بدء محاولة جديدة
 ===================================================== */
 
-function getStorageKey() {
+/*
+   لا يتم حفظ إجابات المحاولة أو ترتيب الأسئلة عند مغادرة الصفحة.
+   عند فتح الاختبار من جديد تبدأ محاولة جديدة من الصفر.
 
-    return (
-        `quiz_progress_${quizId}`
-    );
+   الحفظ الدائم الذي نريده هو أعلى نتيجة فقط،
+   ويتم ذلك في جدول quiz_results بعد إنهاء الاختبار.
+*/
+
+function startNewAttempt() {
+
+    answers = {};
+
+    endTime =
+        Date.now() +
+        durationSeconds * 1000;
 
 }
 
 
 
 /* =====================================================
-   10. حفظ التقدم
+   10. عرض الأسئلة
 ===================================================== */
-
-function saveProgress() {
-
-    if (isFinished) {
-        return;
-    }
-
-
-    const data = {
-
-        quizId:
-
-            quizId,
-
-        questionIds:
-
-            questions.map(
-                q =>
-                    q.id
-            ),
-
-        answers:
-
-            answers,
-
-        endTime:
-
-            endTime,
-
-        savedAt:
-
-            Date.now()
-
-    };
-
-
-    localStorage.setItem(
-
-        getStorageKey(),
-
-        JSON.stringify(data)
-
-    );
-
-}
-
-
-
-/* =====================================================
-   11. استرجاع التقدم
-===================================================== */
-
-function restoreProgress() {
-
-    const saved =
-        localStorage.getItem(
-            getStorageKey()
-        );
-
-
-    if (!saved) {
-
-        endTime =
-            Date.now() +
-            durationSeconds * 1000;
-
-
-        saveProgress();
-
-        return;
-
-    }
-
-
-    try {
-
-        const data =
-            JSON.parse(
-                saved
-            );
-
-
-        /* =========================
-           استرجاع ترتيب الأسئلة
-        ========================== */
-
-        if (
-            Array.isArray(
-                data.questionIds
-            ) &&
-            data.questionIds.length ===
-                TOTAL_QUESTIONS
-        ) {
-
-            const questionMap =
-                new Map(
-                    questions.map(
-                        q =>
-                            [
-                                q.id,
-                                q
-                            ]
-                    )
-                );
-
-
-            const restoredQuestions =
-                data.questionIds
-                    .map(
-                        id =>
-                            questionMap.get(id)
-                    )
-                    .filter(Boolean);
-
-
-            if (
-                restoredQuestions.length ===
-                TOTAL_QUESTIONS
-            ) {
-
-                questions =
-                    restoredQuestions;
-
-            }
-
-        }
-
-
-        answers =
-            data.answers || {};
-
-
-        endTime =
-            data.endTime ||
-            (
-                Date.now() +
-                durationSeconds * 1000
-            );
-
-
-        /* =========================
-           إذا انتهى الوقت
-        ========================== */
-
-        if (
-            Date.now() >=
-            endTime
-        ) {
-
-            setTimeout(
-                () => {
-
-                    finishQuiz(
-                        true
-                    );
-
-                },
-                100
-            );
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "تعذر استرجاع التقدم:",
-            error
-        );
-
-
-        endTime =
-            Date.now() +
-            durationSeconds * 1000;
-
-
-        saveProgress();
-
-    }
-
-}
-
-
 
 /* =====================================================
    12. عرض الأسئلة
@@ -2077,6 +1962,13 @@ async function finishQuiz(
                 ];
 
 
+            /*
+               استراتيجية التصحيح:
+               الصحيح = +1
+               الخطأ = -1
+               غير المجاب = 0
+            */
+
             if (!selectedId) {
                 return;
             }
@@ -2097,6 +1989,11 @@ async function finishQuiz(
             ) {
 
                 score++;
+
+            }
+            else {
+
+                score--;
 
             }
 
