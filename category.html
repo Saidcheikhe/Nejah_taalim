@@ -769,20 +769,36 @@
         }
 
         .level-info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 5px;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                flex-start;
+
+            gap:
+                5px;
         }
 
         .best-score {
-            color: var(--secondary);
-            font-size: 13px;
-            font-weight: 800;
+
+            color:
+                var(--secondary);
+
+            font-size:
+                13px;
+
+            font-weight:
+                800;
         }
 
         body.dark .best-score {
-            color: #fbbf24;
+
+            color:
+                #fbbf24;
         }
 
         .level-link:hover {
@@ -813,6 +829,73 @@
 
             color:
                 var(--secondary);
+        }
+
+        /* =========================
+           رياضيات المعلم المزدوج
+        ========================== */
+
+        .double-math-levels {
+
+            max-height:
+                none;
+
+            overflow:
+                visible;
+        }
+
+        .double-level-group {
+
+            margin-bottom:
+                18px;
+        }
+
+        .double-level-group:last-child {
+
+            margin-bottom:
+                0;
+        }
+
+        .double-level-title {
+
+            color:
+                var(--primary);
+
+            font-size:
+                16px;
+
+            font-weight:
+                800;
+
+            padding:
+                8px 6px;
+
+            text-align:
+                right;
+        }
+
+        body.dark .double-level-title {
+
+            color:
+                #ffffff;
+        }
+
+        .language-options {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                8px;
+        }
+
+        .language-options .level-link {
+
+            margin:
+                0;
         }
 
         /* =========================
@@ -1205,6 +1288,13 @@
                 height:
                     35px;
             }
+
+            .language-options {
+
+                grid-template-columns:
+                    1fr;
+            }
+
         }
 
     </style>
@@ -1562,8 +1652,6 @@
 
     /* =====================================================
        بيانات الفئات
-       
-       subjectId هو UUID الحقيقي الموجود في Supabase
     ====================================================== */
 
     const categoryData = {
@@ -1674,10 +1762,13 @@
 
                 {
                     name:
-                        "الرياضيات بالعربية",
+                        "الرياضيات",
 
                     subjectId:
-                        "7dc8510a-eb52-46e7-8c90-f1635d310cae"
+                        "7dc8510a-eb52-46e7-8c90-f1635d310cae",
+
+                    frenchSubjectId:
+                        "4a414b70-f465-414b-962a-2e6b5e080a2d"
                 }
 
             ]
@@ -1936,22 +2027,17 @@
 
     /* =====================================================
        تحميل الاختبارات مسبقًا
-       
-       بدلًا من إرسال طلب إلى Supabase عند كل ضغطة
-       على المستوى، نجلب اختبارات مواد الفئة مرة واحدة
-       عند فتح الصفحة، ثم نستخدم النتائج من الذاكرة.
-
-       هذا يحافظ على نفس المنطق:
-       subject_id + level
     ====================================================== */
 
     const quizCache =
         new Map();
 
+
     /*
        أفضل نسبة حققها الطالب لكل اختبار.
        المفتاح = quiz_id
     */
+
     const bestResults =
         new Map();
 
@@ -1962,11 +2048,6 @@
 
     async function preloadQuizzes() {
 
-        /*
-           إذا كان هناك طلب تحميل جارٍ بالفعل،
-           نعيد نفس الطلب بدل إنشاء طلب جديد.
-        */
-
         if (
             quizzesLoadPromise
         ) {
@@ -1976,14 +2057,34 @@
         }
 
 
-        const subjectIds =
-            currentCategory.subjects.map(
-                function(subject) {
+        /*
+           نجمع subject_id العادي،
+           ونضيف frenchSubjectId عند وجوده.
+        */
 
-                    return subject.subjectId;
+        const subjectIds = [];
+
+
+        currentCategory.subjects.forEach(
+            function(subject) {
+
+                subjectIds.push(
+                    subject.subjectId
+                );
+
+
+                if (
+                    subject.frenchSubjectId
+                ) {
+
+                    subjectIds.push(
+                        subject.frenchSubjectId
+                    );
 
                 }
-            );
+
+            }
+        );
 
 
         quizzesLoadPromise =
@@ -2031,9 +2132,8 @@
 
 
                         /*
-                           لأن النتائج مرتبة من الأحدث
-                           إلى الأقدم، نأخذ أحدث اختبار
-                           لكل subject_id + level.
+                           نأخذ أحدث اختبار لكل
+                           subject_id + level.
                         */
 
                         (
@@ -2071,11 +2171,6 @@
                 .catch(
                     function(error) {
 
-                        /*
-                           في حالة الفشل نسمح بإعادة
-                           المحاولة لاحقًا.
-                        */
-
                         quizzesLoadPromise =
                             null;
 
@@ -2092,8 +2187,7 @@
 
 
     /*
-       نبدأ تحميل الاختبارات فور فتح الصفحة،
-       وليس بعد ضغط المستخدم على المستوى.
+       بدء التحميل عند فتح الصفحة.
     */
 
     preloadQuizzes()
@@ -2142,7 +2236,9 @@
                 userError ||
                 !user
             ) {
+
                 return;
+
             }
 
 
@@ -2151,7 +2247,9 @@
                     quizCache.values()
                 ).map(
                     function(quiz) {
+
                         return quiz.id;
+
                     }
                 );
 
@@ -2159,7 +2257,9 @@
             if (
                 quizIds.length === 0
             ) {
+
                 return;
+
             }
 
 
@@ -2183,11 +2283,14 @@
 
 
             if (error) {
+
                 console.error(
                     "Best results loading error:",
                     error
                 );
+
                 return;
+
             }
 
 
@@ -2220,7 +2323,6 @@
     }
 
 
-
     /* =====================================================
        تحديث أعلى نسبة تحت كل مستوى
     ====================================================== */
@@ -2237,13 +2339,16 @@
                     const subjectId =
                         link.dataset.subjectId;
 
+
                     const levelNumber =
                         Number(
                             link.dataset.level
                         );
 
+
                     const dbLevel =
                         levelMap[levelNumber];
+
 
                     const quiz =
                         quizCache.get(
@@ -2251,6 +2356,7 @@
                             "_" +
                             dbLevel
                         );
+
 
                     const scoreElement =
                         link.querySelector(
@@ -2261,7 +2367,9 @@
                     if (
                         !scoreElement
                     ) {
+
                         return;
+
                     }
 
 
@@ -2307,7 +2415,6 @@
             );
 
     }
-
 
 
     /* =====================================================
@@ -2360,15 +2467,6 @@
 
         try {
 
-            /*
-               في الحالة الطبيعية يكون التحميل
-               قد اكتمل مسبقًا، وبالتالي لا يوجد
-               طلب جديد عند الضغط.
-
-               وإذا ضغط المستخدم بسرعة شديدة قبل
-               اكتمال التحميل، ننتظر نفس الطلب الجاري.
-            */
-
             await preloadQuizzes();
 
 
@@ -2395,13 +2493,6 @@
 
             }
 
-
-            /*
-               الانتقال إلى quiz.html
-
-               quiz.html ينتظر parameter اسمه:
-               quiz
-            */
 
             const quizUrl =
                 "quiz.html?quiz=" +
@@ -2465,6 +2556,306 @@
         wrapper.className =
             "test-subject";
 
+
+        /*
+           =====================================================
+           حالة خاصة:
+           رياضيات المعلم المزدوج
+           
+           المستوى يظهر مباشرة،
+           وتحته العربية والفرنسية.
+           =====================================================
+        */
+
+        if (
+            category === "double" &&
+            subject.frenchSubjectId
+        ) {
+
+            wrapper.innerHTML = `
+
+                <div
+                    class="test-subject-button"
+                    style="cursor: default;"
+                >
+
+                    <span class="test-subject-name">
+
+                        <span class="test-subject-icon">
+
+                            ${testIcon()}
+
+                        </span>
+
+                        <span>
+                            ${escapeHtml(subject.name)}
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+                <div class="levels double-math-levels">
+
+                    <div class="levels-inner">
+
+
+                        <!-- المستوى الأول -->
+
+                        <div class="double-level-group">
+
+                            <div class="double-level-title">
+                                ${levelNames[1]}
+                            </div>
+
+
+                            <div class="language-options">
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="1"
+                                    data-subject-id="${subject.subjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇸🇦 الرياضيات بالعربية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="1"
+                                    data-subject-id="${subject.frenchSubjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇫🇷 الرياضيات بالفرنسية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- المستوى الثاني -->
+
+                        <div class="double-level-group">
+
+                            <div class="double-level-title">
+                                ${levelNames[2]}
+                            </div>
+
+
+                            <div class="language-options">
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="2"
+                                    data-subject-id="${subject.subjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇸🇦 الرياضيات بالعربية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="2"
+                                    data-subject-id="${subject.frenchSubjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇫🇷 الرياضيات بالفرنسية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- المستوى الثالث -->
+
+                        <div class="double-level-group">
+
+                            <div class="double-level-title">
+                                ${levelNames[3]}
+                            </div>
+
+
+                            <div class="language-options">
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="3"
+                                    data-subject-id="${subject.subjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇸🇦 الرياضيات بالعربية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="3"
+                                    data-subject-id="${subject.frenchSubjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇫🇷 الرياضيات بالفرنسية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            wrapper
+                .querySelectorAll(
+                    ".level-link"
+                )
+                .forEach(
+                    function(link) {
+
+                        link.addEventListener(
+                            "click",
+                            function(event) {
+
+                                event.preventDefault();
+
+
+                                const levelNumber =
+                                    Number(
+                                        link.dataset.level
+                                    );
+
+
+                                const subjectId =
+                                    link.dataset.subjectId;
+
+
+                                openQuiz(
+                                    subjectId,
+                                    levelNumber,
+                                    link
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            return wrapper;
+
+        }
+
+
+        /*
+           =====================================================
+           المواد الأخرى
+           =====================================================
+        */
 
         wrapper.innerHTML = `
 
@@ -2583,9 +2974,9 @@
         `;
 
 
-        /* =========================
+        /*
            فتح وإغلاق المادة
-        ========================== */
+        */
 
         const button =
             wrapper.querySelector(
@@ -2626,9 +3017,9 @@
         );
 
 
-        /* =========================
+        /*
            روابط المستويات
-        ========================== */
+        */
 
         wrapper
             .querySelectorAll(
@@ -2761,11 +3152,6 @@
                 "accountEmail"
             );
 
-
-        /*
-           محاولة الحصول على البريد الإلكتروني
-           من جلسة Supabase الحالية.
-        */
 
         try {
 
