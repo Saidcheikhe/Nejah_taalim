@@ -699,93 +699,134 @@ e.message
 /* =====================================================
    9. إنشاء محاولة في quiz_attempts
 ===================================================== */
+/* =====================================================
+   9. إنشاء محاولة في quiz_attempts
+===================================================== */
 
 async function startNewAttempt(){
 
-const {
-data:{
-user
-},
-error:ue
-} =
-await db.auth.getUser();
+    const {
+        data: { user },
+        error: userError
+    } = await db.auth.getUser();
 
-if(ue)
-throw ue;
+    if(userError){
 
-if(!user)
-throw new Error(
-"لم يتم العثور على المستخدم."
-);
+        throw new Error(
+            "تعذر التحقق من الحساب: " +
+            userError.message
+        );
 
+    }
 
-const {
-data,
-error
-} =
-await db
-.from("quiz_attempts")
-.insert({
+    if(!user){
 
-user_id:
-user.id,
+        throw new Error(
+            "لم يتم العثور على المستخدم."
+        );
 
-quiz_id:
-quizId,
-
-score:
-0,
-
-total_questions:
-TOTAL_QUESTIONS,
-
-percentage:
-0,
-
-status:
-"in_progress"
-
-})
-.select("id")
-.single();
+    }
 
 
-if(error){
+    /*
+       إنشاء UUID للمحاولة من المتصفح
+       بدل الاعتماد على SELECT بعد INSERT
+    */
 
-throw new Error(
-"تعذر إنشاء محاولة الاختبار: "
-+
-error.message
-);
+    const newAttemptId =
+        crypto.randomUUID();
+
+
+    console.log(
+        "المستخدم الحالي:",
+        user.id
+    );
+
+    console.log(
+        "Quiz ID:",
+        quizId
+    );
+
+    console.log(
+        "Attempt ID:",
+        newAttemptId
+    );
+
+
+    /*
+       إنشاء المحاولة في قاعدة البيانات
+    */
+
+    const {
+        error
+    } =
+    await db
+        .from("quiz_attempts")
+        .insert({
+
+            id:
+                newAttemptId,
+
+            user_id:
+                user.id,
+
+            quiz_id:
+                quizId,
+
+            score:
+                0,
+
+            total_questions:
+                TOTAL_QUESTIONS,
+
+            percentage:
+                0,
+
+            status:
+                "in_progress"
+
+        });
+
+
+    if(error){
+
+        console.error(
+            "خطأ إنشاء المحاولة:",
+            error
+        );
+
+        throw new Error(
+            "تعذر إنشاء محاولة الاختبار: " +
+            error.message
+        );
+
+    }
+
+
+    /*
+       حفظ رقم المحاولة
+    */
+
+    attemptId =
+        newAttemptId;
+
+
+    answers = {};
+
+
+    endTime =
+        Date.now()
+        +
+        DEFAULT_DURATION_SECONDS *
+        1000;
+
+
+    console.log(
+        "تم إنشاء المحاولة بنجاح:",
+        attemptId
+    );
 
 }
-
-if(!data?.id){
-
-throw new Error(
-"لم يتم الحصول على attempt_id."
-);
-
-}
-
-attemptId =
-data.id;
-
-answers = {};
-
-endTime =
-Date.now()
-+
-DEFAULT_DURATION_SECONDS *
-1000;
-
-console.log(
-"attemptId:",
-attemptId
-);
-
-}
-
 
 /* =====================================================
    10. عرض الأسئلة
