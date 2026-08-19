@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>اختبر نفسك - منصة النجاح التعليمية</title>
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0"
+>
+
+<title>
+اختبر نفسك - منصة النجاح التعليمية
+</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
     box-sizing:border-box
 }
@@ -22,7 +32,7 @@ body{
 .container{
     width:min(900px,94%);
     margin:auto;
-    padding-bottom:40px
+    padding-bottom:50px
 }
 
 header{
@@ -87,6 +97,11 @@ header{
     font-size:17px
 }
 
+
+/* =====================================================
+   شريط التقدم
+===================================================== */
+
 .progress-box{
     background:#fff;
     padding:16px;
@@ -117,6 +132,11 @@ header{
     transition:width .25s
 }
 
+
+/* =====================================================
+   بطاقة السؤال
+===================================================== */
+
 .question-card{
     background:#fff;
     border:1px solid #e1e7ef;
@@ -140,6 +160,11 @@ header{
     margin-bottom:18px
 }
 
+
+/* =====================================================
+   الخيارات
+===================================================== */
+
 .options{
     display:grid;
     gap:11px
@@ -154,7 +179,8 @@ header{
     align-items:center;
     gap:12px;
     color:#263b58;
-    background:#fff
+    background:#fff;
+    transition:.2s
 }
 
 .option:hover{
@@ -171,8 +197,14 @@ header{
     width:19px;
     height:19px;
     accent-color:#2864df;
-    flex-shrink:0
+    flex-shrink:0;
+    cursor:pointer
 }
+
+
+/* =====================================================
+   استراتيجية التصحيح
+===================================================== */
 
 .strategy-box{
     background:#fffaf0;
@@ -192,12 +224,37 @@ header{
 }
 
 .strategy-box p{
-    margin:0
+    margin:0 0 6px
 }
 
-.strategy-box strong{
-    color:#173f73
+.strategy-box ul{
+    margin:8px 0 0;
+    padding-right:22px
 }
+
+.strategy-box li{
+    margin:4px 0
+}
+
+.correct-rule{
+    color:#16803c;
+    font-weight:800
+}
+
+.wrong-rule{
+    color:#c62828;
+    font-weight:800
+}
+
+.empty-rule{
+    color:#64748b;
+    font-weight:800
+}
+
+
+/* =====================================================
+   زر الإنهاء
+===================================================== */
 
 .submit-area{
     margin-top:25px;
@@ -223,6 +280,11 @@ header{
     opacity:.6;
     cursor:not-allowed
 }
+
+
+/* =====================================================
+   النتيجة
+===================================================== */
 
 .result{
     display:none;
@@ -253,15 +315,167 @@ header{
     margin-bottom:25px
 }
 
-.back-btn{
+.result-actions{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:25px
+}
+
+.back-btn,
+.review-btn{
     display:inline-block;
     text-decoration:none;
-    background:#173f73;
-    color:#fff;
     padding:13px 25px;
     border-radius:13px;
+    font-weight:700;
+    border:0;
+    cursor:pointer;
+    font-size:16px
+}
+
+.back-btn{
+    background:#173f73;
+    color:#fff
+}
+
+.review-btn{
+    background:#eef4ff;
+    color:#2864df;
+    border:1px solid #b9cdf2
+}
+
+
+/* =====================================================
+   مراجعة الإجابات
+===================================================== */
+
+.review-section{
+    display:none;
+    margin-top:25px;
+    text-align:right
+}
+
+.review-title{
+    font-size:24px;
+    font-weight:900;
+    color:#173f73;
+    margin:0 0 8px
+}
+
+.review-description{
+    color:#64748b;
+    line-height:1.8;
+    margin-bottom:20px
+}
+
+.review-card{
+    background:#fff;
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:15px;
+    border:1px solid #e1e7ef
+}
+
+.review-card.correct{
+    border-right:5px solid #20a15a
+}
+
+.review-card.wrong{
+    border-right:5px solid #d92d20
+}
+
+.review-card.unanswered{
+    border-right:5px solid #94a3b8
+}
+
+.review-question{
+    font-size:18px;
+    font-weight:800;
+    color:#172b4d;
+    line-height:1.8;
+    margin-bottom:15px
+}
+
+.review-status{
+    display:inline-block;
+    padding:6px 11px;
+    border-radius:9px;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:15px
+}
+
+.review-status.correct{
+    background:#e9f8ef;
+    color:#16803c
+}
+
+.review-status.wrong{
+    background:#fff0f0;
+    color:#c62828
+}
+
+.review-status.unanswered{
+    background:#f1f5f9;
+    color:#64748b
+}
+
+.answer-box{
+    margin-top:10px;
+    padding:12px 14px;
+    border-radius:12px;
+    background:#f8fafc;
+    line-height:1.8
+}
+
+.answer-box strong{
+    display:block;
+    margin-bottom:5px;
+    color:#173f73
+}
+
+.student-answer{
+    color:#2864df
+}
+
+.correct-answer{
+    color:#16803c;
     font-weight:700
 }
+
+.explanation-box{
+    margin-top:12px;
+    padding:14px;
+    background:#fffaf0;
+    border:1px solid #f4d28a;
+    border-radius:12px;
+    line-height:1.9;
+    color:#5f4a16
+}
+
+.explanation-box strong{
+    color:#8a5a00
+}
+
+.review-option{
+    padding:5px 0
+}
+
+.review-option.correct-option{
+    color:#16803c;
+    font-weight:700
+}
+
+.review-option.wrong-option{
+    color:#c62828;
+    font-weight:700
+}
+
+
+/* =====================================================
+   التحميل والأخطاء
+===================================================== */
 
 .loading{
     text-align:center;
@@ -278,6 +492,7 @@ header{
     margin-top:25px;
     line-height:1.7
 }
+
 
 @media(max-width:600px){
 
@@ -306,22 +521,39 @@ header{
     .option{
         padding:13px
     }
+
+    .result-score{
+        font-size:44px
+    }
+
 }
+
 </style>
+
 </head>
 
+
 <body>
+
 
 <header>
 
 <div class="header-inner">
 
 <div class="brand">
+
 منصة النجاح
-<span>التعليمية</span>
+
+<span>
+التعليمية
+</span>
+
 </div>
 
-<div id="timer" class="timer">
+<div
+id="timer"
+class="timer"
+>
 30:00
 </div>
 
@@ -331,6 +563,7 @@ header{
 
 
 <main class="container">
+
 
 <section class="intro">
 
@@ -345,13 +578,25 @@ header{
 </section>
 
 
-<div id="loading" class="loading">
+<div
+id="loading"
+class="loading"
+>
+
 جارٍ التحقق من الحساب وتحميل الاختبار...
+
 </div>
 
 
-<div id="quizArea" style="display:none">
+<div
+id="quizArea"
+style="display:none"
+>
 
+
+<!-- =================================================
+     استراتيجية التصحيح
+================================================== -->
 
 <div class="strategy-box">
 
@@ -360,11 +605,47 @@ header{
 </h3>
 
 <p>
-يتم تصحيح الاختبار وتسجيل النتيجة مباشرة في قاعدة البيانات.
+كل سؤال يُصحح كليًا، ولا توجد درجات جزئية.
+</p>
+
+<ul>
+
+<li>
+<span class="correct-rule">
+الإجابة الصحيحة: +1
+</span>
+— تحصل عليها فقط عند اختيار جميع الإجابات الصحيحة وعدم اختيار أي إجابة خاطئة.
+</li>
+
+<li>
+<span class="wrong-rule">
+الإجابة الخاطئة: -1
+</span>
+— إذا اخترت إجابة خاطئة أو اخترت جزءًا فقط من الإجابات الصحيحة.
+</li>
+
+<li>
+<span class="empty-rule">
+لا إجابة: 0
+</span>
+— إذا تركت السؤال دون اختيار أي إجابة.
+</li>
+
+</ul>
+
+<p>
+<strong>
+ملاحظة:
+</strong>
+قد يحتوي السؤال على إجابة صحيحة واحدة أو أكثر.
 </p>
 
 </div>
 
+
+<!-- =================================================
+     التقدم داخل الاختبار
+================================================== -->
 
 <div class="progress-box">
 
@@ -380,7 +661,6 @@ header{
 
 </div>
 
-
 <div class="progress-bar">
 
 <div
@@ -393,14 +673,17 @@ class="progress-fill">
 </div>
 
 
-<div id="questionsContainer"></div>
+<div
+id="questionsContainer">
+</div>
 
 
 <div class="submit-area">
 
 <button
 id="submitBtn"
-class="submit-btn">
+class="submit-btn"
+>
 
 إنهاء الاختبار وإظهار النتيجة
 
@@ -411,16 +694,26 @@ class="submit-btn">
 </div>
 
 
+<!-- =================================================
+     الأخطاء
+================================================== -->
+
 <div
 id="errorBox"
 class="error"
-style="display:none">
+style="display:none"
+>
 </div>
 
 
+<!-- =================================================
+     النتيجة
+================================================== -->
+
 <section
 id="result"
-class="result">
+class="result"
+>
 
 <h2>
 انتهى الاختبار
@@ -429,49 +722,105 @@ class="result">
 
 <div
 id="score"
-class="result-score">
+class="result-score"
+>
 0 / 50
 </div>
 
 
 <div
 id="percentage"
-class="result-percent">
+class="result-percent"
+>
 0%
 </div>
 
 
 <div
 id="resultMessage"
-class="result-message">
+class="result-message"
+>
 </div>
 
 
-<div style="
+<div
+style="
 margin-top:12px;
 color:#64748b;
 font-size:14px;
-line-height:1.7">
+line-height:1.7
+"
+>
 
-تم تسجيل المحاولة والنتيجة وإجاباتها في قاعدة البيانات.
+تم تسجيل المحاولة والنتيجة في قاعدة البيانات.
+
+<br>
+
+يمكنك مراجعة إجاباتك ومعرفة الإجابات الصحيحة والشرح.
 
 </div>
 
 
-<a
-href="categories.html"
-class="back-btn">
+<div class="result-actions">
 
-العودة إلى الفئات
+
+<button
+id="reviewBtn"
+class="review-btn"
+>
+
+📋 مراجعة الإجابات
+
+</button>
+
+
+<a
+id="backToSubjectBtn"
+href="#"
+class="back-btn"
+>
+
+العودة إلى المادة
 
 </a>
 
+
+</div>
+
 </section>
+
+
+<!-- =================================================
+     مراجعة الإجابات
+================================================== -->
+
+<section
+id="reviewSection"
+class="review-section"
+>
+
+<h2 class="review-title">
+📋 مراجعة الاختبار
+</h2>
+
+<p class="review-description">
+
+فيما يلي مراجعة كاملة لإجاباتك.
+الإجابة الصحيحة لا تُحتسب إلا عند اختيار جميع الخيارات الصحيحة.
+
+</p>
+
+<div id="reviewContainer">
+</div>
+
+</section>
+
 
 </main>
 
 
 <script>
+
 
 /* =====================================================
    1. إعداد Supabase
@@ -494,7 +843,7 @@ supabase.createClient(
    2. إعداد الاختبار
 ===================================================== */
 
-const TOTAL_QUESTIONS = 50;
+const REQUIRED_QUESTIONS = 50;
 
 const DEFAULT_DURATION_SECONDS =
 30 * 60;
@@ -570,6 +919,18 @@ document.getElementById("resultMessage");
 const errorBox =
 document.getElementById("errorBox");
 
+const reviewBtn =
+document.getElementById("reviewBtn");
+
+const reviewSection =
+document.getElementById("reviewSection");
+
+const reviewContainer =
+document.getElementById("reviewContainer");
+
+const backToSubjectBtn =
+document.getElementById("backToSubjectBtn");
+
 
 /* =====================================================
    5. التحقق من تسجيل الدخول
@@ -637,7 +998,7 @@ initializeQuiz();
 
 
 /* =====================================================
-   7. خلط الأسئلة
+   7. خلط المصفوفة
 ===================================================== */
 
 function shuffleArray(array){
@@ -687,6 +1048,11 @@ async function loadQuiz(){
 
     try{
 
+
+        /* =============================================
+           تحميل الاختبار
+        ============================================= */
+
         const {
             data:q,
             error:qe
@@ -724,12 +1090,52 @@ async function loadQuiz(){
         "اختبر نفسك";
 
 
+        const duration =
+        Number(
+            q.duration_minutes
+        ) ||
+        30;
+
+
         quizDescription.textContent =
-        "50 سؤالًا • 30 دقيقة";
+        `${REQUIRED_QUESTIONS} سؤالًا • ${duration} دقيقة`;
 
 
         /* =============================================
-           الأسئلة
+           رابط العودة للمادة
+        ============================================= */
+
+        /*
+         * الاختبار يحتوي على subject_id
+         * لذلك لن نعيد الطالب إلى الفئات العامة
+         * بل نرسل معه معرف المادة.
+         *
+         * صفحة categories.html تستطيع قراءة:
+         *
+         * ?subject=UUID
+         */
+
+        if(q.subject_id){
+
+            backToSubjectBtn.href =
+            `categories.html?subject=${
+                encodeURIComponent(
+                    q.subject_id
+                )
+            }`;
+
+        }
+
+        else{
+
+            backToSubjectBtn.href =
+            "categories.html";
+
+        }
+
+
+        /* =============================================
+           تحميل الأسئلة
         ============================================= */
 
         const {
@@ -760,30 +1166,34 @@ async function loadQuiz(){
         if(
             !qd ||
             qd.length <
-            TOTAL_QUESTIONS
+            REQUIRED_QUESTIONS
         ){
 
             throw new Error(
                 `هذا الاختبار يحتوي حاليًا على ${
                     qd?.length || 0
                 } سؤالًا فقط، بينما يحتاج إلى ${
-                    TOTAL_QUESTIONS
+                    REQUIRED_QUESTIONS
                 } سؤالًا.`
             );
 
         }
 
 
+        /*
+         * نختار 50 سؤالًا عشوائيًا.
+         */
+
         questions =
         shuffleArray(qd)
         .slice(
             0,
-            TOTAL_QUESTIONS
+            REQUIRED_QUESTIONS
         );
 
 
         /* =============================================
-           الخيارات
+           تحميل الخيارات
         ============================================= */
 
         const ids =
@@ -824,7 +1234,7 @@ async function loadQuiz(){
 
 
         /* =============================================
-           ربط الخيارات
+           ربط الخيارات بالأسئلة
         ============================================= */
 
         questions =
@@ -856,17 +1266,32 @@ async function loadQuiz(){
             }
 
 
-            if(
-                options.filter(
-                    o =>
-                    o.is_correct === true
-                ).length !== 1
-            ){
+            /*
+             * التعديل المهم:
+             *
+             * لم نعد نشترط وجود إجابة صحيحة واحدة.
+             *
+             * يمكن أن يكون:
+             *
+             * 1 إجابة صحيحة
+             * 2 إجابات صحيحة
+             * 3 إجابات صحيحة
+             * أو 4 إجابات صحيحة
+             */
+
+            const correctCount =
+            options.filter(
+                o =>
+                o.is_correct === true
+            ).length;
+
+
+            if(correctCount < 1){
 
                 throw new Error(
                     `السؤال رقم ${
                         q.display_order
-                    } يجب أن يحتوي على إجابة صحيحة واحدة فقط.`
+                    } لا يحتوي على إجابة صحيحة.`
                 );
 
             }
@@ -881,8 +1306,17 @@ async function loadQuiz(){
 
 
         /* =============================================
-           إنشاء المحاولة
+           إنشاء محاولة جديدة
         ============================================= */
+
+        /*
+         * ملاحظة مهمة:
+         *
+         * لا نبحث عن in_progress.
+         * لا نسترجع محاولة قديمة.
+         *
+         * كل فتح للاختبار = محاولة جديدة.
+         */
 
         await startNewAttempt();
 
@@ -922,7 +1356,7 @@ async function loadQuiz(){
 
 
 /* =====================================================
-   9. إنشاء محاولة في quiz_attempts
+   9. إنشاء محاولة جديدة
 ===================================================== */
 
 async function startNewAttempt(){
@@ -953,36 +1387,16 @@ async function startNewAttempt(){
     }
 
 
-    /*
-       إنشاء UUID للمحاولة
-       من المتصفح
-    */
-
     const newAttemptId =
     crypto.randomUUID();
 
 
-    console.log(
-        "المستخدم الحالي:",
-        user.id
-    );
+    const duration =
+    Number(
+        quiz?.duration_minutes
+    ) ||
+    30;
 
-
-    console.log(
-        "Quiz ID:",
-        quizId
-    );
-
-
-    console.log(
-        "Attempt ID:",
-        newAttemptId
-    );
-
-
-    /*
-       إنشاء المحاولة
-    */
 
     const {
         error
@@ -1004,7 +1418,7 @@ async function startNewAttempt(){
         0,
 
         total_questions:
-        TOTAL_QUESTIONS,
+        questions.length,
 
         percentage:
         0,
@@ -1031,10 +1445,6 @@ async function startNewAttempt(){
     }
 
 
-    /*
-       حفظ رقم المحاولة
-    */
-
     attemptId =
     newAttemptId;
 
@@ -1045,12 +1455,13 @@ async function startNewAttempt(){
     endTime =
     Date.now()
     +
-    DEFAULT_DURATION_SECONDS *
+    duration *
+    60 *
     1000;
 
 
     console.log(
-        "تم إنشاء المحاولة بنجاح:",
+        "تم إنشاء محاولة جديدة:",
         attemptId
     );
 
@@ -1070,11 +1481,11 @@ function renderQuestions(){
     questions.forEach(
         (q,index)=>{
 
+
             const card =
             document.createElement(
                 "div"
             );
-
 
             card.className =
             "question-card";
@@ -1085,16 +1496,14 @@ function renderQuestions(){
                 "div"
             );
 
-
             n.className =
             "question-number";
-
 
             n.textContent =
             `السؤال ${
                 index + 1
             } من ${
-                TOTAL_QUESTIONS
+                questions.length
             }`;
 
 
@@ -1103,10 +1512,8 @@ function renderQuestions(){
                 "div"
             );
 
-
             t.className =
             "question-text";
-
 
             t.textContent =
             q.question_text;
@@ -1117,7 +1524,6 @@ function renderQuestions(){
                 "div"
             );
 
-
             opts.className =
             "options";
 
@@ -1125,11 +1531,11 @@ function renderQuestions(){
             q.options.forEach(
                 o=>{
 
+
                     const label =
                     document.createElement(
                         "label"
                     );
-
 
                     label.className =
                     "option";
@@ -1141,8 +1547,18 @@ function renderQuestions(){
                     );
 
 
+                    /*
+                     * التعديل الرئيسي:
+                     *
+                     * checkbox
+                     * وليس radio
+                     *
+                     * لأن السؤال يمكن أن يحتوي
+                     * على عدة إجابات صحيحة.
+                     */
+
                     input.type =
-                    "radio";
+                    "checkbox";
 
 
                     input.name =
@@ -1161,36 +1577,79 @@ function renderQuestions(){
                                 return;
 
 
-                            answers[q.id] =
-                            o.id;
+                            /*
+                             * استخراج جميع الخيارات
+                             * المحددة لهذا السؤال.
+                             */
 
+                            const selectedIds =
+                            Array.from(
+                                document.querySelectorAll(
+                                    `input[name="question_${q.id}"]:checked`
+                                )
+                            ).map(
+                                input =>
+                                input.value
+                            );
+
+
+                            /*
+                             * إذا لم يبق أي اختيار
+                             * نحذف السؤال من answers.
+                             */
+
+                            if(
+                                selectedIds.length === 0
+                            ){
+
+                                delete answers[q.id];
+
+                            }
+
+                            else{
+
+                                answers[q.id] =
+                                selectedIds;
+
+                            }
+
+
+                            /*
+                             * تحديث الشكل البصري
+                             */
 
                             document
                             .querySelectorAll(
                                 `input[name="question_${q.id}"]`
                             )
                             .forEach(
-                                r =>
-                                r
-                                .closest(".option")
-                                ?.classList
-                                .remove("selected")
-                            );
+                                r=>{
 
+                                    r
+                                    .closest(".option")
+                                    ?.classList
+                                    .toggle(
+                                        "selected",
+                                        r.checked
+                                    );
 
-                            label.classList.add(
-                                "selected"
+                                }
                             );
 
 
                             updateProgress();
 
 
+                            /*
+                             * حفظ جميع الاختيارات
+                             * لهذا السؤال.
+                             */
+
                             try{
 
-                                await saveSelectedOption(
+                                await saveSelectedOptions(
                                     q.id,
-                                    o.id
+                                    selectedIds
                                 );
 
                             }
@@ -1201,7 +1660,7 @@ function renderQuestions(){
 
 
                                 alert(
-                                    "تم اختيار الإجابة، لكن تعذر تسجيلها في قاعدة البيانات. حاول مرة أخرى."
+                                    "تم تغيير الإجابة، لكن تعذر تسجيلها في قاعدة البيانات."
                                 );
 
                             }
@@ -1214,7 +1673,6 @@ function renderQuestions(){
                     document.createElement(
                         "span"
                     );
-
 
                     span.textContent =
                     o.option_text;
@@ -1255,12 +1713,12 @@ function renderQuestions(){
 
 
 /* =====================================================
-   11. حفظ إجابة الطالب
+   11. حفظ إجابات السؤال المتعددة
 ===================================================== */
 
-async function saveSelectedOption(
+async function saveSelectedOptions(
     questionId,
-    optionId
+    optionIds
 ){
 
     if(!attemptId){
@@ -1272,7 +1730,10 @@ async function saveSelectedOption(
     }
 
 
-    /* حذف الإجابة السابقة */
+    /*
+     * حذف جميع الاختيارات القديمة
+     * لهذا السؤال في هذه المحاولة.
+     */
 
     const {
         error:deleteError
@@ -1296,7 +1757,41 @@ async function saveSelectedOption(
         throw deleteError;
 
 
-    /* تسجيل الإجابة الجديدة */
+    /*
+     * إذا لم يختر الطالب أي إجابة
+     * ننتهي هنا.
+     */
+
+    if(
+        !optionIds ||
+        optionIds.length === 0
+    ){
+
+        return;
+
+    }
+
+
+    /*
+     * إدخال جميع الخيارات المحددة.
+     */
+
+    const rows =
+    optionIds.map(
+        optionId=>({
+
+            attempt_id:
+            attemptId,
+
+            question_id:
+            questionId,
+
+            option_id:
+            optionId
+
+        })
+    );
+
 
     const {
         error:insertError
@@ -1305,18 +1800,9 @@ async function saveSelectedOption(
     .from(
         "quiz_attempt_selected_options"
     )
-    .insert({
-
-        attempt_id:
-        attemptId,
-
-        question_id:
-        questionId,
-
-        option_id:
-        optionId
-
-    });
+    .insert(
+        rows
+    );
 
 
     if(insertError)
@@ -1324,11 +1810,11 @@ async function saveSelectedOption(
 
 
     console.log(
-        "تم حفظ الإجابة:",
+        "تم حفظ اختيارات السؤال:",
         {
             attemptId,
             questionId,
-            optionId
+            optionIds
         }
     );
 
@@ -1336,7 +1822,7 @@ async function saveSelectedOption(
 
 
 /* =====================================================
-   12. تحديث التقدم
+   12. تحديث تقدم الطالب
 ===================================================== */
 
 function updateProgress(){
@@ -1348,13 +1834,13 @@ function updateProgress(){
 
 
     answeredCount.textContent =
-    `${count} / ${TOTAL_QUESTIONS}`;
+    `${count} / ${questions.length || REQUIRED_QUESTIONS}`;
 
 
     progressFill.style.width =
     `${
         count /
-        TOTAL_QUESTIONS *
+        (questions.length || REQUIRED_QUESTIONS) *
         100
     }%`;
 
@@ -1439,24 +1925,30 @@ function updateTimer(){
 
 
 /* =====================================================
-   14. زر الإنهاء
+   14. زر إنهاء الاختبار
 ===================================================== */
 
 submitBtn.addEventListener(
     "click",
     ()=>{
 
-        const unanswered =
-        TOTAL_QUESTIONS -
+        const answered =
         Object.keys(
             answers
         ).length;
+
+
+        const unanswered =
+        questions.length -
+        answered;
 
 
         if(
             unanswered &&
             !confirm(
                 `لم تجب عن ${unanswered} سؤالًا.
+
+الأسئلة التي لم تجب عنها ستحصل على 0.
 
 هل تريد إنهاء الاختبار الآن؟`
             )
@@ -1474,7 +1966,7 @@ submitBtn.addEventListener(
 
 
 /* =====================================================
-   15. إنهاء وتصحيح الاختبار
+   15. إنهاء الاختبار
 ===================================================== */
 
 async function finishQuiz(
@@ -1500,18 +1992,19 @@ async function finishQuiz(
 
     try{
 
+
         /*
-         * =================================================
-         * التعديل الرئيسي:
+         * التصحيح الحقيقي يتم في PostgreSQL.
          *
-         * لم نعد نحسب النتيجة في JavaScript.
+         * لا نحسب score هنا.
          *
-         * قاعدة البيانات هي التي تقوم بالتصحيح
-         * وتحديث quiz_attempts
-         * وتحديث quiz_results
-         * وتسجيل quiz_attempt_answers
-         * ثم ترجع النتيجة النهائية.
-         * =================================================
+         * الدالة يجب أن تطبق:
+         *
+         * صحيح بالكامل = +1
+         * خطأ = -1
+         * بدون إجابة = 0
+         *
+         * ولا توجد درجات جزئية.
          */
 
         const result =
@@ -1545,9 +2038,9 @@ async function finishQuiz(
         );
 
 
-        /* ===============================================
-           عرض النتيجة القادمة من قاعدة البيانات
-        =============================================== */
+        /* =============================================
+           عرض النتيجة
+        ============================================= */
 
         quizArea.style.display =
         "none";
@@ -1577,8 +2070,31 @@ async function finishQuiz(
         "تم إنهاء الاختبار وتصحيح إجاباتك.";
 
 
+        /*
+         * تجهيز رابط المادة.
+         */
+
+        if(quiz?.subject_id){
+
+            backToSubjectBtn.href =
+            `categories.html?subject=${
+                encodeURIComponent(
+                    quiz.subject_id
+                )
+            }`;
+
+        }
+
+
+        /*
+         * عرض المراجعة مباشرة.
+         */
+
+        renderReview();
+
+
         console.log(
-            "تم حفظ وتصحيح الاختبار بنجاح:",
+            "تم إنهاء الاختبار:",
             {
                 attemptId,
                 score,
@@ -1596,11 +2112,6 @@ async function finishQuiz(
             e
         );
 
-
-        /*
-         * إذا حدث خطأ، لا نظهر نتيجة
-         * قد تكون غير محفوظة في قاعدة البيانات.
-         */
 
         isFinished =
         false;
@@ -1636,25 +2147,10 @@ async function finalizeAttempt(){
 
 
     console.log(
-        "إرسال المحاولة إلى قاعدة البيانات للتصحيح:",
+        "إرسال المحاولة للتصحيح:",
         attemptId
     );
 
-
-    /*
-       استدعاء الدالة:
-
-       public.submit_quiz_attempt(uuid)
-
-       وهي المسؤولة عن:
-
-       1. التحقق من المستخدم
-       2. تصحيح الإجابات
-       3. تسجيل quiz_attempt_answers
-       4. تحديث quiz_attempts
-       5. إنشاء/تحديث quiz_results
-       6. إرجاع النتيجة
-    */
 
     const {
         data,
@@ -1672,7 +2168,7 @@ async function finalizeAttempt(){
     if(error){
 
         console.error(
-            "خطأ RPC submit_quiz_attempt:",
+            "خطأ RPC:",
             error
         );
 
@@ -1699,7 +2195,7 @@ async function finalizeAttempt(){
 
 
     console.log(
-        "نتيجة التصحيح من قاعدة البيانات:",
+        "نتيجة التصحيح:",
         result
     );
 
@@ -1710,7 +2206,425 @@ async function finalizeAttempt(){
 
 
 /* =====================================================
-   17. عرض الأخطاء
+   17. مراجعة الإجابات
+===================================================== */
+
+function renderReview(){
+
+    reviewContainer.innerHTML =
+    "";
+
+
+    questions.forEach(
+        (q,index)=>{
+
+
+            /*
+             * إجابات الطالب لهذا السؤال.
+             */
+
+            const selectedIds =
+            answers[q.id] ||
+            [];
+
+
+            /*
+             * الإجابات الصحيحة من قاعدة البيانات.
+             */
+
+            const correctIds =
+            q.options
+            .filter(
+                o =>
+                o.is_correct === true
+            )
+            .map(
+                o =>
+                o.id
+            );
+
+
+            /*
+             * التحقق من صحة الإجابة:
+             *
+             * يجب أن يكون عدد الاختيارات
+             * مساويًا لعدد الإجابات الصحيحة
+             *
+             * وجميع الاختيارات صحيحة.
+             */
+
+            const isCorrect =
+            selectedIds.length ===
+            correctIds.length
+            &&
+            selectedIds.every(
+                id =>
+                correctIds.includes(id)
+            );
+
+
+            let statusClass;
+            let statusText;
+
+
+            if(
+                selectedIds.length === 0
+            ){
+
+                statusClass =
+                "unanswered";
+
+                statusText =
+                "لم تُجب عن السؤال • 0";
+
+            }
+
+            else if(isCorrect){
+
+                statusClass =
+                "correct";
+
+                statusText =
+                "إجابة صحيحة • +1";
+
+            }
+
+            else{
+
+                statusClass =
+                "wrong";
+
+                statusText =
+                "إجابة خاطئة • -1";
+
+            }
+
+
+            const card =
+            document.createElement(
+                "div"
+            );
+
+            card.className =
+            `review-card ${statusClass}`;
+
+
+            const question =
+            document.createElement(
+                "div"
+            );
+
+            question.className =
+            "review-question";
+
+            question.textContent =
+            `السؤال ${
+                index + 1
+            }: ${
+                q.question_text
+            }`;
+
+
+            const status =
+            document.createElement(
+                "div"
+            );
+
+            status.className =
+            `review-status ${statusClass}`;
+
+            status.textContent =
+            statusText;
+
+
+            card.append(
+                question,
+                status
+            );
+
+
+            /* =========================================
+               إجابة الطالب
+            ========================================= */
+
+            const studentBox =
+            document.createElement(
+                "div"
+            );
+
+            studentBox.className =
+            "answer-box";
+
+
+            const studentTitle =
+            document.createElement(
+                "strong"
+            );
+
+            studentTitle.textContent =
+            "إجابتك:";
+
+
+            studentBox.appendChild(
+                studentTitle
+            );
+
+
+            if(
+                selectedIds.length === 0
+            ){
+
+                const empty =
+                document.createElement(
+                    "div"
+                );
+
+                empty.className =
+                "student-answer";
+
+                empty.textContent =
+                "لم تختر أي إجابة.";
+
+                studentBox.appendChild(
+                    empty
+                );
+
+            }
+
+            else{
+
+                selectedIds.forEach(
+                    id=>{
+
+                        const option =
+                        q.options.find(
+                            o =>
+                            o.id === id
+                        );
+
+
+                        if(!option)
+                            return;
+
+
+                        const div =
+                        document.createElement(
+                            "div"
+                        );
+
+                        div.className =
+                        "review-option";
+
+
+                        div.textContent =
+                        "• " +
+                        option.option_text;
+
+
+                        /*
+                         * إذا كانت إجابة الطالب
+                         * خاطئة نوضح ذلك.
+                         */
+
+                        if(
+                            !option.is_correct
+                        ){
+
+                            div.classList.add(
+                                "wrong-option"
+                            );
+
+                        }
+
+                        else{
+
+                            div.classList.add(
+                                "correct-option"
+                            );
+
+                        }
+
+
+                        studentBox.appendChild(
+                            div
+                        );
+
+                    }
+                );
+
+            }
+
+
+            card.appendChild(
+                studentBox
+            );
+
+
+            /* =========================================
+               الإجابات الصحيحة
+            ========================================= */
+
+            const correctBox =
+            document.createElement(
+                "div"
+            );
+
+            correctBox.className =
+            "answer-box";
+
+
+            const correctTitle =
+            document.createElement(
+                "strong"
+            );
+
+            correctTitle.textContent =
+            "الإجابة الصحيحة:";
+
+
+            correctBox.appendChild(
+                correctTitle
+            );
+
+
+            q.options
+            .filter(
+                o =>
+                o.is_correct === true
+            )
+            .forEach(
+                option=>{
+
+                    const div =
+                    document.createElement(
+                        "div"
+                    );
+
+                    div.className =
+                    "review-option correct-option";
+
+                    div.textContent =
+                    "✓ " +
+                    option.option_text;
+
+                    correctBox.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+
+            card.appendChild(
+                correctBox
+            );
+
+
+            /* =========================================
+               الشرح
+            ========================================= */
+
+            if(
+                q.explanation &&
+                q.explanation.trim()
+            ){
+
+                const explanation =
+                document.createElement(
+                    "div"
+                );
+
+                explanation.className =
+                "explanation-box";
+
+
+                const title =
+                document.createElement(
+                    "strong"
+                );
+
+                title.textContent =
+                "💡 الشرح:";
+
+
+                const text =
+                document.createElement(
+                    "div"
+                );
+
+                text.textContent =
+                q.explanation;
+
+
+                explanation.append(
+                    title,
+                    text
+                );
+
+
+                card.appendChild(
+                    explanation
+                );
+
+            }
+
+
+            reviewContainer.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    reviewSection.style.display =
+    "block";
+
+}
+
+
+/* =====================================================
+   18. زر إظهار/إخفاء المراجعة
+===================================================== */
+
+reviewBtn.addEventListener(
+    "click",
+    ()=>{
+
+        if(
+            reviewSection.style.display ===
+            "block"
+        ){
+
+            reviewSection.style.display =
+            "none";
+
+            reviewBtn.textContent =
+            "📋 مراجعة الإجابات";
+
+        }
+
+        else{
+
+            reviewSection.style.display =
+            "block";
+
+            reviewBtn.textContent =
+            "▲ إخفاء المراجعة";
+
+
+            reviewSection.scrollIntoView({
+                behavior:"smooth"
+            });
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   19. عرض الأخطاء
 ===================================================== */
 
 function showError(
@@ -1737,4 +2651,5 @@ function showError(
 </script>
 
 </body>
+
 </html>
