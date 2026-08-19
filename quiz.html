@@ -101,11 +101,6 @@ header{
     font-size:17px
 }
 
-
-/* =====================================================
-   شريط التقدم
-===================================================== */
-
 .progress-box{
     background:#fff;
     padding:16px;
@@ -136,11 +131,6 @@ header{
     transition:width .25s
 }
 
-
-/* =====================================================
-   بطاقة السؤال
-===================================================== */
-
 .question-card{
     background:#fff;
     border:1px solid #e1e7ef;
@@ -163,11 +153,6 @@ header{
     color:#172b4d;
     margin-bottom:18px
 }
-
-
-/* =====================================================
-   الخيارات
-===================================================== */
 
 .options{
     display:grid;
@@ -204,11 +189,6 @@ header{
     flex-shrink:0;
     cursor:pointer
 }
-
-
-/* =====================================================
-   استراتيجية التصحيح
-===================================================== */
 
 .strategy-box{
     background:#fffaf0;
@@ -255,11 +235,6 @@ header{
     font-weight:800
 }
 
-
-/* =====================================================
-   زر الإنهاء
-===================================================== */
-
 .submit-area{
     margin-top:25px;
     background:#fff;
@@ -284,11 +259,6 @@ header{
     opacity:.6;
     cursor:not-allowed
 }
-
-
-/* =====================================================
-   النتيجة
-===================================================== */
 
 .result{
     display:none;
@@ -348,11 +318,6 @@ header{
     color:#2864df;
     border:1px solid #b9cdf2
 }
-
-
-/* =====================================================
-   مراجعة الإجابات
-===================================================== */
 
 .review-section{
     display:none;
@@ -476,11 +441,6 @@ header{
     font-weight:700
 }
 
-
-/* =====================================================
-   التحميل والأخطاء
-===================================================== */
-
 .loading{
     text-align:center;
     padding:70px 10px;
@@ -496,7 +456,6 @@ header{
     margin-top:25px;
     line-height:1.7
 }
-
 
 @media(max-width:600px){
 
@@ -536,9 +495,7 @@ header{
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -565,9 +522,7 @@ class="timer"
 
 </header>
 
-
 <main class="container">
-
 
 <section class="intro">
 
@@ -581,26 +536,17 @@ class="timer"
 
 </section>
 
-
 <div
 id="loading"
 class="loading"
 >
-
 جارٍ التحقق من الحساب وتحميل الاختبار...
-
 </div>
-
 
 <div
 id="quizArea"
 style="display:none"
 >
-
-
-<!-- =================================================
-     استراتيجية التصحيح
-================================================== -->
 
 <div class="strategy-box">
 
@@ -646,11 +592,6 @@ style="display:none"
 
 </div>
 
-
-<!-- =================================================
-     التقدم داخل الاختبار
-================================================== -->
-
 <div class="progress-box">
 
 <div class="progress-top">
@@ -676,11 +617,9 @@ class="progress-fill">
 
 </div>
 
-
 <div
 id="questionsContainer">
 </div>
-
 
 <div class="submit-area">
 
@@ -697,22 +636,12 @@ class="submit-btn"
 
 </div>
 
-
-<!-- =================================================
-     الأخطاء
-================================================== -->
-
 <div
 id="errorBox"
 class="error"
 style="display:none"
 >
 </div>
-
-
-<!-- =================================================
-     النتيجة
-================================================== -->
 
 <section
 id="result"
@@ -723,14 +652,12 @@ class="result"
 انتهى الاختبار
 </h2>
 
-
 <div
 id="score"
 class="result-score"
 >
 0 / 50
 </div>
-
 
 <div
 id="percentage"
@@ -739,13 +666,11 @@ class="result-percent"
 0%
 </div>
 
-
 <div
 id="resultMessage"
 class="result-message"
 >
 </div>
-
 
 <div
 style="
@@ -764,9 +689,7 @@ line-height:1.7
 
 </div>
 
-
 <div class="result-actions">
-
 
 <button
 id="reviewBtn"
@@ -776,7 +699,6 @@ class="review-btn"
 📋 مراجعة الإجابات
 
 </button>
-
 
 <a
 id="backToSubjectBtn"
@@ -788,15 +710,9 @@ class="back-btn"
 
 </a>
 
-
 </div>
 
 </section>
-
-
-<!-- =================================================
-     مراجعة الإجابات
-================================================== -->
 
 <section
 id="reviewSection"
@@ -819,12 +735,9 @@ class="review-section"
 
 </section>
 
-
 </main>
 
-
 <script>
-
 
 /* =====================================================
    1. إعداد Supabase
@@ -859,7 +772,30 @@ new URLSearchParams(
 
 
 /* =====================================================
-   3. المتغيرات
+   3. الصفحة التي جاء منها الطالب
+===================================================== */
+
+/*
+ * نحفظ الصفحة السابقة قبل بدء الاختبار.
+ *
+ * document.referrer يعطي عنوان الصفحة
+ * التي انتقل منها الطالب إلى صفحة الاختبار.
+ *
+ * إذا لم توجد صفحة سابقة، نستخدم categories.html
+ * كخطة احتياطية.
+ */
+
+const returnPage =
+document.referrer &&
+document.referrer !== location.href
+?
+document.referrer
+:
+"categories.html";
+
+
+/* =====================================================
+   4. المتغيرات
 ===================================================== */
 
 let quiz = null;
@@ -876,9 +812,11 @@ let timerInterval = null;
 
 let isFinished = false;
 
+const questionSaveQueues = new Map();
+
 
 /* =====================================================
-   4. عناصر الصفحة
+   5. عناصر الصفحة
 ===================================================== */
 
 const loading =
@@ -937,7 +875,7 @@ document.getElementById("backToSubjectBtn");
 
 
 /* =====================================================
-   5. التحقق من تسجيل الدخول
+   6. التحقق من تسجيل الدخول
 ===================================================== */
 
 async function checkAuthentication(){
@@ -968,7 +906,7 @@ async function checkAuthentication(){
 
 
 /* =====================================================
-   6. بدء النظام
+   7. بدء النظام
 ===================================================== */
 
 async function initializeQuiz(){
@@ -1002,7 +940,7 @@ initializeQuiz();
 
 
 /* =====================================================
-   7. خلط المصفوفة
+   8. خلط المصفوفة
 ===================================================== */
 
 function shuffleArray(array){
@@ -1045,17 +983,12 @@ function shuffleArray(array){
 
 
 /* =====================================================
-   8. تحميل الاختبار
+   9. تحميل الاختبار
 ===================================================== */
 
 async function loadQuiz(){
 
     try{
-
-
-        /* =============================================
-           تحميل الاختبار
-        ============================================= */
 
         const {
             data:q,
@@ -1105,32 +1038,18 @@ async function loadQuiz(){
         `${REQUIRED_QUESTIONS} سؤالًا • ${duration} دقيقة`;
 
 
-        /* =============================================
-           رابط العودة للمادة
-        ============================================= */
+        /* =================================================
+           مهم:
+           لا نضع هنا categories.html مرة أخرى.
 
-        if(q.subject_id){
-
-            backToSubjectBtn.href =
-            `categories.html?subject=${
-                encodeURIComponent(
-                    q.subject_id
-                )
-            }`;
-
-        }
-
-        else{
-
-            backToSubjectBtn.href =
-            "categories.html";
-
-        }
+           زر الرجوع سيستخدم returnPage
+           الذي تم حفظه في بداية الصفحة.
+        ================================================= */
 
 
-        /* =============================================
-           تحميل الأسئلة
-        ============================================= */
+        backToSubjectBtn.href =
+        returnPage;
+
 
         const {
             data:qd,
@@ -1174,10 +1093,6 @@ async function loadQuiz(){
         }
 
 
-        /*
-         * نختار 50 سؤالًا عشوائيًا.
-         */
-
         questions =
         shuffleArray(qd)
         .slice(
@@ -1185,10 +1100,6 @@ async function loadQuiz(){
             REQUIRED_QUESTIONS
         );
 
-
-        /* =============================================
-           تحميل الخيارات
-        ============================================= */
 
         const ids =
         questions.map(
@@ -1227,10 +1138,6 @@ async function loadQuiz(){
             );
 
 
-        /* =============================================
-           ربط الخيارات بالأسئلة
-        ============================================= */
-
         questions =
         questions.map(q=>{
 
@@ -1260,15 +1167,6 @@ async function loadQuiz(){
             }
 
 
-            /*
-             * يمكن أن يكون للسؤال:
-             *
-             * 1 إجابة صحيحة
-             * 2 إجابات صحيحة
-             * 3 إجابات صحيحة
-             * أو 4 إجابات صحيحة.
-             */
-
             const correctCount =
             options.filter(
                 o =>
@@ -1295,16 +1193,8 @@ async function loadQuiz(){
         });
 
 
-        /* =============================================
-           إنشاء محاولة جديدة
-        ============================================= */
-
         await startNewAttempt();
 
-
-        /* =============================================
-           عرض الأسئلة
-        ============================================= */
 
         renderQuestions();
 
@@ -1337,7 +1227,7 @@ async function loadQuiz(){
 
 
 /* =====================================================
-   9. إنشاء محاولة جديدة
+   10. إنشاء محاولة جديدة
 ===================================================== */
 
 async function startNewAttempt(){
@@ -1450,7 +1340,7 @@ async function startNewAttempt(){
 
 
 /* =====================================================
-   10. عرض الأسئلة
+   11. عرض الأسئلة
 ===================================================== */
 
 function renderQuestions(){
@@ -1528,11 +1418,6 @@ function renderQuestions(){
                     );
 
 
-                    /*
-                     * checkbox لأن السؤال
-                     * قد يحتوي على عدة إجابات صحيحة.
-                     */
-
                     input.type =
                     "checkbox";
 
@@ -1575,7 +1460,7 @@ function renderQuestions(){
                             else{
 
                                 answers[q.id] =
-                                selectedIds;
+                                [...selectedIds];
 
                             }
 
@@ -1604,7 +1489,7 @@ function renderQuestions(){
 
                             try{
 
-                                await saveSelectedOptions(
+                                await queueQuestionSave(
                                     q.id,
                                     selectedIds
                                 );
@@ -1670,7 +1555,76 @@ function renderQuestions(){
 
 
 /* =====================================================
-   11. حفظ إجابات السؤال المتعددة
+   12. طابور حفظ إجابات كل سؤال
+===================================================== */
+
+function queueQuestionSave(
+    questionId,
+    optionIds
+){
+
+    const previous =
+    questionSaveQueues.get(
+        questionId
+    ) || Promise.resolve();
+
+
+    const selectedSnapshot =
+    Array.isArray(optionIds)
+    ?
+    [...optionIds]
+    :
+    [];
+
+
+    const next =
+    previous
+    .catch(
+        ()=>{
+        }
+    )
+    .then(
+        ()=>{
+            return saveSelectedOptions(
+                questionId,
+                selectedSnapshot
+            );
+        }
+    );
+
+
+    questionSaveQueues.set(
+        questionId,
+        next
+    );
+
+
+    next.finally(
+        ()=>{
+
+            if(
+                questionSaveQueues.get(
+                    questionId
+                ) === next
+            ){
+
+                questionSaveQueues.delete(
+                    questionId
+                );
+
+            }
+
+        }
+    );
+
+
+    return next;
+
+}
+
+
+/* =====================================================
+   13. حفظ إجابات السؤال المتعددة
 ===================================================== */
 
 async function saveSelectedOptions(
@@ -1686,11 +1640,6 @@ async function saveSelectedOptions(
 
     }
 
-
-    /*
-     * حذف الاختيارات القديمة
-     * لهذا السؤال في هذه المحاولة.
-     */
 
     const {
         error:deleteError
@@ -1714,11 +1663,6 @@ async function saveSelectedOptions(
         throw deleteError;
 
 
-    /*
-     * إذا لم يختر الطالب أي إجابة
-     * ننتهي هنا.
-     */
-
     if(
         !optionIds ||
         optionIds.length === 0
@@ -1728,10 +1672,6 @@ async function saveSelectedOptions(
 
     }
 
-
-    /*
-     * إدخال جميع الخيارات المحددة.
-     */
 
     const rows =
     optionIds.map(
@@ -1765,21 +1705,11 @@ async function saveSelectedOptions(
     if(insertError)
         throw insertError;
 
-
-    console.log(
-        "تم حفظ اختيارات السؤال:",
-        {
-            attemptId,
-            questionId,
-            optionIds
-        }
-    );
-
 }
 
 
 /* =====================================================
-   12. تحديث تقدم الطالب
+   14. تحديث تقدم الطالب
 ===================================================== */
 
 function updateProgress(){
@@ -1805,7 +1735,7 @@ function updateProgress(){
 
 
 /* =====================================================
-   13. المؤقت
+   15. المؤقت
 ===================================================== */
 
 function startTimer(){
@@ -1882,12 +1812,32 @@ function updateTimer(){
 
 
 /* =====================================================
-   14. زر إنهاء الاختبار
+   16. زر إنهاء الاختبار
 ===================================================== */
 
 submitBtn.addEventListener(
     "click",
-    ()=>{
+    async()=>{
+
+        try{
+
+            await Promise.all(
+                Array.from(
+                    questionSaveQueues.values()
+                )
+            );
+
+        }
+
+        catch(e){
+
+            console.error(
+                "خطأ أثناء انتظار حفظ الإجابات:",
+                e
+            );
+
+        }
+
 
         const answered =
         Object.keys(
@@ -1923,7 +1873,7 @@ submitBtn.addEventListener(
 
 
 /* =====================================================
-   15. إنهاء الاختبار
+   17. إنهاء الاختبار
 ===================================================== */
 
 async function finishQuiz(
@@ -1949,16 +1899,12 @@ async function finishQuiz(
 
     try{
 
+        await Promise.all(
+            Array.from(
+                questionSaveQueues.values()
+            )
+        );
 
-        /*
-         * التصحيح الحقيقي يتم في PostgreSQL.
-         *
-         * صحيح بالكامل = +1
-         * خطأ = -1
-         * بدون إجابة = 0
-         *
-         * ولا توجد درجات جزئية.
-         */
 
         const result =
         await finalizeAttempt();
@@ -1991,10 +1937,6 @@ async function finishQuiz(
         );
 
 
-        /* =============================================
-           عرض النتيجة
-        ============================================= */
-
         quizArea.style.display =
         "none";
 
@@ -2024,39 +1966,23 @@ async function finishQuiz(
 
 
         /*
-         * تجهيز رابط المادة.
+         * =================================================
+         * مهم جدًا:
+         *
+         * لا نغيّر رابط زر الرجوع هنا.
+         *
+         * الرابط تم تحديده مسبقًا في:
+         *
+         * backToSubjectBtn.href = returnPage;
+         *
+         * وبالتالي سيعود الطالب إلى الصفحة التي
+         * جاء منها إلى الاختبار.
+         * =================================================
          */
 
-        if(quiz?.subject_id){
-
-            backToSubjectBtn.href =
-            `categories.html?subject=${
-                encodeURIComponent(
-                    quiz.subject_id
-                )
-            }`;
-
-        }
-
-
-        /*
-         * عرض المراجعة.
-         */
 
         renderReview();
 
-
-        /*
-         * =================================================
-         * التعديل النهائي:
-         *
-         * بعد ظهور النتيجة يتم إرجاع الصفحة
-         * إلى أعلى الصفحة مباشرة.
-         *
-         * هذا يمنع بقاء المستخدم في مكان السؤال
-         * الذي كان عنده لحظة الضغط على زر الإنهاء.
-         * =================================================
-         */
 
         window.scrollTo({
             top:0,
@@ -2064,10 +1990,6 @@ async function finishQuiz(
             behavior:"auto"
         });
 
-
-        /*
-         * ضمان إضافي لبعض المتصفحات:
-         */
 
         document.documentElement.scrollTop = 0;
 
@@ -2113,7 +2035,7 @@ async function finishQuiz(
 
 
 /* =====================================================
-   16. استدعاء دالة PostgreSQL
+   18. استدعاء دالة PostgreSQL
 ===================================================== */
 
 async function finalizeAttempt(){
@@ -2125,12 +2047,6 @@ async function finalizeAttempt(){
         );
 
     }
-
-
-    console.log(
-        "إرسال المحاولة للتصحيح:",
-        attemptId
-    );
 
 
     const {
@@ -2175,19 +2091,13 @@ async function finalizeAttempt(){
     data[0];
 
 
-    console.log(
-        "نتيجة التصحيح:",
-        result
-    );
-
-
     return result;
 
 }
 
 
 /* =====================================================
-   17. مراجعة الإجابات
+   19. مراجعة الإجابات
 ===================================================== */
 
 function renderReview(){
@@ -2200,18 +2110,10 @@ function renderReview(){
         (q,index)=>{
 
 
-            /*
-             * إجابات الطالب لهذا السؤال.
-             */
-
             const selectedIds =
             answers[q.id] ||
             [];
 
-
-            /*
-             * الإجابات الصحيحة من قاعدة البيانات.
-             */
 
             const correctIds =
             q.options
@@ -2224,15 +2126,6 @@ function renderReview(){
                 o.id
             );
 
-
-            /*
-             * الإجابة صحيحة فقط إذا:
-             *
-             * 1. عدد الاختيارات مساوي لعدد
-             *    الإجابات الصحيحة.
-             *
-             * 2. جميع الاختيارات صحيحة.
-             */
 
             const isCorrect =
             selectedIds.length ===
@@ -2323,10 +2216,6 @@ function renderReview(){
                 status
             );
 
-
-            /* =========================================
-               إجابة الطالب
-            ========================================= */
 
             const studentBox =
             document.createElement(
@@ -2436,10 +2325,6 @@ function renderReview(){
             );
 
 
-            /* =========================================
-               الإجابات الصحيحة
-            ========================================= */
-
             const correctBox =
             document.createElement(
                 "div"
@@ -2495,10 +2380,6 @@ function renderReview(){
                 correctBox
             );
 
-
-            /* =========================================
-               الشرح
-            ========================================= */
 
             if(
                 q.explanation &&
@@ -2560,7 +2441,7 @@ function renderReview(){
 
 
 /* =====================================================
-   18. زر إظهار/إخفاء المراجعة
+   20. زر إظهار/إخفاء المراجعة
 ===================================================== */
 
 reviewBtn.addEventListener(
@@ -2600,7 +2481,7 @@ reviewBtn.addEventListener(
 
 
 /* =====================================================
-   19. عرض الأخطاء
+   21. عرض الأخطاء
 ===================================================== */
 
 function showError(
