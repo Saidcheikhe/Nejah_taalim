@@ -4,33 +4,175 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>اختبر نفسك - منصة النجاح التعليمية</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f4f7fb;color:#173f73;font-family:Arial,Tahoma,sans-serif}
-.container{width:min(900px,94%);margin:auto;padding-bottom:40px}
-header{background:#fff;border-bottom:1px solid #e3e8ef;padding:16px 0;position:sticky;top:0;z-index:50}
-.header-inner{width:min(900px,94%);margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.brand{font-size:22px;font-weight:800;line-height:1.15}
-.brand span{color:#f59e0b;display:block}
-.timer{background:#fff4f4;border:1px solid #ffd2d2;color:#d92d20;padding:10px 16px;border-radius:14px;font-weight:800;font-size:18px;direction:ltr;white-space:nowrap}
-.timer.warning{background:#fff8e6;color:#b76e00;border-color:#ffe0a3}
-.intro{padding:30px 0 20px}
-.intro h1{margin:0 0 10px;font-size:32px}
-.intro p{margin:0;color:#667892;font-size:17px}
-.progress-box{background:#fff;padding:16px;border-radius:18px;margin-bottom:18px;border:1px solid #e2e8f0}
-.progress-top{display:flex;justify-content:space-between;margin-bottom:9px;color:#64748b;font-weight:700}
-.progress-bar{height:9px;background:#e8edf4;border-radius:20px;overflow:hidden}
-.progress-fill{height:100%;width:0;background:#2864df;transition:width .25s}
-.question-card{background:#fff;border:1px solid #e1e7ef;border-radius:22px;padding:22px;margin-bottom:18px;box-shadow:0 5px 18px rgba(20,50,90,.04)}
-.question-number{color:#2864df;font-weight:800;margin-bottom:12px}
-.question-text{font-size:20px;font-weight:700;line-height:1.8;color:#172b4d;margin-bottom:18px}
-.options{display:grid;gap:11px}
-.option{border:2px solid #e3e8ef;border-radius:15px;padding:14px;cursor:pointer;display:flex;align-items:center;gap:12px;color:#263b58;background:#fff}
-.option:hover{border-color:#9cb8eb;background:#f8fbff}
-.option.selected{border-color:#2864df;background:#eef4ff}
-.option input{width:19px;height:19px;accent-color:#2864df;flex-shrink:0}
+*{
+    box-sizing:border-box
+}
+
+body{
+    margin:0;
+    background:#f4f7fb;
+    color:#173f73;
+    font-family:Arial,Tahoma,sans-serif
+}
+
+.container{
+    width:min(900px,94%);
+    margin:auto;
+    padding-bottom:40px
+}
+
+header{
+    background:#fff;
+    border-bottom:1px solid #e3e8ef;
+    padding:16px 0;
+    position:sticky;
+    top:0;
+    z-index:50
+}
+
+.header-inner{
+    width:min(900px,94%);
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px
+}
+
+.brand{
+    font-size:22px;
+    font-weight:800;
+    line-height:1.15
+}
+
+.brand span{
+    color:#f59e0b;
+    display:block
+}
+
+.timer{
+    background:#fff4f4;
+    border:1px solid #ffd2d2;
+    color:#d92d20;
+    padding:10px 16px;
+    border-radius:14px;
+    font-weight:800;
+    font-size:18px;
+    direction:ltr;
+    white-space:nowrap
+}
+
+.timer.warning{
+    background:#fff8e6;
+    color:#b76e00;
+    border-color:#ffe0a3
+}
+
+.intro{
+    padding:30px 0 20px
+}
+
+.intro h1{
+    margin:0 0 10px;
+    font-size:32px
+}
+
+.intro p{
+    margin:0;
+    color:#667892;
+    font-size:17px
+}
+
+.progress-box{
+    background:#fff;
+    padding:16px;
+    border-radius:18px;
+    margin-bottom:18px;
+    border:1px solid #e2e8f0
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:9px;
+    color:#64748b;
+    font-weight:700
+}
+
+.progress-bar{
+    height:9px;
+    background:#e8edf4;
+    border-radius:20px;
+    overflow:hidden
+}
+
+.progress-fill{
+    height:100%;
+    width:0;
+    background:#2864df;
+    transition:width .25s
+}
+
+.question-card{
+    background:#fff;
+    border:1px solid #e1e7ef;
+    border-radius:22px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 5px 18px rgba(20,50,90,.04)
+}
+
+.question-number{
+    color:#2864df;
+    font-weight:800;
+    margin-bottom:12px
+}
+
+.question-text{
+    font-size:20px;
+    font-weight:700;
+    line-height:1.8;
+    color:#172b4d;
+    margin-bottom:18px
+}
+
+.options{
+    display:grid;
+    gap:11px
+}
+
+.option{
+    border:2px solid #e3e8ef;
+    border-radius:15px;
+    padding:14px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#263b58;
+    background:#fff
+}
+
+.option:hover{
+    border-color:#9cb8eb;
+    background:#f8fbff
+}
+
+.option.selected{
+    border-color:#2864df;
+    background:#eef4ff
+}
+
+.option input{
+    width:19px;
+    height:19px;
+    accent-color:#2864df;
+    flex-shrink:0
+}
 
 .strategy-box{
     background:#fffaf0;
@@ -49,8 +191,13 @@ header{background:#fff;border-bottom:1px solid #e3e8ef;padding:16px 0;position:s
     font-size:18px
 }
 
-.strategy-box p{margin:0}
-.strategy-box strong{color:#173f73}
+.strategy-box p{
+    margin:0
+}
+
+.strategy-box strong{
+    color:#173f73
+}
 
 .submit-area{
     margin-top:25px;
@@ -133,12 +280,32 @@ header{background:#fff;border-bottom:1px solid #e3e8ef;padding:16px 0;position:s
 }
 
 @media(max-width:600px){
-    .brand{font-size:18px}
-    .timer{font-size:15px;padding:9px 12px}
-    .intro h1{font-size:28px}
-    .question-card{padding:17px;border-radius:18px}
-    .question-text{font-size:18px}
-    .option{padding:13px}
+
+    .brand{
+        font-size:18px
+    }
+
+    .timer{
+        font-size:15px;
+        padding:9px 12px
+    }
+
+    .intro h1{
+        font-size:28px
+    }
+
+    .question-card{
+        padding:17px;
+        border-radius:18px
+    }
+
+    .question-text{
+        font-size:18px
+    }
+
+    .option{
+        padding:13px
+    }
 }
 </style>
 </head>
@@ -146,6 +313,7 @@ header{background:#fff;border-bottom:1px solid #e3e8ef;padding:16px 0;position:s
 <body>
 
 <header>
+
 <div class="header-inner">
 
 <div class="brand">
@@ -158,35 +326,45 @@ header{background:#fff;border-bottom:1px solid #e3e8ef;padding:16px 0;position:s
 </div>
 
 </div>
+
 </header>
+
 
 <main class="container">
 
 <section class="intro">
-<h1 id="quizTitle">اختبر نفسك</h1>
-<p id="quizDescription">جارٍ تحميل الاختبار...</p>
+
+<h1 id="quizTitle">
+اختبر نفسك
+</h1>
+
+<p id="quizDescription">
+جارٍ تحميل الاختبار...
+</p>
+
 </section>
+
 
 <div id="loading" class="loading">
 جارٍ التحقق من الحساب وتحميل الاختبار...
 </div>
 
+
 <div id="quizArea" style="display:none">
+
 
 <div class="strategy-box">
 
-<h3>📌 استراتيجية التصحيح</h3>
+<h3>
+📌 استراتيجية التصحيح
+</h3>
 
 <p>
-الإجابة الصحيحة
-<strong>+1</strong>،
-والخاطئة
-<strong>-1</strong>،
-وغير المجاب عنها
-<strong>0</strong>.
+يتم تصحيح الاختبار وتسجيل النتيجة مباشرة في قاعدة البيانات.
 </p>
 
 </div>
+
 
 <div class="progress-box">
 
@@ -202,6 +380,7 @@ header{background:#fff;border-bottom:1px solid #e3e8ef;padding:16px 0;position:s
 
 </div>
 
+
 <div class="progress-bar">
 
 <div
@@ -213,7 +392,9 @@ class="progress-fill">
 
 </div>
 
+
 <div id="questionsContainer"></div>
+
 
 <div class="submit-area">
 
@@ -229,11 +410,13 @@ class="submit-btn">
 
 </div>
 
+
 <div
 id="errorBox"
 class="error"
 style="display:none">
 </div>
+
 
 <section
 id="result"
@@ -243,11 +426,13 @@ class="result">
 انتهى الاختبار
 </h2>
 
+
 <div
 id="score"
 class="result-score">
 0 / 50
 </div>
+
 
 <div
 id="percentage"
@@ -255,10 +440,12 @@ class="result-percent">
 0%
 </div>
 
+
 <div
 id="resultMessage"
 class="result-message">
 </div>
+
 
 <div style="
 margin-top:12px;
@@ -266,9 +453,10 @@ color:#64748b;
 font-size:14px;
 line-height:1.7">
 
-تم تسجيل المحاولة وإجاباتها في قاعدة البيانات.
+تم تسجيل المحاولة والنتيجة وإجاباتها في قاعدة البيانات.
 
 </div>
+
 
 <a
 href="categories.html"
@@ -281,6 +469,7 @@ class="back-btn">
 </section>
 
 </main>
+
 
 <script>
 
@@ -296,8 +485,8 @@ const SUPABASE_ANON_KEY =
 
 const db =
 supabase.createClient(
-SUPABASE_URL,
-SUPABASE_ANON_KEY
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
 );
 
 
@@ -312,7 +501,7 @@ const DEFAULT_DURATION_SECONDS =
 
 const quizId =
 new URLSearchParams(
-location.search
+    location.search
 ).get("quiz");
 
 
@@ -388,25 +577,27 @@ document.getElementById("errorBox");
 
 async function checkAuthentication(){
 
-const {
-data,
-error
-} =
-await db.auth.getSession();
+    const {
+        data,
+        error
+    } =
+    await db.auth.getSession();
 
-if(
-error ||
-!data?.session
-){
 
-location.href =
-"index.html";
+    if(
+        error ||
+        !data?.session
+    ){
 
-return false;
+        location.href =
+        "index.html";
 
-}
+        return false;
 
-return true;
+    }
+
+
+    return true;
 
 }
 
@@ -417,27 +608,30 @@ return true;
 
 async function initializeQuiz(){
 
-if(
-!await checkAuthentication()
-){
+    if(
+        !await checkAuthentication()
+    ){
 
-return;
+        return;
+
+    }
+
+
+    if(!quizId){
+
+        showError(
+            "لم يتم تحديد الاختبار. تأكد من صحة الرابط."
+        );
+
+        return;
+
+    }
+
+
+    await loadQuiz();
 
 }
 
-if(!quizId){
-
-showError(
-"لم يتم تحديد الاختبار. تأكد من صحة الرابط."
-);
-
-return;
-
-}
-
-await loadQuiz();
-
-}
 
 initializeQuiz();
 
@@ -448,36 +642,39 @@ initializeQuiz();
 
 function shuffleArray(array){
 
-const copy =
-[...array];
+    const copy =
+    [...array];
 
-for(
-let i =
-copy.length - 1;
 
-i > 0;
+    for(
+        let i =
+        copy.length - 1;
 
-i--
-){
+        i > 0;
 
-const j =
-Math.floor(
-Math.random() *
-(i + 1)
-);
+        i--
+    ){
 
-[
-copy[i],
-copy[j]
-] =
-[
-copy[j],
-copy[i]
-];
+        const j =
+        Math.floor(
+            Math.random() *
+            (i + 1)
+        );
 
-}
 
-return copy;
+        [
+            copy[i],
+            copy[j]
+        ] =
+        [
+            copy[j],
+            copy[i]
+        ];
+
+    }
+
+
+    return copy;
 
 }
 
@@ -488,217 +685,242 @@ return copy;
 
 async function loadQuiz(){
 
-try{
+    try{
 
-const {
-data:q,
-error:qe
-} =
-await db
-.from("quizzes")
-.select("*")
-.eq("id",quizId)
-.single();
-
-if(qe)
-throw qe;
-
-if(!q)
-throw new Error(
-"الاختبار غير موجود."
-);
-
-if(
-q.is_published === false
-)
-throw new Error(
-"هذا الاختبار غير متاح حاليًا."
-);
-
-quiz = q;
-
-quizTitle.textContent =
-q.title ||
-"اختبر نفسك";
-
-quizDescription.textContent =
-"50 سؤالًا • 30 دقيقة";
+        const {
+            data:q,
+            error:qe
+        } =
+        await db
+        .from("quizzes")
+        .select("*")
+        .eq("id",quizId)
+        .single();
 
 
-/* الأسئلة */
+        if(qe)
+            throw qe;
 
-const {
-data:qd,
-error:qde
-} =
-await db
-.from("questions")
-.select(
-"id,quiz_id,question_text,explanation,display_order"
-)
-.eq(
-"quiz_id",
-quizId
-)
-.order(
-"display_order",
-{
-ascending:true
+
+        if(!q)
+            throw new Error(
+                "الاختبار غير موجود."
+            );
+
+
+        if(
+            q.is_published === false
+        )
+            throw new Error(
+                "هذا الاختبار غير متاح حاليًا."
+            );
+
+
+        quiz = q;
+
+
+        quizTitle.textContent =
+        q.title ||
+        "اختبر نفسك";
+
+
+        quizDescription.textContent =
+        "50 سؤالًا • 30 دقيقة";
+
+
+        /* =============================================
+           الأسئلة
+        ============================================= */
+
+        const {
+            data:qd,
+            error:qde
+        } =
+        await db
+        .from("questions")
+        .select(
+            "id,quiz_id,question_text,explanation,display_order"
+        )
+        .eq(
+            "quiz_id",
+            quizId
+        )
+        .order(
+            "display_order",
+            {
+                ascending:true
+            }
+        );
+
+
+        if(qde)
+            throw qde;
+
+
+        if(
+            !qd ||
+            qd.length <
+            TOTAL_QUESTIONS
+        ){
+
+            throw new Error(
+                `هذا الاختبار يحتوي حاليًا على ${
+                    qd?.length || 0
+                } سؤالًا فقط، بينما يحتاج إلى ${
+                    TOTAL_QUESTIONS
+                } سؤالًا.`
+            );
+
+        }
+
+
+        questions =
+        shuffleArray(qd)
+        .slice(
+            0,
+            TOTAL_QUESTIONS
+        );
+
+
+        /* =============================================
+           الخيارات
+        ============================================= */
+
+        const ids =
+        questions.map(
+            q => q.id
+        );
+
+
+        const {
+            data:od,
+            error:oe
+        } =
+        await db
+        .from("question_options")
+        .select(
+            "id,question_id,option_text,is_correct,display_order"
+        )
+        .in(
+            "question_id",
+            ids
+        )
+        .order(
+            "display_order",
+            {
+                ascending:true
+            }
+        );
+
+
+        if(oe)
+            throw oe;
+
+
+        if(!od?.length)
+            throw new Error(
+                "لم يتم العثور على خيارات الأسئلة."
+            );
+
+
+        /* =============================================
+           ربط الخيارات
+        ============================================= */
+
+        questions =
+        questions.map(q=>{
+
+            const options =
+            od
+            .filter(
+                o =>
+                o.question_id === q.id
+            )
+            .sort(
+                (a,b)=>
+                a.display_order -
+                b.display_order
+            );
+
+
+            if(
+                options.length !== 4
+            ){
+
+                throw new Error(
+                    `السؤال رقم ${
+                        q.display_order
+                    } لا يحتوي على أربعة خيارات.`
+                );
+
+            }
+
+
+            if(
+                options.filter(
+                    o =>
+                    o.is_correct === true
+                ).length !== 1
+            ){
+
+                throw new Error(
+                    `السؤال رقم ${
+                        q.display_order
+                    } يجب أن يحتوي على إجابة صحيحة واحدة فقط.`
+                );
+
+            }
+
+
+            return {
+                ...q,
+                options
+            };
+
+        });
+
+
+        /* =============================================
+           إنشاء المحاولة
+        ============================================= */
+
+        await startNewAttempt();
+
+
+        /* =============================================
+           عرض الأسئلة
+        ============================================= */
+
+        renderQuestions();
+
+
+        loading.style.display =
+        "none";
+
+
+        quizArea.style.display =
+        "block";
+
+
+        startTimer();
+
+    }
+
+    catch(e){
+
+        console.error(e);
+
+
+        showError(
+            "حدث خطأ أثناء تحميل الاختبار: " +
+            e.message
+        );
+
+    }
+
 }
-);
-
-if(qde)
-throw qde;
-
-if(
-!qd ||
-qd.length <
-TOTAL_QUESTIONS
-){
-
-throw new Error(
-`هذا الاختبار يحتوي حاليًا على ${
-qd?.length || 0
-} سؤالًا فقط، بينما يحتاج إلى ${
-TOTAL_QUESTIONS
-} سؤالًا.`
-);
-
-}
-
-questions =
-shuffleArray(qd)
-.slice(
-0,
-TOTAL_QUESTIONS
-);
 
 
-/* الخيارات */
-
-const ids =
-questions.map(
-q => q.id
-);
-
-const {
-data:od,
-error:oe
-} =
-await db
-.from("question_options")
-.select(
-"id,question_id,option_text,is_correct,display_order"
-)
-.in(
-"question_id",
-ids
-)
-.order(
-"display_order",
-{
-ascending:true
-}
-);
-
-if(oe)
-throw oe;
-
-if(!od?.length)
-throw new Error(
-"لم يتم العثور على خيارات الأسئلة."
-);
-
-
-/* ربط الخيارات */
-
-questions =
-questions.map(q=>{
-
-const options =
-od
-.filter(
-o =>
-o.question_id === q.id
-)
-.sort(
-(a,b)=>
-a.display_order -
-b.display_order
-);
-
-if(
-options.length !== 4
-){
-
-throw new Error(
-`السؤال رقم ${
-q.display_order
-} لا يحتوي على أربعة خيارات.`
-);
-
-}
-
-if(
-options.filter(
-o =>
-o.is_correct === true
-).length !== 1
-){
-
-throw new Error(
-`السؤال رقم ${
-q.display_order
-} يجب أن يحتوي على إجابة صحيحة واحدة فقط.`
-);
-
-}
-
-return {
-...q,
-options
-};
-
-});
-
-
-/* إنشاء المحاولة */
-
-await startNewAttempt();
-
-
-/* عرض الأسئلة */
-
-renderQuestions();
-
-loading.style.display =
-"none";
-
-quizArea.style.display =
-"block";
-
-startTimer();
-
-}
-
-catch(e){
-
-console.error(e);
-
-showError(
-"حدث خطأ أثناء تحميل الاختبار: "
-+
-e.message
-);
-
-}
-
-}
-
-
-/* =====================================================
-   9. إنشاء محاولة في quiz_attempts
-===================================================== */
 /* =====================================================
    9. إنشاء محاولة في quiz_attempts
 ===================================================== */
@@ -708,7 +930,9 @@ async function startNewAttempt(){
     const {
         data: { user },
         error: userError
-    } = await db.auth.getUser();
+    } =
+    await db.auth.getUser();
+
 
     if(userError){
 
@@ -718,6 +942,7 @@ async function startNewAttempt(){
         );
 
     }
+
 
     if(!user){
 
@@ -729,12 +954,12 @@ async function startNewAttempt(){
 
 
     /*
-       إنشاء UUID للمحاولة من المتصفح
-       بدل الاعتماد على SELECT بعد INSERT
+       إنشاء UUID للمحاولة
+       من المتصفح
     */
 
     const newAttemptId =
-        crypto.randomUUID();
+    crypto.randomUUID();
 
 
     console.log(
@@ -742,10 +967,12 @@ async function startNewAttempt(){
         user.id
     );
 
+
     console.log(
         "Quiz ID:",
         quizId
     );
+
 
     console.log(
         "Attempt ID:",
@@ -754,38 +981,38 @@ async function startNewAttempt(){
 
 
     /*
-       إنشاء المحاولة في قاعدة البيانات
+       إنشاء المحاولة
     */
 
     const {
         error
     } =
     await db
-        .from("quiz_attempts")
-        .insert({
+    .from("quiz_attempts")
+    .insert({
 
-            id:
-                newAttemptId,
+        id:
+        newAttemptId,
 
-            user_id:
-                user.id,
+        user_id:
+        user.id,
 
-            quiz_id:
-                quizId,
+        quiz_id:
+        quizId,
 
-            score:
-                0,
+        score:
+        0,
 
-            total_questions:
-                TOTAL_QUESTIONS,
+        total_questions:
+        TOTAL_QUESTIONS,
 
-            percentage:
-                0,
+        percentage:
+        0,
 
-            status:
-                "in_progress"
+        status:
+        "in_progress"
 
-        });
+    });
 
 
     if(error){
@@ -794,6 +1021,7 @@ async function startNewAttempt(){
             "خطأ إنشاء المحاولة:",
             error
         );
+
 
         throw new Error(
             "تعذر إنشاء محاولة الاختبار: " +
@@ -808,17 +1036,17 @@ async function startNewAttempt(){
     */
 
     attemptId =
-        newAttemptId;
+    newAttemptId;
 
 
     answers = {};
 
 
     endTime =
-        Date.now()
-        +
-        DEFAULT_DURATION_SECONDS *
-        1000;
+    Date.now()
+    +
+    DEFAULT_DURATION_SECONDS *
+    1000;
 
 
     console.log(
@@ -828,179 +1056,200 @@ async function startNewAttempt(){
 
 }
 
+
 /* =====================================================
    10. عرض الأسئلة
 ===================================================== */
 
 function renderQuestions(){
 
-questionsContainer.innerHTML =
-"";
-
-questions.forEach(
-(q,index)=>{
-
-const card =
-document.createElement(
-"div"
-);
-
-card.className =
-"question-card";
+    questionsContainer.innerHTML =
+    "";
 
 
-const n =
-document.createElement(
-"div"
-);
+    questions.forEach(
+        (q,index)=>{
 
-n.className =
-"question-number";
-
-n.textContent =
-`السؤال ${
-index + 1
-} من ${
-TOTAL_QUESTIONS
-}`;
+            const card =
+            document.createElement(
+                "div"
+            );
 
 
-const t =
-document.createElement(
-"div"
-);
-
-t.className =
-"question-text";
-
-t.textContent =
-q.question_text;
+            card.className =
+            "question-card";
 
 
-const opts =
-document.createElement(
-"div"
-);
-
-opts.className =
-"options";
+            const n =
+            document.createElement(
+                "div"
+            );
 
 
-q.options.forEach(
-o=>{
-
-const label =
-document.createElement(
-"label"
-);
-
-label.className =
-"option";
+            n.className =
+            "question-number";
 
 
-const input =
-document.createElement(
-"input"
-);
-
-input.type =
-"radio";
-
-input.name =
-`question_${q.id}`;
-
-input.value =
-o.id;
+            n.textContent =
+            `السؤال ${
+                index + 1
+            } من ${
+                TOTAL_QUESTIONS
+            }`;
 
 
-input.addEventListener(
-"change",
-async()=>{
-
-if(isFinished)
-return;
+            const t =
+            document.createElement(
+                "div"
+            );
 
 
-answers[q.id] =
-o.id;
+            t.className =
+            "question-text";
 
 
-document
-.querySelectorAll(
-`input[name="question_${q.id}"]`
-)
-.forEach(
-r =>
-r
-.closest(".option")
-?.classList
-.remove("selected")
-);
+            t.textContent =
+            q.question_text;
 
 
-label.classList.add(
-"selected"
-);
-
-updateProgress();
-
-
-try{
-
-await saveSelectedOption(
-q.id,
-o.id
-);
-
-}
-
-catch(e){
-
-console.error(e);
-
-alert(
-"تم اختيار الإجابة، لكن تعذر تسجيلها في قاعدة البيانات. حاول مرة أخرى."
-);
-
-}
-
-});
+            const opts =
+            document.createElement(
+                "div"
+            );
 
 
-const span =
-document.createElement(
-"span"
-);
-
-span.textContent =
-o.option_text;
+            opts.className =
+            "options";
 
 
-label.append(
-input,
-span
-);
+            q.options.forEach(
+                o=>{
 
-opts.appendChild(
-label
-);
-
-});
+                    const label =
+                    document.createElement(
+                        "label"
+                    );
 
 
-card.append(
-n,
-t,
-opts
-);
+                    label.className =
+                    "option";
 
-questionsContainer.appendChild(
-card
-);
 
-});
+                    const input =
+                    document.createElement(
+                        "input"
+                    );
 
-updateProgress();
+
+                    input.type =
+                    "radio";
+
+
+                    input.name =
+                    `question_${q.id}`;
+
+
+                    input.value =
+                    o.id;
+
+
+                    input.addEventListener(
+                        "change",
+                        async()=>{
+
+                            if(isFinished)
+                                return;
+
+
+                            answers[q.id] =
+                            o.id;
+
+
+                            document
+                            .querySelectorAll(
+                                `input[name="question_${q.id}"]`
+                            )
+                            .forEach(
+                                r =>
+                                r
+                                .closest(".option")
+                                ?.classList
+                                .remove("selected")
+                            );
+
+
+                            label.classList.add(
+                                "selected"
+                            );
+
+
+                            updateProgress();
+
+
+                            try{
+
+                                await saveSelectedOption(
+                                    q.id,
+                                    o.id
+                                );
+
+                            }
+
+                            catch(e){
+
+                                console.error(e);
+
+
+                                alert(
+                                    "تم اختيار الإجابة، لكن تعذر تسجيلها في قاعدة البيانات. حاول مرة أخرى."
+                                );
+
+                            }
+
+                        }
+                    );
+
+
+                    const span =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                    span.textContent =
+                    o.option_text;
+
+
+                    label.append(
+                        input,
+                        span
+                    );
+
+
+                    opts.appendChild(
+                        label
+                    );
+
+                }
+            );
+
+
+            card.append(
+                n,
+                t,
+                opts
+            );
+
+
+            questionsContainer.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    updateProgress();
 
 }
 
@@ -1010,76 +1259,78 @@ updateProgress();
 ===================================================== */
 
 async function saveSelectedOption(
-questionId,
-optionId
+    questionId,
+    optionId
 ){
 
-if(!attemptId){
+    if(!attemptId){
 
-throw new Error(
-"attemptId غير موجود"
-);
+        throw new Error(
+            "attemptId غير موجود"
+        );
 
-}
-
-
-/* حذف الإجابة السابقة */
-
-const {
-error:deleteError
-} =
-await db
-.from(
-"quiz_attempt_selected_options"
-)
-.delete()
-.eq(
-"attempt_id",
-attemptId
-)
-.eq(
-"question_id",
-questionId
-);
-
-if(deleteError)
-throw deleteError;
+    }
 
 
-/* تسجيل الإجابة الجديدة */
+    /* حذف الإجابة السابقة */
 
-const {
-error:insertError
-} =
-await db
-.from(
-"quiz_attempt_selected_options"
-)
-.insert({
-
-attempt_id:
-attemptId,
-
-question_id:
-questionId,
-
-option_id:
-optionId
-
-});
-
-if(insertError)
-throw insertError;
+    const {
+        error:deleteError
+    } =
+    await db
+    .from(
+        "quiz_attempt_selected_options"
+    )
+    .delete()
+    .eq(
+        "attempt_id",
+        attemptId
+    )
+    .eq(
+        "question_id",
+        questionId
+    );
 
 
-console.log(
-"saved",
-{
-attemptId,
-questionId,
-optionId
-}
-);
+    if(deleteError)
+        throw deleteError;
+
+
+    /* تسجيل الإجابة الجديدة */
+
+    const {
+        error:insertError
+    } =
+    await db
+    .from(
+        "quiz_attempt_selected_options"
+    )
+    .insert({
+
+        attempt_id:
+        attemptId,
+
+        question_id:
+        questionId,
+
+        option_id:
+        optionId
+
+    });
+
+
+    if(insertError)
+        throw insertError;
+
+
+    console.log(
+        "تم حفظ الإجابة:",
+        {
+            attemptId,
+            questionId,
+            optionId
+        }
+    );
 
 }
 
@@ -1090,18 +1341,22 @@ optionId
 
 function updateProgress(){
 
-const count =
-Object.keys(
-answers
-).length;
+    const count =
+    Object.keys(
+        answers
+    ).length;
 
-answeredCount.textContent =
-`${count} / ${TOTAL_QUESTIONS}`;
 
-progressFill.style.width =
-`${count /
-TOTAL_QUESTIONS *
-100}%`;
+    answeredCount.textContent =
+    `${count} / ${TOTAL_QUESTIONS}`;
+
+
+    progressFill.style.width =
+    `${
+        count /
+        TOTAL_QUESTIONS *
+        100
+    }%`;
 
 }
 
@@ -1112,61 +1367,73 @@ TOTAL_QUESTIONS *
 
 function startTimer(){
 
-updateTimer();
+    updateTimer();
 
-timerInterval =
-setInterval(
-updateTimer,
-1000
-);
+
+    timerInterval =
+    setInterval(
+        updateTimer,
+        1000
+    );
 
 }
 
 
 function updateTimer(){
 
-if(isFinished)
-return;
+    if(isFinished)
+        return;
 
-const remaining =
-Math.max(
-0,
-endTime -
-Date.now()
-);
 
-const s =
-Math.floor(
-remaining /
-1000
-);
+    const remaining =
+    Math.max(
+        0,
+        endTime -
+        Date.now()
+    );
 
-const m =
-Math.floor(
-s /
-60
-);
 
-timerElement.textContent =
-`${String(m).padStart(2,"0")}:${String(s % 60).padStart(2,"0")}`;
+    const s =
+    Math.floor(
+        remaining /
+        1000
+    );
 
-if(s <= 300){
 
-timerElement.classList.add(
-"warning"
-);
+    const m =
+    Math.floor(
+        s /
+        60
+    );
 
-}
 
-if(remaining <= 0){
+    timerElement.textContent =
+    `${
+        String(m).padStart(2,"0")
+    }:${
+        String(s % 60).padStart(2,"0")
+    }`;
 
-clearInterval(
-timerInterval
-);
 
-finishQuiz(true);
+    if(s <= 300){
 
-}
+        timerElement.classList.add(
+            "warning"
+        );
+
+    }
+
+
+    if(remaining <= 0){
+
+        clearInterval(
+            timerInterval
+        );
+
+
+        finishQuiz(true);
+
+    }
 
 }
 
@@ -1176,214 +1443,268 @@ finishQuiz(true);
 ===================================================== */
 
 submitBtn.addEventListener(
-"click",
-()=>{
+    "click",
+    ()=>{
 
-const unanswered =
-TOTAL_QUESTIONS -
-Object.keys(
-answers
-).length;
+        const unanswered =
+        TOTAL_QUESTIONS -
+        Object.keys(
+            answers
+        ).length;
 
-if(
-unanswered &&
-!confirm(
-`لم تجب عن ${unanswered} سؤالًا.
+
+        if(
+            unanswered &&
+            !confirm(
+                `لم تجب عن ${unanswered} سؤالًا.
 
 هل تريد إنهاء الاختبار الآن؟`
-)
-){
+            )
+        ){
 
-return;
+            return;
 
-}
+        }
 
-finishQuiz(false);
 
-}
+        finishQuiz(false);
+
+    }
 );
 
 
 /* =====================================================
-   15. تصحيح الاختبار
+   15. إنهاء وتصحيح الاختبار
 ===================================================== */
 
 async function finishQuiz(
-autoFinished = false
+    autoFinished = false
 ){
 
-if(isFinished)
-return;
-
-isFinished =
-true;
-
-clearInterval(
-timerInterval
-);
-
-submitBtn.disabled =
-true;
+    if(isFinished)
+        return;
 
 
-let score =
-0;
+    isFinished =
+    true;
 
 
-questions.forEach(
-q=>{
-
-const id =
-answers[q.id];
-
-if(!id)
-return;
-
-const selected =
-q.options.find(
-o =>
-o.id === id
-);
-
-if(
-selected?.is_correct === true
-){
-
-score++;
-
-}
-
-else{
-
-score--;
-
-}
-
-});
+    clearInterval(
+        timerInterval
+    );
 
 
-const percentage =
-Number(
-(
-score /
-TOTAL_QUESTIONS *
-100
-).toFixed(2)
-);
+    submitBtn.disabled =
+    true;
 
 
-/* حفظ المحاولة */
+    try{
 
-try{
+        /*
+         * =================================================
+         * التعديل الرئيسي:
+         *
+         * لم نعد نحسب النتيجة في JavaScript.
+         *
+         * قاعدة البيانات هي التي تقوم بالتصحيح
+         * وتحديث quiz_attempts
+         * وتحديث quiz_results
+         * وتسجيل quiz_attempt_answers
+         * ثم ترجع النتيجة النهائية.
+         * =================================================
+         */
 
-await finalizeAttempt(
-score,
-percentage
-);
-
-}
-
-catch(e){
-
-console.error(e);
-
-alert(
-"تم حساب النتيجة، لكن حدث خطأ أثناء حفظ المحاولة في قاعدة البيانات. يرجى إبلاغ الإدارة."
-);
-
-}
+        const result =
+        await finalizeAttempt();
 
 
-/* عرض النتيجة */
+        if(!result){
 
-quizArea.style.display =
-"none";
+            throw new Error(
+                "لم تُرجع قاعدة البيانات نتيجة."
+            );
 
-resultBox.style.display =
-"block";
+        }
 
-scoreElement.textContent =
-`${score} / ${TOTAL_QUESTIONS}`;
 
-percentageElement.textContent =
-`${percentage}%`;
+        const score =
+        Number(
+            result.score
+        );
 
-resultMessage.textContent =
-autoFinished
 
-?
-"انتهى الوقت، وتم إنهاء الاختبار وتصحيح إجاباتك تلقائيًا."
+        const totalQuestions =
+        Number(
+            result.total_questions
+        );
 
-:
-"تم إنهاء الاختبار وتصحيح إجاباتك.";
+
+        const percentage =
+        Number(
+            result.percentage
+        );
+
+
+        /* ===============================================
+           عرض النتيجة القادمة من قاعدة البيانات
+        =============================================== */
+
+        quizArea.style.display =
+        "none";
+
+
+        resultBox.style.display =
+        "block";
+
+
+        scoreElement.textContent =
+        `${score} / ${totalQuestions}`;
+
+
+        percentageElement.textContent =
+        `${percentage}%`;
+
+
+        resultMessage.textContent =
+        autoFinished
+
+        ?
+
+        "انتهى الوقت، وتم إنهاء الاختبار وتصحيح إجاباتك تلقائيًا."
+
+        :
+
+        "تم إنهاء الاختبار وتصحيح إجاباتك.";
+
+
+        console.log(
+            "تم حفظ وتصحيح الاختبار بنجاح:",
+            {
+                attemptId,
+                score,
+                totalQuestions,
+                percentage
+            }
+        );
+
+    }
+
+    catch(e){
+
+        console.error(
+            "خطأ إنهاء الاختبار:",
+            e
+        );
+
+
+        /*
+         * إذا حدث خطأ، لا نظهر نتيجة
+         * قد تكون غير محفوظة في قاعدة البيانات.
+         */
+
+        isFinished =
+        false;
+
+
+        submitBtn.disabled =
+        false;
+
+
+        alert(
+            "تعذر حفظ وتصحيح نتيجة الاختبار في قاعدة البيانات.\n\n" +
+            "يرجى المحاولة مرة أخرى."
+        );
+
+    }
 
 }
 
 
 /* =====================================================
-   16. إنهاء محاولة quiz_attempts
+   16. استدعاء دالة PostgreSQL
 ===================================================== */
 
-async function finalizeAttempt(
-score,
-percentage
-){
+async function finalizeAttempt(){
 
-if(!attemptId){
+    if(!attemptId){
 
-throw new Error(
-"لا يوجد attemptId"
-);
+        throw new Error(
+            "لا يوجد attemptId"
+        );
 
-}
+    }
 
 
-const {
-error
-} =
-await db
-.from("quiz_attempts")
-.update({
-
-score:
-
-score,
-
-total_questions:
-
-TOTAL_QUESTIONS,
-
-percentage:
-
-percentage,
-
-submitted_at:
-
-new Date().toISOString(),
-
-status:
-
-"submitted"
-
-})
-.eq(
-"id",
-attemptId
-);
+    console.log(
+        "إرسال المحاولة إلى قاعدة البيانات للتصحيح:",
+        attemptId
+    );
 
 
-if(error)
-throw error;
+    /*
+       استدعاء الدالة:
+
+       public.submit_quiz_attempt(uuid)
+
+       وهي المسؤولة عن:
+
+       1. التحقق من المستخدم
+       2. تصحيح الإجابات
+       3. تسجيل quiz_attempt_answers
+       4. تحديث quiz_attempts
+       5. إنشاء/تحديث quiz_results
+       6. إرجاع النتيجة
+    */
+
+    const {
+        data,
+        error
+    } =
+    await db.rpc(
+        "submit_quiz_attempt",
+        {
+            p_attempt_id:
+            attemptId
+        }
+    );
 
 
-console.log(
-"finalized",
-{
-attemptId,
-score,
-percentage
-}
-);
+    if(error){
+
+        console.error(
+            "خطأ RPC submit_quiz_attempt:",
+            error
+        );
+
+
+        throw error;
+
+    }
+
+
+    if(
+        !data ||
+        !data.length
+    ){
+
+        throw new Error(
+            "لم تُرجع قاعدة البيانات نتيجة التصحيح."
+        );
+
+    }
+
+
+    const result =
+    data[0];
+
+
+    console.log(
+        "نتيجة التصحيح من قاعدة البيانات:",
+        result
+    );
+
+
+    return result;
 
 }
 
@@ -1393,20 +1714,23 @@ percentage
 ===================================================== */
 
 function showError(
-message
+    message
 ){
 
-loading.style.display =
-"none";
+    loading.style.display =
+    "none";
 
-quizArea.style.display =
-"none";
 
-errorBox.style.display =
-"block";
+    quizArea.style.display =
+    "none";
 
-errorBox.textContent =
-message;
+
+    errorBox.style.display =
+    "block";
+
+
+    errorBox.textContent =
+    message;
 
 }
 
