@@ -1498,11 +1498,17 @@ function renderQuestions(){
 
                             catch(e){
 
-                                console.error(e);
+                                /*
+                                 * تم إزالة alert السابق حتى لا تظهر
+                                 * للطالب رسالة "تم تغيير الإجابة"
+                                 * عند كل مشكلة في الحفظ.
+                                 *
+                                 * الخطأ يُسجل في Console فقط.
+                                 */
 
-
-                                alert(
-                                    "تم تغيير الإجابة، لكن تعذر تسجيلها في قاعدة البيانات."
+                                console.error(
+                                    "خطأ حفظ الإجابة:",
+                                    e
                                 );
 
                             }
@@ -1641,6 +1647,24 @@ async function saveSelectedOptions(
     }
 
 
+    /*
+     * نضمن أن القيمة مصفوفة مستقلة
+     * حتى نتمكن من حفظ أكثر من خيار.
+     */
+
+    const selectedIds =
+    Array.isArray(optionIds)
+    ?
+    [...optionIds]
+    :
+    [];
+
+
+    /*
+     * حذف الاختيارات السابقة لهذا السؤال
+     * من المحاولة الحالية فقط.
+     */
+
     const {
         error:deleteError
     } =
@@ -1659,13 +1683,25 @@ async function saveSelectedOptions(
     );
 
 
-    if(deleteError)
+    if(deleteError){
+
+        console.error(
+            "خطأ حذف الاختيارات القديمة:",
+            deleteError
+        );
+
         throw deleteError;
 
+    }
+
+
+    /*
+     * إذا لم يختر الطالب أي خيار،
+     * فلا يوجد شيء لإدخاله.
+     */
 
     if(
-        !optionIds ||
-        optionIds.length === 0
+        selectedIds.length === 0
     ){
 
         return;
@@ -1673,8 +1709,24 @@ async function saveSelectedOptions(
     }
 
 
+    /*
+     * إنشاء سجل مستقل لكل خيار محدد.
+     *
+     * مثال:
+     *
+     * إذا اختار الطالب A و C و D
+     *
+     * سيتم إدخال ثلاثة سجلات:
+     *
+     * A
+     * C
+     * D
+     *
+     * للسؤال نفسه والمحاولة نفسها.
+     */
+
     const rows =
-    optionIds.map(
+    selectedIds.map(
         optionId=>({
 
             attempt_id:
@@ -1690,6 +1742,10 @@ async function saveSelectedOptions(
     );
 
 
+    /*
+     * إدخال جميع الاختيارات مرة واحدة.
+     */
+
     const {
         error:insertError
     } =
@@ -1702,8 +1758,16 @@ async function saveSelectedOptions(
     );
 
 
-    if(insertError)
+    if(insertError){
+
+        console.error(
+            "خطأ إدخال الاختيارات الجديدة:",
+            insertError
+        );
+
         throw insertError;
+
+    }
 
 }
 
@@ -2419,7 +2483,7 @@ function renderReview(){
                 );
 
 
-                card.appendChild(
+                card.append(
                     explanation
                 );
 
