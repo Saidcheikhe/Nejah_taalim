@@ -22,6 +22,10 @@ content="width=device-width,initial-scale=1.0"
     box-sizing:border-box
 }
 
+html{
+    scroll-behavior:auto
+}
+
 body{
     margin:0;
     background:#f4f7fb;
@@ -1105,16 +1109,6 @@ async function loadQuiz(){
            رابط العودة للمادة
         ============================================= */
 
-        /*
-         * الاختبار يحتوي على subject_id
-         * لذلك لن نعيد الطالب إلى الفئات العامة
-         * بل نرسل معه معرف المادة.
-         *
-         * صفحة categories.html تستطيع قراءة:
-         *
-         * ?subject=UUID
-         */
-
         if(q.subject_id){
 
             backToSubjectBtn.href =
@@ -1267,16 +1261,12 @@ async function loadQuiz(){
 
 
             /*
-             * التعديل المهم:
-             *
-             * لم نعد نشترط وجود إجابة صحيحة واحدة.
-             *
-             * يمكن أن يكون:
+             * يمكن أن يكون للسؤال:
              *
              * 1 إجابة صحيحة
              * 2 إجابات صحيحة
              * 3 إجابات صحيحة
-             * أو 4 إجابات صحيحة
+             * أو 4 إجابات صحيحة.
              */
 
             const correctCount =
@@ -1308,15 +1298,6 @@ async function loadQuiz(){
         /* =============================================
            إنشاء محاولة جديدة
         ============================================= */
-
-        /*
-         * ملاحظة مهمة:
-         *
-         * لا نبحث عن in_progress.
-         * لا نسترجع محاولة قديمة.
-         *
-         * كل فتح للاختبار = محاولة جديدة.
-         */
 
         await startNewAttempt();
 
@@ -1548,13 +1529,8 @@ function renderQuestions(){
 
 
                     /*
-                     * التعديل الرئيسي:
-                     *
-                     * checkbox
-                     * وليس radio
-                     *
-                     * لأن السؤال يمكن أن يحتوي
-                     * على عدة إجابات صحيحة.
+                     * checkbox لأن السؤال
+                     * قد يحتوي على عدة إجابات صحيحة.
                      */
 
                     input.type =
@@ -1577,11 +1553,6 @@ function renderQuestions(){
                                 return;
 
 
-                            /*
-                             * استخراج جميع الخيارات
-                             * المحددة لهذا السؤال.
-                             */
-
                             const selectedIds =
                             Array.from(
                                 document.querySelectorAll(
@@ -1592,11 +1563,6 @@ function renderQuestions(){
                                 input.value
                             );
 
-
-                            /*
-                             * إذا لم يبق أي اختيار
-                             * نحذف السؤال من answers.
-                             */
 
                             if(
                                 selectedIds.length === 0
@@ -1613,10 +1579,6 @@ function renderQuestions(){
 
                             }
 
-
-                            /*
-                             * تحديث الشكل البصري
-                             */
 
                             document
                             .querySelectorAll(
@@ -1639,11 +1601,6 @@ function renderQuestions(){
 
                             updateProgress();
 
-
-                            /*
-                             * حفظ جميع الاختيارات
-                             * لهذا السؤال.
-                             */
 
                             try{
 
@@ -1731,7 +1688,7 @@ async function saveSelectedOptions(
 
 
     /*
-     * حذف جميع الاختيارات القديمة
+     * حذف الاختيارات القديمة
      * لهذا السؤال في هذه المحاولة.
      */
 
@@ -1996,10 +1953,6 @@ async function finishQuiz(
         /*
          * التصحيح الحقيقي يتم في PostgreSQL.
          *
-         * لا نحسب score هنا.
-         *
-         * الدالة يجب أن تطبق:
-         *
          * صحيح بالكامل = +1
          * خطأ = -1
          * بدون إجابة = 0
@@ -2087,10 +2040,38 @@ async function finishQuiz(
 
 
         /*
-         * عرض المراجعة مباشرة.
+         * عرض المراجعة.
          */
 
         renderReview();
+
+
+        /*
+         * =================================================
+         * التعديل النهائي:
+         *
+         * بعد ظهور النتيجة يتم إرجاع الصفحة
+         * إلى أعلى الصفحة مباشرة.
+         *
+         * هذا يمنع بقاء المستخدم في مكان السؤال
+         * الذي كان عنده لحظة الضغط على زر الإنهاء.
+         * =================================================
+         */
+
+        window.scrollTo({
+            top:0,
+            left:0,
+            behavior:"auto"
+        });
+
+
+        /*
+         * ضمان إضافي لبعض المتصفحات:
+         */
+
+        document.documentElement.scrollTop = 0;
+
+        document.body.scrollTop = 0;
 
 
         console.log(
@@ -2245,12 +2226,12 @@ function renderReview(){
 
 
             /*
-             * التحقق من صحة الإجابة:
+             * الإجابة صحيحة فقط إذا:
              *
-             * يجب أن يكون عدد الاختيارات
-             * مساويًا لعدد الإجابات الصحيحة
+             * 1. عدد الاختيارات مساوي لعدد
+             *    الإجابات الصحيحة.
              *
-             * وجميع الاختيارات صحيحة.
+             * 2. جميع الاختيارات صحيحة.
              */
 
             const isCorrect =
@@ -2420,11 +2401,6 @@ function renderReview(){
                         "• " +
                         option.option_text;
 
-
-                        /*
-                         * إذا كانت إجابة الطالب
-                         * خاطئة نوضح ذلك.
-                         */
 
                         if(
                             !option.is_correct
