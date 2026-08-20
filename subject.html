@@ -1,3 +1,8 @@
+كود subject
+
+
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -10,9 +15,16 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>المادة | منصة النجاح التعليمية</title>
+    <title>الفئة | منصة النجاح التعليمية</title>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
+
+        /* =========================
+           الإعدادات العامة
+        ========================== */
 
         * {
             box-sizing: border-box;
@@ -24,17 +36,21 @@
 
             --primary: #123b6d;
             --primary-dark: #0d2d52;
+
             --secondary: #f59e0b;
 
             --background: #f5f8fc;
+
             --card: #ffffff;
 
             --text: #14213d;
+
             --muted: #64748b;
 
             --border: #e2e8f0;
 
             --soft-blue: #eff6ff;
+
             --soft-gold: #fff7ed;
 
             --shadow:
@@ -49,14 +65,17 @@
         body.dark {
 
             --background: #0f172a;
+
             --card: #172033;
 
             --text: #f8fafc;
+
             --muted: #aab5c5;
 
             --border: #29364d;
 
             --soft-blue: #1e293b;
+
             --soft-gold: #292016;
 
             --shadow:
@@ -74,10 +93,14 @@
                 Arial,
                 sans-serif;
 
-            background: var(--background);
-            color: var(--text);
+            background:
+                var(--background);
 
-            min-height: 100vh;
+            color:
+                var(--text);
+
+            min-height:
+                100vh;
 
             transition:
                 background .25s ease,
@@ -85,17 +108,22 @@
         }
 
         /* =========================
-           HEADER
+           الرأس
         ========================== */
 
         header {
 
-            position: sticky;
-            top: 0;
+            position:
+                sticky;
 
-            z-index: 100;
+            top:
+                0;
 
-            background: var(--card);
+            z-index:
+                100;
+
+            background:
+                var(--card);
 
             border-bottom:
                 1px solid var(--border);
@@ -103,386 +131,1041 @@
 
         .header-inner {
 
-            max-width: 1100px;
+            max-width:
+                1100px;
 
-            margin: auto;
+            margin:
+                auto;
 
-            padding: 11px 16px;
+            padding:
+                11px 16px;
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            justify-content: space-between;
+            justify-content:
+                space-between;
 
-            gap: 15px;
+            gap:
+                15px;
         }
-
-        /* الشعار */
 
         .brand {
 
-            display: flex;
+            text-decoration:
+                none;
 
-            align-items: center;
+            color:
+                var(--primary);
 
-            gap: 9px;
+            font-weight:
+                800;
 
-            text-decoration: none;
+            font-size:
+                18px;
 
-            color: var(--primary);
+            line-height:
+                1.2;
         }
 
-        .brand-logo {
+        .brand span {
 
-            width: 42px;
-            height: 42px;
+            display:
+                block;
 
-            border-radius: 12px;
+            color:
+                var(--secondary);
 
-            background: #eef5ff;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 22px;
-
-            font-weight: 800;
+            margin-top:
+                2px;
         }
 
-        .brand-name {
-
-            font-size: 17px;
-
-            line-height: 1.15;
-
-            font-weight: 800;
-        }
-
-        .brand-name span {
-
-            display: block;
-
-            color: var(--secondary);
-
-            margin-top: 2px;
-        }
-
-        /* الإضافيات */
+        /* =========================
+           الأزرار العلوية
+        ========================== */
 
         .header-actions {
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            gap: 5px;
+            gap:
+                6px;
         }
 
         .action-btn {
 
-            width: 36px;
-            height: 36px;
+            width:
+                36px;
+
+            height:
+                36px;
 
             border:
                 1px solid var(--border);
 
-            border-radius: 10px;
+            border-radius:
+                10px;
 
-            background: var(--card);
+            background:
+                var(--card);
 
-            color: var(--primary);
+            color:
+                var(--primary);
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            justify-content: center;
+            justify-content:
+                center;
 
-            cursor: pointer;
+            cursor:
+                pointer;
+
+            transition:
+                .2s ease;
+        }
+
+        .action-btn:hover {
+
+            border-color:
+                var(--secondary);
         }
 
         .action-btn svg {
 
-            width: 18px;
-            height: 18px;
+            width:
+                18px;
+
+            height:
+                18px;
         }
 
         /* =========================
-           MAIN
+           المحتوى الرئيسي
         ========================== */
 
         main {
 
-            max-width: 1000px;
+            max-width:
+                950px;
 
-            margin: auto;
+            margin:
+                auto;
 
-            padding: 42px 16px 70px;
+            padding:
+                45px 16px 70px;
         }
 
         /* =========================
-           عنوان المادة
+           عنوان الصفحة
         ========================== */
 
         .page-heading {
 
-            text-align: center;
+            text-align:
+                center;
 
-            margin-bottom: 38px;
+            margin-bottom:
+                40px;
         }
 
         .page-heading h1 {
 
-            color: var(--primary);
+            color:
+                var(--primary);
 
             font-size:
-                clamp(30px, 7vw, 44px);
+                clamp(32px, 8vw, 48px);
 
-            font-weight: 800;
+            font-weight:
+                800;
 
-            margin-bottom: 10px;
+            margin-bottom:
+                12px;
         }
 
         body.dark .page-heading h1 {
 
-            color: #ffffff;
+            color:
+                #ffffff;
         }
 
         .page-heading p {
 
-            color: var(--muted);
+            color:
+                var(--muted);
 
-            font-size: 15px;
+            font-size:
+                16px;
 
-            line-height: 1.8;
+            line-height:
+                1.9;
         }
 
         /* =========================
-           الأقسام
+           عناوين الأقسام
         ========================== */
 
         .section {
 
-            margin-bottom: 42px;
+            margin-bottom:
+                50px;
         }
 
-        .section-heading {
+        .section-title {
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            gap: 15px;
+            gap:
+                14px;
 
-            margin-bottom: 18px;
+            margin-bottom:
+                20px;
         }
 
-        .section-heading h2 {
+        .section-title h2 {
 
-            color: var(--primary);
+            color:
+                var(--primary);
 
-            font-size: 25px;
+            font-size:
+                28px;
 
-            white-space: nowrap;
+            font-weight:
+                800;
+
+            white-space:
+                nowrap;
         }
 
-        body.dark .section-heading h2 {
+        body.dark .section-title h2 {
 
-            color: #ffffff;
+            color:
+                #ffffff;
         }
 
-        .line {
+        .section-line {
 
-            flex: 1;
+            flex:
+                1;
 
-            height: 1px;
+            height:
+                1px;
 
-            background: var(--border);
+            background:
+                var(--border);
         }
 
         /* =========================
-           شبكة الملفات
+           بطاقات المواد
         ========================== */
 
-        .files-grid {
+        .subjects-grid {
 
-            display: grid;
+            display:
+                grid;
 
             grid-template-columns:
-                repeat(2, 1fr);
+                repeat(3, 1fr);
 
-            gap: 16px;
+            gap:
+                16px;
         }
 
-        /*
-           البطاقة كلها رابط
-        */
+        .subject-card {
 
-        .file-card {
+            text-decoration:
+                none;
 
-            display: flex;
-
-            align-items: center;
-
-            gap: 15px;
-
-            text-decoration: none;
-
-            color: var(--text);
-
-            background: var(--card);
+            background:
+                var(--card);
 
             border:
                 1px solid var(--border);
 
-            border-radius: 17px;
+            border-radius:
+                18px;
 
-            padding: 18px;
+            padding:
+                25px 18px;
 
-            min-height: 95px;
+            min-height:
+                145px;
 
-            box-shadow: var(--shadow);
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            text-align:
+                center;
+
+            box-shadow:
+                var(--shadow);
+
+            color:
+                var(--text);
 
             transition:
                 transform .2s ease,
-                box-shadow .2s ease,
-                border-color .2s ease;
+                border-color .2s ease,
+                box-shadow .2s ease;
         }
 
-        .file-card:hover {
+        .subject-card:hover {
 
             transform:
-                translateY(-3px);
+                translateY(-4px);
 
             border-color:
                 var(--secondary);
 
             box-shadow:
                 0 14px 30px
-                rgba(18,59,109,.11);
+                rgba(18,59,109,.12);
         }
 
-        .file-icon {
+        .subject-icon {
 
-            flex-shrink: 0;
+            width:
+                52px;
 
-            width: 52px;
-            height: 52px;
+            height:
+                52px;
 
-            border-radius: 14px;
+            border-radius:
+                14px;
 
-            background: var(--soft-blue);
+            background:
+                var(--soft-blue);
 
-            color: var(--primary);
+            color:
+                var(--primary);
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            justify-content: center;
+            justify-content:
+                center;
+
+            margin-bottom:
+                14px;
         }
 
-        .file-icon svg {
+        .subject-icon svg {
 
-            width: 25px;
-            height: 25px;
+            width:
+                27px;
+
+            height:
+                27px;
         }
 
-        .file-info {
+        .subject-card h3 {
 
-            min-width: 0;
+            color:
+                var(--primary);
+
+            font-size:
+                19px;
+
+            font-weight:
+                800;
         }
 
-        .file-info h3 {
+        body.dark .subject-card h3 {
 
-            font-size: 17px;
-
-            color: var(--primary);
-
-            margin-bottom: 5px;
-        }
-
-        body.dark .file-info h3 {
-
-            color: #ffffff;
-        }
-
-        .file-info p {
-
-            color: var(--muted);
-
-            font-size: 13px;
-
-            line-height: 1.6;
-        }
-
-        .file-type {
-
-            margin-top: 6px;
-
-            display: inline-block;
-
-            color: var(--secondary);
-
-            font-size: 11px;
-
-            font-weight: 700;
+            color:
+                #ffffff;
         }
 
         /* =========================
-           عدم وجود ملفات
+           قسم الاختبارات
         ========================== */
 
-        .empty-message {
+        .tests-box {
 
-            background: var(--card);
-
-            border:
-                1px dashed var(--border);
-
-            border-radius: 17px;
-
-            padding: 30px 20px;
-
-            text-align: center;
-
-            color: var(--muted);
-
-            font-size: 14px;
-        }
-
-        /* =========================
-           زر العودة
-        ========================== */
-
-        .back-button {
-
-            display: block;
-
-            width: fit-content;
-
-            margin: 10px auto 0;
-
-            text-decoration: none;
-
-            color: var(--primary);
-
-            background: var(--card);
+            background:
+                var(--card);
 
             border:
                 1px solid var(--border);
 
-            padding: 11px 20px;
+            border-radius:
+                22px;
 
-            border-radius: 12px;
+            padding:
+                25px;
 
-            font-weight: 700;
+            box-shadow:
+                var(--shadow);
+        }
 
-            font-size: 14px;
+        .tests-description {
+
+            color:
+                var(--muted);
+
+            text-align:
+                center;
+
+            font-size:
+                15px;
+
+            line-height:
+                1.9;
+
+            margin-bottom:
+                22px;
+        }
+
+        /* =========================
+           عنصر المادة داخل الاختبارات
+        ========================== */
+
+        .test-subject {
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                15px;
+
+            margin-bottom:
+                12px;
+
+            overflow:
+                hidden;
+
+            background:
+                var(--card);
+        }
+
+        .test-subject:last-child {
+
+            margin-bottom:
+                0;
+        }
+
+        .test-subject-button {
+
+            width:
+                100%;
+
+            border:
+                0;
+
+            background:
+                transparent;
+
+            color:
+                var(--text);
+
+            padding:
+                18px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                15px;
+
+            cursor:
+                pointer;
+
+            font-family:
+                inherit;
+
+            font-size:
+                17px;
+
+            font-weight:
+                800;
+
+            text-align:
+                right;
+        }
+
+        .test-subject-button:hover {
+
+            background:
+                var(--soft-blue);
+        }
+
+        .test-subject-name {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+        }
+
+        .test-subject-icon {
+
+            width:
+                38px;
+
+            height:
+                38px;
+
+            border-radius:
+                10px;
+
+            background:
+                var(--soft-blue);
+
+            color:
+                var(--primary);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+        }
+
+        .test-subject-icon svg {
+
+            width:
+                20px;
+
+            height:
+                20px;
+        }
+
+        .arrow {
+
+            width:
+                10px;
+
+            height:
+                10px;
+
+            border-left:
+                2px solid var(--muted);
+
+            border-bottom:
+                2px solid var(--muted);
+
+            transform:
+                rotate(-45deg);
+
+            transition:
+                transform .25s ease;
+        }
+
+        .test-subject.open .arrow {
+
+            transform:
+                rotate(135deg);
+        }
+
+        /* =========================
+           مستويات الاختبار
+        ========================== */
+
+        .levels {
+
+            max-height:
+                0;
+
+            overflow:
+                hidden;
+
+            transition:
+                max-height .35s ease;
+        }
+
+        .test-subject.open .levels {
+
+            max-height:
+                300px;
+        }
+
+        .levels-inner {
+
+            border-top:
+                1px solid var(--border);
+
+            padding:
+                10px;
+        }
+
+        .level-link {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            text-decoration:
+                none;
+
+            color:
+                var(--text);
+
+            background:
+                var(--background);
+
+            border:
+                1px solid transparent;
+
+            border-radius:
+                11px;
+
+            padding:
+                14px 15px;
+
+            margin:
+                6px 0;
+
+            font-size:
+                15px;
+
+            font-weight:
+                700;
+
+            transition:
+                .2s ease;
+
+            cursor:
+                pointer;
+        }
+
+        .level-info {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                flex-start;
+
+            gap:
+                5px;
+        }
+
+        .best-score {
+
+            color:
+                var(--secondary);
+
+            font-size:
+                13px;
+
+            font-weight:
+                800;
+        }
+
+        body.dark .best-score {
+
+            color:
+                #fbbf24;
+        }
+
+        .level-link:hover {
+
+            border-color:
+                var(--secondary);
+
+            background:
+                var(--soft-gold);
+
+            color:
+                var(--primary);
+        }
+
+        .level-link.loading {
+
+            opacity:
+                .6;
+
+            pointer-events:
+                none;
+        }
+
+        .level-arrow {
+
+            font-size:
+                16px;
+
+            color:
+                var(--secondary);
+        }
+
+        /* =========================
+           رياضيات المعلم المزدوج
+        ========================== */
+
+        .double-math-levels {
+
+            max-height:
+                none;
+
+            overflow:
+                visible;
+        }
+
+        .double-level-group {
+
+            margin-bottom:
+                18px;
+        }
+
+        .double-level-group:last-child {
+
+            margin-bottom:
+                0;
+        }
+
+        .double-level-title {
+
+            color:
+                var(--primary);
+
+            font-size:
+                16px;
+
+            font-weight:
+                800;
+
+            padding:
+                8px 6px;
+
+            text-align:
+                right;
+        }
+
+        body.dark .double-level-title {
+
+            color:
+                #ffffff;
+        }
+
+        .language-options {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                8px;
+        }
+
+        .language-options .level-link {
+
+            margin:
+                0;
+        }
+
+        /* =========================
+           رسالة الخطأ
+        ========================== */
+
+        .message-box {
+
+            display:
+                none;
+
+            margin:
+                15px 0;
+
+            padding:
+                14px 16px;
+
+            border-radius:
+                12px;
+
+            text-align:
+                center;
+
+            line-height:
+                1.8;
+
+            font-size:
+                14px;
+
+            font-weight:
+                600;
+        }
+
+        .message-box.show {
+
+            display:
+                block;
+        }
+
+        .message-error {
+
+            background:
+                #fef2f2;
+
+            color:
+                #b91c1c;
+
+            border:
+                1px solid #fecaca;
+        }
+
+        .message-loading {
+
+            background:
+                var(--soft-blue);
+
+            color:
+                var(--primary);
+
+            border:
+                1px solid var(--border);
+        }
+
+        /* =========================
+           التذييل
+        ========================== */
+
+        footer {
+
+            border-top:
+                1px solid var(--border);
+
+            background:
+                var(--card);
+
+            text-align:
+                center;
+
+            padding:
+                22px 15px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                13px;
+
+            line-height:
+                1.8;
+        }
+
+        footer strong {
+
+            color:
+                var(--primary);
+        }
+
+        body.dark footer strong {
+
+            color:
+                #ffffff;
+        }
+
+        /* =========================
+           نافذة الحساب
+        ========================== */
+
+        .account-overlay {
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            background:
+                rgba(0,0,0,.45);
+
+            z-index:
+                200;
+
+            display:
+                none;
+
+            align-items:
+                flex-start;
+
+            justify-content:
+                center;
+
+            padding:
+                80px 16px 20px;
+        }
+
+        .account-overlay.show {
+
+            display:
+                flex;
+        }
+
+        .account-box {
+
+            width:
+                100%;
+
+            max-width:
+                400px;
+
+            background:
+                var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                20px;
+
+            padding:
+                25px;
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,.2);
+        }
+
+        .account-header {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                22px;
+        }
+
+        .account-header h3 {
+
+            color:
+                var(--primary);
+
+            font-size:
+                22px;
+        }
+
+        body.dark .account-header h3 {
+
+            color:
+                #ffffff;
+        }
+
+        .close-account {
+
+            width:
+                34px;
+
+            height:
+                34px;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                var(--card);
+
+            color:
+                var(--muted);
+
+            border-radius:
+                9px;
+
+            cursor:
+                pointer;
+
+            font-size:
+                20px;
+        }
+
+        .account-info {
+
+            background:
+                var(--background);
+
+            border-radius:
+                13px;
+
+            padding:
+                15px;
+
+            margin-bottom:
+                10px;
+        }
+
+        .account-info span {
+
+            display:
+                block;
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            margin-bottom:
+                5px;
+        }
+
+        .account-info strong {
+
+            color:
+                var(--text);
+
+            font-size:
+                15px;
+        }
+
+        .status-active {
+
+            color:
+                #16a34a !important;
         }
 
         /* =========================
@@ -497,76 +1180,124 @@
                     10px 12px;
             }
 
-            .brand-logo {
+            .brand {
 
-                width: 39px;
-                height: 39px;
-
-                font-size: 20px;
-            }
-
-            .brand-name {
-
-                font-size: 15px;
+                font-size:
+                    15px;
             }
 
             .action-btn {
 
-                width: 34px;
-                height: 34px;
+                width:
+                    34px;
+
+                height:
+                    34px;
             }
 
             main {
 
                 padding:
-                    35px 14px 60px;
+                    35px 14px 55px;
             }
 
             .page-heading {
 
-                margin-bottom: 30px;
+                margin-bottom:
+                    30px;
             }
 
             .page-heading h1 {
 
-                font-size: 31px;
+                font-size:
+                    34px;
             }
 
             .page-heading p {
 
-                font-size: 14px;
+                font-size:
+                    14px;
             }
 
-            .section-heading h2 {
+            .section-title h2 {
 
-                font-size: 22px;
+                font-size:
+                    23px;
             }
 
-            .files-grid {
+            .subjects-grid {
 
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
 
-                gap: 13px;
+                gap:
+                    12px;
             }
 
-            .file-card {
+            .subject-card {
 
-                padding: 16px;
+                min-height:
+                    100px;
 
-                min-height: 88px;
+                padding:
+                    18px;
 
-                border-radius: 15px;
+                flex-direction:
+                    row;
+
+                justify-content:
+                    flex-start;
+
+                text-align:
+                    right;
+
+                gap:
+                    15px;
             }
 
-            .file-icon {
+            .subject-icon {
 
-                width: 47px;
-                height: 47px;
+                margin-bottom:
+                    0;
+
+                flex-shrink:
+                    0;
             }
 
-            .file-info h3 {
+            .subject-card h3 {
 
-                font-size: 16px;
+                font-size:
+                    18px;
+            }
+
+            .tests-box {
+
+                padding:
+                    15px;
+            }
+
+            .test-subject-button {
+
+                padding:
+                    15px;
+
+                font-size:
+                    16px;
+            }
+
+            .test-subject-icon {
+
+                width:
+                    35px;
+
+                height:
+                    35px;
+            }
+
+            .language-options {
+
+                grid-template-columns:
+                    1fr;
             }
 
         }
@@ -578,37 +1309,25 @@
 <body>
 
 <!-- =========================
-     رأس الصفحة
+     الرأس
 ========================== -->
 
 <header>
 
     <div class="header-inner">
 
-        <!-- الشعار والاسم -->
-
         <a
             href="index.html"
             class="brand"
         >
 
-            <div class="brand-logo">
-                ن
-            </div>
+            منصة النجاح
 
-            <div class="brand-name">
-
-                منصة النجاح
-
-                <span>
-                    التعليمية
-                </span>
-
-            </div>
+            <span>
+                التعليمية
+            </span>
 
         </a>
-
-        <!-- الإضافيات -->
 
         <div class="header-actions">
 
@@ -717,87 +1436,196 @@
 
 <main>
 
-    <!-- عنوان المادة -->
-
     <section class="page-heading">
 
-        <h1 id="subjectTitle">
-            اللغة العربية
+        <h1 id="categoryTitle">
+            اختر فئتك
         </h1>
 
-        <p id="subjectDescription">
-            الكتب والملخصات والتمارين المحلولة الخاصة بالمادة.
+        <p id="categoryDescription">
+            اختر الفئة التي تنتمي إليها للوصول
+            إلى محتوى التحضير الخاص بك.
         </p>
 
     </section>
 
     <!-- =========================
-         الكتب والملخصات
+         المواد
     ========================== -->
 
     <section class="section">
 
-        <div class="section-heading">
+        <div class="section-title">
 
             <h2>
-                الكتب والملخصات
+                المواد
             </h2>
 
-            <div class="line"></div>
+            <div class="section-line"></div>
 
         </div>
 
         <div
-            id="booksGrid"
-            class="files-grid"
-        >
-
-        </div>
+            id="subjectsGrid"
+            class="subjects-grid"
+        ></div>
 
     </section>
 
     <!-- =========================
-         تمارين محلولة
+         اختبر نفسك
     ========================== -->
 
     <section class="section">
 
-        <div class="section-heading">
+        <div class="section-title">
 
             <h2>
-                تمارين محلولة
+                اختبر نفسك
             </h2>
 
-            <div class="line"></div>
+            <div class="section-line"></div>
 
         </div>
 
-        <div
-            id="solvedExercisesGrid"
-            class="files-grid"
-        >
+        <div class="tests-box">
+
+            <p class="tests-description">
+
+                اختر المادة والمستوى المناسب للبدء في الاختبارات.
+
+                <br>
+
+                <strong>
+                    لكل مادة 150 سؤالًا.
+                </strong>
+
+            </p>
+
+            <div
+                id="messageBox"
+                class="message-box"
+            ></div>
+
+            <div
+                id="testsSubjects"
+            ></div>
 
         </div>
 
     </section>
 
-    <!-- العودة -->
-
-    <a
-        href="#"
-        id="backButton"
-        class="back-button"
-    >
-        العودة إلى الفئة
-    </a>
-
 </main>
+
+<!-- =========================
+     التذييل
+========================== -->
+
+<footer>
+
+    © 2026
+
+    <strong>
+        منصة النجاح التعليمية
+    </strong>
+
+    — جميع الحقوق محفوظة
+
+</footer>
+
+<!-- =========================
+     نافذة الحساب
+========================== -->
+
+<div
+    id="accountOverlay"
+    class="account-overlay"
+    onclick="closeAccountOutside(event)"
+>
+
+    <div
+        class="account-box"
+        onclick="event.stopPropagation()"
+    >
+
+        <div class="account-header">
+
+            <h3>
+                معلومات الحساب
+            </h3>
+
+            <button
+                class="close-account"
+                onclick="closeAccount()"
+                aria-label="إغلاق"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="account-info">
+
+            <span>
+                البريد الإلكتروني
+            </span>
+
+            <strong id="accountEmail">
+                سيتم عرضه بعد تسجيل الدخول
+            </strong>
+
+        </div>
+
+        <div class="account-info">
+
+            <span>
+                حالة الحساب
+            </span>
+
+            <strong class="status-active">
+                ● نشط
+            </strong>
+
+        </div>
+
+        <div class="account-info">
+
+            <span>
+                حالة الاشتراك
+            </span>
+
+            <strong>
+                مفتوح
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
 
 <script>
 
-    /* =========================
-       قراءة معلومات الرابط
-    ========================== */
+    /* =====================================================
+       إعداد Supabase
+    ====================================================== */
+
+    const SUPABASE_URL =
+        "https://xujyaopbswocfvzxryvc.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_8yjs_ITrdMd43HccwKAnEQ_9iGkWtFl";
+
+    const { createClient } = supabase;
+
+    const db = createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+    /* =====================================================
+       قراءة الفئة من الرابط
+    ====================================================== */
 
     const params =
         new URLSearchParams(
@@ -807,152 +1635,154 @@
     const category =
         params.get("category") || "arabic";
 
-    const subjectIndex =
-        parseInt(
-            params.get("subject") || "0",
-            10
-        );
-
-    /* =========================
-       مواد الفئات
-    ========================== */
+    /* =====================================================
+       بيانات الفئات
+    ====================================================== */
 
     const categoryData = {
 
-        arabic: [
+        arabic: {
 
-            "اللغة العربية",
+            title:
+                "المعلم العربي",
 
-            "التربية الإسلامية",
+            description:
+                "مسار التحضير الخاص بالمعلم العربي.",
 
-            "الرياضيات"
+            subjects: [
 
-        ],
+                {
+                    name:
+                        "اللغة العربية",
 
-        french: [
+                    subjectId:
+                        "368ff09e-9ac1-4c79-b65c-94c1014b8ac4"
+                },
 
-            "اللغة الفرنسية",
+                {
+                    name:
+                        "التربية الإسلامية",
 
-            "العلوم الطبيعية",
+                    subjectId:
+                        "e63cdf16-1c0a-4a94-8692-51485aa60bd0"
+                },
 
-            "الرياضيات"
+                {
+                    name:
+                        "الرياضيات",
 
-        ],
+                    subjectId:
+                        "7a1e3b68-4340-4a03-9e2b-29cdf1ad8f1e"
+                }
 
-        double: [
+            ]
 
-            "اللغة العربية",
+        },
 
-            "اللغة الفرنسية",
+        french: {
 
-            "الرياضيات"
+            title:
+                "المعلم الفرنسي",
 
-        ]
+            description:
+                "مسار التحضير الخاص بالمعلم الفرنسي.",
+
+            subjects: [
+
+                {
+                    name:
+                        "اللغة الفرنسية",
+
+                    subjectId:
+                        "e82fcfba-9cf6-4856-a637-de70eb34bc81"
+                },
+
+                {
+                    name:
+                        "العلوم الطبيعية",
+
+                    subjectId:
+                        "93de77d6-d49e-450b-a783-7b52aa007c11"
+                },
+
+                {
+                    name:
+                        "الرياضيات",
+
+                    subjectId:
+                        "d1b9101a-5543-4f24-8daa-c2a3f9afc115"
+                }
+
+            ]
+
+        },
+
+        double: {
+
+            title:
+                "المعلم المزدوج",
+
+            description:
+                "مسار التحضير الخاص بالمعلم المزدوج.",
+
+            subjects: [
+
+                {
+                    name:
+                        "اللغة العربية",
+
+                    subjectId:
+                        "d7b3cc7c-528b-467d-b6fa-9737024a56e6"
+                },
+
+                {
+                    name:
+                        "اللغة الفرنسية",
+
+                    subjectId:
+                        "4a5ad9ea-9b5a-4922-986e-08fd70139172"
+                },
+
+                {
+                    name:
+                        "الرياضيات",
+
+                    subjectId:
+                        "7dc8510a-eb52-46e7-8c90-f1635d310cae",
+
+                    frenchSubjectId:
+                        "4a414b70-f465-414b-962a-2e6b5e080a2d"
+                }
+
+            ]
+
+        }
 
     };
 
-    const subjects =
+    const currentCategory =
         categoryData[category] ||
         categoryData.arabic;
 
-    const subjectName =
-        subjects[subjectIndex] ||
-        subjects[0];
-
-    /* =========================
-       عنوان المادة
-    ========================== */
+    /* =====================================================
+       تحديث العنوان
+    ====================================================== */
 
     document.getElementById(
-        "subjectTitle"
+        "categoryTitle"
     ).textContent =
-        subjectName;
+        currentCategory.title;
 
     document.getElementById(
-        "subjectDescription"
+        "categoryDescription"
     ).textContent =
-        "الكتب والملخصات والتمارين المحلولة الخاصة بـ " +
-        subjectName + ".";
+        currentCategory.description;
 
-    /* =========================
-       العودة إلى الفئة
-    ========================== */
+    /* =====================================================
+       أيقونة المادة
+    ====================================================== */
 
-    document.getElementById(
-        "backButton"
-    ).href =
-        "category.html?category=" +
-        encodeURIComponent(category);
-
-    /* =========================
-       بيانات تجريبية مؤقتة
-    ========================== */
-
-    /*
-       هذه البيانات مؤقتة فقط
-       لاختبار شكل الصفحة.
-
-       لاحقًا سيتم استبدالها
-       بالبيانات الحقيقية من Supabase.
-    */
-
-    const books = [
-
-        {
-            title:
-                "كتاب المادة",
-
-            description:
-                "ملف PDF تعليمي",
-
-            url:
-                "#"
-        },
-
-        {
-            title:
-                "ملخص المادة",
-
-            description:
-                "ملخص شامل للمراجعة",
-
-            url:
-                "#"
-        }
-
-    ];
-
-    const solvedExercises = [
-
-        {
-            title:
-                "تمارين محلولة 01",
-
-            description:
-                "مجموعة تمارين محلولة بصيغة PDF",
-
-            url:
-                "#"
-        },
-
-        {
-            title:
-                "تمارين محلولة 02",
-
-            description:
-                "مجموعة إضافية من التمارين المحلولة",
-
-            url:
-                "#"
-        }
-
-    ];
-
-    /* =========================
-       أيقونة PDF
-    ========================== */
-
-    function fileIcon() {
+    function subjectIcon() {
 
         return `
 
@@ -964,19 +1794,22 @@
             >
 
                 <path
-                    d="M6 2h8l4 4v16H6z"
+                    d="M4 5.5A2.5 2.5 0 0 1
+                    6.5 3H20v16H6.5
+                    A2.5 2.5 0 0 0 4
+                    21.5z"
                 ></path>
 
                 <path
-                    d="M14 2v5h5"
+                    d="M4 5.5v16"
                 ></path>
 
                 <path
-                    d="M9 13h6"
+                    d="M8 7h8"
                 ></path>
 
                 <path
-                    d="M9 17h6"
+                    d="M8 11h8"
                 ></path>
 
             </svg>
@@ -984,118 +1817,1152 @@
         `;
     }
 
-    /* =========================
-       عرض الملفات
-    ========================== */
+    /* =====================================================
+       أيقونة الاختبار
+    ====================================================== */
 
-    function renderFiles(
-        files,
-        containerId
-    ) {
+    function testIcon() {
 
-        const container =
-            document.getElementById(
-                containerId
-            );
+        return `
 
-        container.innerHTML = "";
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+            >
 
-        if (
-            !files ||
-            files.length === 0
-        ) {
+                <rect
+                    x="4"
+                    y="3"
+                    width="16"
+                    height="18"
+                    rx="2"
+                ></rect>
 
-            container.innerHTML = `
+                <path
+                    d="M8 7h8"
+                ></path>
 
-                <div class="empty-message">
+                <path
+                    d="M8 11h2"
+                ></path>
 
-                    لا توجد ملفات متاحة حاليًا.
+                <path
+                    d="M14 11h2"
+                ></path>
+
+                <path
+                    d="M8 15h2"
+                ></path>
+
+                <path
+                    d="M14 15h2"
+                ></path>
+
+            </svg>
+
+        `;
+    }
+
+    /* =====================================================
+       عرض المواد
+    ====================================================== */
+
+    const subjectsGrid =
+        document.getElementById(
+            "subjectsGrid"
+        );
+
+    currentCategory.subjects.forEach(
+        function(subject) {
+
+            const link =
+                document.createElement("a");
+
+            link.className =
+                "subject-card";
+
+            link.href =
+                "subject.html?category=" +
+                encodeURIComponent(category) +
+                "&subject=" +
+                encodeURIComponent(
+                    subject.subjectId
+                );
+
+            link.innerHTML = `
+
+                <div class="subject-icon">
+
+                    ${subjectIcon()}
 
                 </div>
 
+                <h3>
+                    ${escapeHtml(subject.name)}
+                </h3>
+
             `;
 
-            return;
+            subjectsGrid.appendChild(
+                link
+            );
+
+        }
+    );
+
+    /* =====================================================
+       المستوى ↔ قيمة level في قاعدة البيانات
+    ====================================================== */
+
+    const levelMap = {
+
+        1:
+            "easy",
+
+        2:
+            "medium",
+
+        3:
+            "hard"
+
+    };
+
+    /* =====================================================
+       أسماء المستويات
+    ====================================================== */
+
+    const levelNames = {
+
+        1:
+            "المستوى الأول — سهل",
+
+        2:
+            "المستوى الثاني — متوسط",
+
+        3:
+            "المستوى الثالث — أصعب"
+
+    };
+
+    /* =====================================================
+       رسالة للمستخدم
+    ====================================================== */
+
+    function showMessage(
+        text,
+        type = "error"
+    ) {
+
+        const box =
+            document.getElementById(
+                "messageBox"
+            );
+
+        box.textContent =
+            text;
+
+        box.className =
+            "message-box show " +
+            (
+                type === "loading"
+                    ? "message-loading"
+                    : "message-error"
+            );
+
+    }
+
+    function hideMessage() {
+
+        const box =
+            document.getElementById(
+                "messageBox"
+            );
+
+        box.className =
+            "message-box";
+
+        box.textContent =
+            "";
+
+    }
+
+    /* =====================================================
+       تحميل الاختبارات مسبقًا
+    ====================================================== */
+
+    const quizCache =
+        new Map();
+
+    /*
+       أفضل نسبة حققها الطالب لكل اختبار.
+       المفتاح = quiz_id
+    */
+
+    const bestResults =
+        new Map();
+
+    let quizzesLoadPromise =
+        null;
+
+    async function preloadQuizzes() {
+
+        if (
+            quizzesLoadPromise
+        ) {
+
+            return quizzesLoadPromise;
+
         }
 
-        files.forEach(
-            function(file) {
+        /*
+           نجمع subject_id العادي،
+           ونضيف frenchSubjectId عند وجوده.
+        */
 
-                const link =
-                    document.createElement("a");
+        const subjectIds = [];
 
-                /*
-                   البطاقة كلها هي الرابط
-                */
+        currentCategory.subjects.forEach(
+            function(subject) {
 
-                link.className =
-                    "file-card";
+                subjectIds.push(
+                    subject.subjectId
+                );
 
-                link.href =
-                    file.url;
+                if (
+                    subject.frenchSubjectId
+                ) {
 
-                /*
-                   فتح PDF في صفحة جديدة
-                */
+                    subjectIds.push(
+                        subject.frenchSubjectId
+                    );
 
-                link.target =
-                    "_blank";
+                }
 
-                link.rel =
-                    "noopener noreferrer";
+            }
+        );
 
-                link.innerHTML = `
+        quizzesLoadPromise =
+            db
+                .from("quizzes")
+                .select(
+                    "id, subject_id, title, description, duration_minutes, is_published, created_at, level"
+                )
+                .in(
+                    "subject_id",
+                    subjectIds
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending:
+                            false
+                    }
+                )
+                .then(
+                    function(result) {
 
-                    <div class="file-icon">
+                        const data =
+                            result.data;
 
-                        ${fileIcon()}
+                        const error =
+                            result.error;
 
-                    </div>
+                        if (error) {
 
-                    <div class="file-info">
+                            console.error(
+                                "Supabase preload error:",
+                                error
+                            );
 
-                        <h3>
-                            ${escapeHtml(file.title)}
-                        </h3>
+                            throw error;
 
-                        <p>
-                            ${escapeHtml(file.description)}
-                        </p>
+                        }
 
-                        <span class="file-type">
-                            PDF
-                        </span>
+                        quizCache.clear();
 
-                    </div>
+                        /*
+                           نأخذ أحدث اختبار لكل
+                           subject_id + level.
+                        */
 
-                `;
+                        (
+                            data || []
+                        ).forEach(
+                            function(quiz) {
 
-                container.appendChild(
-                    link
+                                const key =
+                                    quiz.subject_id +
+                                    "_" +
+                                    quiz.level;
+
+                                if (
+                                    !quizCache.has(
+                                        key
+                                    )
+                                ) {
+
+                                    quizCache.set(
+                                        key,
+                                        quiz
+                                    );
+
+                                }
+
+                            }
+                        );
+
+                        return quizCache;
+
+                    }
+                )
+                .catch(
+                    function(error) {
+
+                        quizzesLoadPromise =
+                            null;
+
+                        throw error;
+
+                    }
+                );
+
+        return quizzesLoadPromise;
+
+    }
+
+    /*
+       بدء التحميل عند فتح الصفحة.
+    */
+
+    preloadQuizzes()
+        .then(
+            function() {
+                return loadBestResults();
+            }
+        )
+        .then(
+            function() {
+                updateBestScores();
+            }
+        )
+        .catch(
+            function(error) {
+
+                console.error(
+                    "Failed to preload quizzes:",
+                    error
                 );
 
             }
         );
 
+    /* =====================================================
+       تحميل أعلى النتائج للطالب
+    ====================================================== */
+
+    async function loadBestResults() {
+
+        bestResults.clear();
+
+        try {
+
+            const {
+                data: {
+                    user
+                },
+                error: userError
+            } =
+                await db.auth.getUser();
+
+            if (
+                userError ||
+                !user
+            ) {
+
+                return;
+
+            }
+
+            const quizIds =
+                Array.from(
+                    quizCache.values()
+                ).map(
+                    function(quiz) {
+
+                        return quiz.id;
+
+                    }
+                );
+
+            if (
+                quizIds.length === 0
+            ) {
+
+                return;
+
+            }
+
+            const {
+                data,
+                error
+            } =
+                await db
+                    .from("quiz_results")
+                    .select(
+                        "quiz_id, best_percentage"
+                    )
+                    .eq(
+                        "user_id",
+                        user.id
+                    )
+                    .in(
+                        "quiz_id",
+                        quizIds
+                    );
+
+            if (error) {
+
+                console.error(
+                    "Best results loading error:",
+                    error
+                );
+
+                return;
+
+            }
+
+            (
+                data || []
+            ).forEach(
+                function(result) {
+
+                    bestResults.set(
+                        result.quiz_id,
+                        Number(
+                            result.best_percentage
+                        )
+                    );
+
+                }
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Best results error:",
+                error
+            );
+
+        }
+
     }
 
-    /* عرض الكتب */
+    /* =====================================================
+       تحديث أعلى نسبة تحت كل مستوى
+    ====================================================== */
 
-    renderFiles(
-        books,
-        "booksGrid"
+    function updateBestScores() {
+
+        document
+            .querySelectorAll(
+                ".level-link"
+            )
+            .forEach(
+                function(link) {
+
+                    const subjectId =
+                        link.dataset.subjectId;
+
+                    const levelNumber =
+                        Number(
+                            link.dataset.level
+                        );
+
+                    const dbLevel =
+                        levelMap[levelNumber];
+
+                    const quiz =
+                        quizCache.get(
+                            subjectId +
+                            "_" +
+                            dbLevel
+                        );
+
+                    const scoreElement =
+                        link.querySelector(
+                            ".best-score"
+                        );
+
+                    if (
+                        !scoreElement
+                    ) {
+
+                        return;
+
+                    }
+
+                    if (
+                        !quiz
+                    ) {
+
+                        scoreElement.textContent =
+                            "أعلى نسبة تقدم: —";
+
+                        return;
+
+                    }
+
+                    const bestPercentage =
+                        bestResults.get(
+                            quiz.id
+                        );
+
+                    if (
+                        Number.isFinite(
+                            bestPercentage
+                        )
+                    ) {
+
+                        scoreElement.textContent =
+                            "أعلى نسبة تقدم: " +
+                            bestPercentage +
+                            "%";
+
+                    }
+
+                    else {
+
+                        scoreElement.textContent =
+                            "أعلى نسبة تقدم: لم تُجرَ محاولة بعد";
+
+                    }
+
+                }
+            );
+
+    }
+
+    /* =====================================================
+       فتح الاختبار
+    ====================================================== */
+
+    async function openQuiz(
+        subjectId,
+        levelNumber,
+        clickedLink
+    ) {
+
+        const dbLevel =
+            levelMap[levelNumber];
+
+        if (!dbLevel) {
+
+            showMessage(
+                "مستوى الاختبار غير صحيح."
+            );
+
+            return;
+
+        }
+
+        clickedLink.classList.add(
+            "loading"
+        );
+
+        const arrow =
+            clickedLink.querySelector(
+                ".level-arrow"
+            );
+
+        if (arrow) {
+
+            arrow.textContent =
+                "…";
+
+        }
+
+        hideMessage();
+
+        try {
+
+            await preloadQuizzes();
+
+            const key =
+                subjectId +
+                "_" +
+                dbLevel;
+
+            const quiz =
+                quizCache.get(
+                    key
+                );
+
+            if (!quiz) {
+
+                showMessage(
+                    "لا يوجد اختبار لهذا المستوى حاليًا. سيتم إضافته قريبًا."
+                );
+
+                return;
+
+            }
+
+            const quizUrl =
+                "quiz.html?quiz=" +
+                encodeURIComponent(
+                    quiz.id
+                );
+
+            window.location.href =
+                quizUrl;
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Quiz loading error:",
+                error
+            );
+
+            showMessage(
+                "حدث خطأ أثناء الاتصال بقاعدة البيانات. حاول مرة أخرى."
+            );
+
+        }
+
+        finally {
+
+            clickedLink.classList.remove(
+                "loading"
+            );
+
+            if (arrow) {
+
+                arrow.textContent =
+                    "←";
+
+            }
+
+        }
+
+    }
+
+    /* =====================================================
+       إنشاء مادة اختبار
+    ====================================================== */
+
+    function createTestSubject(
+        subject
+    ) {
+
+        const wrapper =
+            document.createElement(
+                "div"
+            );
+
+        wrapper.className =
+            "test-subject";
+
+        /*
+           =====================================================
+           حالة خاصة:
+           رياضيات المعلم المزدوج
+           
+           المستوى يظهر مباشرة،
+           وتحته العربية والفرنسية.
+           =====================================================
+        */
+
+        if (
+            category === "double" &&
+            subject.frenchSubjectId
+        ) {
+
+            wrapper.innerHTML = `
+
+                <div
+                    class="test-subject-button"
+                    style="cursor: default;"
+                >
+
+                    <span class="test-subject-name">
+
+                        <span class="test-subject-icon">
+
+                            ${testIcon()}
+
+                        </span>
+
+                        <span>
+                            ${escapeHtml(subject.name)}
+                        </span>
+
+                    </span>
+
+                </div>
+
+                <div class="levels double-math-levels">
+
+                    <div class="levels-inner">
+
+                        <!-- المستوى الأول -->
+
+                        <div class="double-level-group">
+
+                            <div class="double-level-title">
+                                ${levelNames[1]}
+                            </div>
+
+                            <div class="language-options">
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="1"
+                                    data-subject-id="${subject.subjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇸🇦 الرياضيات بالعربية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="1"
+                                    data-subject-id="${subject.frenchSubjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇫🇷 الرياضيات بالفرنسية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <!-- المستوى الثاني -->
+
+                        <div class="double-level-group">
+
+                            <div class="double-level-title">
+                                ${levelNames[2]}
+                            </div>
+
+                            <div class="language-options">
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="2"
+                                    data-subject-id="${subject.subjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇸🇦 الرياضيات بالعربية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="2"
+                                    data-subject-id="${subject.frenchSubjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇫🇷 الرياضيات بالفرنسية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <!-- المستوى الثالث -->
+
+                        <div class="double-level-group">
+
+                            <div class="double-level-title">
+                                ${levelNames[3]}
+                            </div>
+
+                            <div class="language-options">
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="3"
+                                    data-subject-id="${subject.subjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇸🇦 الرياضيات بالعربية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+                                <a
+                                    href="#"
+                                    class="level-link"
+                                    data-level="3"
+                                    data-subject-id="${subject.frenchSubjectId}"
+                                >
+
+                                    <span class="level-info">
+
+                                        <span>
+                                            🇫🇷 الرياضيات بالفرنسية
+                                        </span>
+
+                                        <span class="best-score">
+                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                        </span>
+
+                                    </span>
+
+                                    <span class="level-arrow">
+                                        ←
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+            wrapper
+                .querySelectorAll(
+                    ".level-link"
+                )
+                .forEach(
+                    function(link) {
+
+                        link.addEventListener(
+                            "click",
+                            function(event) {
+
+                                event.preventDefault();
+
+                                const levelNumber =
+                                    Number(
+                                        link.dataset.level
+                                    );
+
+                                const subjectId =
+                                    link.dataset.subjectId;
+
+                                openQuiz(
+                                    subjectId,
+                                    levelNumber,
+                                    link
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+            return wrapper;
+
+        }
+
+        /*
+           =====================================================
+           المواد الأخرى
+           =====================================================
+        */
+
+        wrapper.innerHTML = `
+
+            <button
+                class="test-subject-button"
+                type="button"
+            >
+
+                <span class="test-subject-name">
+
+                    <span class="test-subject-icon">
+
+                        ${testIcon()}
+
+                    </span>
+
+                    <span>
+                        ${escapeHtml(subject.name)}
+                    </span>
+
+                </span>
+
+                <span class="arrow"></span>
+
+            </button>
+
+            <div class="levels">
+
+                <div class="levels-inner">
+
+                    <a
+                        href="#"
+                        class="level-link"
+                        data-level="1"
+                        data-subject-id="${subject.subjectId}"
+                    >
+
+                        <span class="level-info">
+
+                            <span>
+                                ${levelNames[1]}
+                            </span>
+
+                            <span class="best-score">
+                                أعلى نسبة تقدم: جارٍ التحميل...
+                            </span>
+
+                        </span>
+
+                        <span class="level-arrow">
+                            ←
+                        </span>
+
+                    </a>
+
+                    <a
+                        href="#"
+                        class="level-link"
+                        data-level="2"
+                        data-subject-id="${subject.subjectId}"
+                    >
+
+                        <span class="level-info">
+
+                            <span>
+                                ${levelNames[2]}
+                            </span>
+
+                            <span class="best-score">
+                                أعلى نسبة تقدم: جارٍ التحميل...
+                            </span>
+
+                        </span>
+
+                        <span class="level-arrow">
+                            ←
+                        </span>
+
+                    </a>
+
+                    <a
+                        href="#"
+                        class="level-link"
+                        data-level="3"
+                        data-subject-id="${subject.subjectId}"
+                    >
+
+                        <span class="level-info">
+
+                            <span>
+                                ${levelNames[3]}
+                            </span>
+
+                            <span class="best-score">
+                                أعلى نسبة تقدم: جارٍ التحميل...
+                            </span>
+
+                        </span>
+
+                        <span class="level-arrow">
+                            ←
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        `;
+
+        /*
+           فتح وإغلاق المادة
+        */
+
+        const button =
+            wrapper.querySelector(
+                ".test-subject-button"
+            );
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                document
+                    .querySelectorAll(
+                        ".test-subject.open"
+                    )
+                    .forEach(
+                        function(openItem) {
+
+                            if (
+                                openItem !== wrapper
+                            ) {
+
+                                openItem.classList.remove(
+                                    "open"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                wrapper.classList.toggle(
+                    "open"
+                );
+
+            }
+        );
+
+        /*
+           روابط المستويات
+        */
+
+        wrapper
+            .querySelectorAll(
+                ".level-link"
+            )
+            .forEach(
+                function(link) {
+
+                    link.addEventListener(
+                        "click",
+                        function(event) {
+
+                            event.preventDefault();
+
+                            const levelNumber =
+                                Number(
+                                    link.dataset.level
+                                );
+
+                            openQuiz(
+                                subject.subjectId,
+                                levelNumber,
+                                link
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+        return wrapper;
+
+    }
+
+    /* =====================================================
+       عرض مواد الاختبارات
+    ====================================================== */
+
+    const testsSubjects =
+        document.getElementById(
+            "testsSubjects"
+        );
+
+    currentCategory.subjects.forEach(
+        function(subject) {
+
+            testsSubjects.appendChild(
+                createTestSubject(
+                    subject
+                )
+            );
+
+        }
     );
 
-    /* عرض التمارين المحلولة */
-
-    renderFiles(
-        solvedExercises,
-        "solvedExercisesGrid"
-    );
-
-    /* =========================
+    /* =====================================================
        الوضع الليلي
-    ========================== */
+    ====================================================== */
 
     function toggleDarkMode() {
 
@@ -1110,7 +2977,9 @@
 
         localStorage.setItem(
             "nejah_dark_mode",
-            isDark ? "1" : "0"
+            isDark
+                ? "1"
+                : "0"
         );
 
     }
@@ -1127,9 +2996,9 @@
 
     }
 
-    /* =========================
-       اللغة
-    ========================== */
+    /* =====================================================
+       تغيير اللغة
+    ====================================================== */
 
     function toggleLanguage() {
 
@@ -1139,31 +3008,107 @@
 
     }
 
-    /* =========================
+    /* =====================================================
        الحساب
-    ========================== */
+    ====================================================== */
 
-    function showAccount() {
+    async function showAccount() {
 
-        alert(
-            "معلومات الحساب سيتم ربطها بنظام تسجيل الدخول."
+        const overlay =
+            document.getElementById(
+                "accountOverlay"
+            );
+
+        const emailElement =
+            document.getElementById(
+                "accountEmail"
+            );
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await db
+                    .auth
+                    .getSession();
+
+            if (
+                !error &&
+                data &&
+                data.session &&
+                data.session.user
+            ) {
+
+                emailElement.textContent =
+                    data.session.user.email ||
+                    "غير متوفر";
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Account session error:",
+                error
+            );
+
+        }
+
+        overlay.classList.add(
+            "show"
         );
 
     }
 
-    /* =========================
-       حماية النصوص
-    ========================== */
+    function closeAccount() {
 
-    function escapeHtml(text) {
+        document
+            .getElementById(
+                "accountOverlay"
+            )
+            .classList.remove(
+                "show"
+            );
+
+    }
+
+    function closeAccountOutside(
+        event
+    ) {
+
+        if (
+            event.target.id ===
+            "accountOverlay"
+        ) {
+
+            closeAccount();
+
+        }
+
+    }
+
+    /* =====================================================
+       حماية النصوص
+    ====================================================== */
+
+    function escapeHtml(
+        text
+    ) {
 
         const div =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
         div.textContent =
             text;
 
         return div.innerHTML;
+
     }
 
 </script>
