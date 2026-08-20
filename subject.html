@@ -1726,8 +1726,12 @@
                     name:
                         "اللغة العربية",
 
-                    subjectId:
-                        "https://xujyaopbswocfvzxryvc.supabase.co/storage/v1/object/public/Le%20livres/Arabic_arb_cours.pdf"
+                    subjectId:"‏d7b3cc7c-528b-467d-b6fa-9737024a56e6",
+
+
+            
+                        
+                    BookUrl:"https://xujyaopbswocfvzxryvc.supabase.co/storage/v1/object/public/Le%20livres/Arabic_arb_cours.pdf"
                 },
 
                 {
@@ -1735,7 +1739,8 @@
                         "اللغة الفرنسية",
 
                     subjectId:
-                        "4a5ad9ea-9b5a-4922-986e-08fd70139172"
+                        "4a5ad9ea-9b5a-4922-986e-08fd70139172",
+                    BookUrl:"https://xujyaopbswocfvzxryvc.supabase.co/storage/v1/object/public/Le%20livres/Fran.pdf",
                 },
 
                 {
@@ -1747,6 +1752,8 @@
 
                     frenchSubjectId:
                         "4a414b70-f465-414b-962a-2e6b5e080a2d"
+
+                    
                 }
 
             ]
@@ -1879,11 +1886,7 @@
                 "subject-card";
 
             link.href =
-                "subject.html?category=" +
-                encodeURIComponent(category) +
-                "&subject=" +
-                encodeURIComponent(
-                    subject.subjectId
+                subject.bookUrl;
                 );
 
             link.innerHTML = `
