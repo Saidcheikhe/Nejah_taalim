@@ -1726,7 +1726,8 @@
                     name:
                         "اللغة العربية",
 
-                    subjectId:"‏d7b3cc7c-528b-467d-b6fa-9737024a56e6",
+                    subjectId:
+    "d7b3cc7c-528b-467d-b6fa-9737024a56e6",
 
 
             
@@ -1872,43 +1873,42 @@
     ====================================================== */
 
     const subjectsGrid =
-        document.getElementById(
-            "subjectsGrid"
+    document.getElementById(
+        "subjectsGrid"
+    );
+
+currentCategory.subjects.forEach(
+    function(subject) {
+
+        const link =
+            document.createElement("a");
+
+        link.className =
+            "subject-card";
+
+        link.href =
+            subject.BookUrl;
+
+        link.innerHTML = `
+
+            <div class="subject-icon">
+
+                ${subjectIcon()}
+
+            </div>
+
+            <h3>
+                ${escapeHtml(subject.name)}
+            </h3>
+
+        `;
+
+        subjectsGrid.appendChild(
+            link
         );
 
-    currentCategory.subjects.forEach(
-        function(subject) {
-
-            const link =
-                document.createElement("a");
-
-            link.className =
-                "subject-card";
-
-            link.href =
-                subject.bookUrl;
-                );
-
-            link.innerHTML = `
-
-                <div class="subject-icon">
-
-                    ${subjectIcon()}
-
-                </div>
-
-                <h3>
-                    ${escapeHtml(subject.name)}
-                </h3>
-
-            `;
-
-            subjectsGrid.appendChild(
-                link
-            );
-
-        }
-    );
+    }
+);
 
     /* =====================================================
        المستوى ↔ قيمة level في قاعدة البيانات
