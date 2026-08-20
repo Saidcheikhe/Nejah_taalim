@@ -498,6 +498,209 @@
                 #ffffff;
         }
 
+        /* =====================================================
+           مكتبة كتب المادة
+        ====================================================== */
+
+        .books-box {
+
+            background:
+                var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                22px;
+
+            padding:
+                25px;
+
+            box-shadow:
+                var(--shadow);
+        }
+
+        .books-description {
+
+            color:
+                var(--muted);
+
+            text-align:
+                center;
+
+            font-size:
+                15px;
+
+            line-height:
+                1.9;
+
+            margin-bottom:
+                22px;
+        }
+
+        .books-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap:
+                14px;
+        }
+
+        .book-card {
+
+            text-decoration:
+                none;
+
+            background:
+                var(--background);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                15px;
+
+            padding:
+                18px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                14px;
+
+            color:
+                var(--text);
+
+            transition:
+                transform .2s ease,
+                border-color .2s ease,
+                background .2s ease,
+                box-shadow .2s ease;
+        }
+
+        .book-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            border-color:
+                var(--secondary);
+
+            background:
+                var(--soft-gold);
+
+            box-shadow:
+                0 10px 24px
+                rgba(18,59,109,.08);
+        }
+
+        .book-icon {
+
+            width:
+                50px;
+
+            height:
+                50px;
+
+            min-width:
+                50px;
+
+            border-radius:
+                13px;
+
+            background:
+                var(--soft-blue);
+
+            color:
+                var(--primary);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+        }
+
+        .book-icon svg {
+
+            width:
+                25px;
+
+            height:
+                25px;
+        }
+
+        .book-info {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap:
+                5px;
+
+            min-width:
+                0;
+        }
+
+        .book-info h3 {
+
+            color:
+                var(--primary);
+
+            font-size:
+                17px;
+
+            font-weight:
+                800;
+        }
+
+        body.dark .book-info h3 {
+
+            color:
+                #ffffff;
+        }
+
+        .book-info span {
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            line-height:
+                1.6;
+        }
+
+        .book-arrow {
+
+            margin-right:
+                auto;
+
+            color:
+                var(--secondary);
+
+            font-size:
+                18px;
+
+            flex-shrink:
+                0;
+        }
+
         /* =========================
            قسم الاختبارات
         ========================== */
@@ -1265,6 +1468,30 @@
                     18px;
             }
 
+            .books-box {
+
+                padding:
+                    15px;
+            }
+
+            .books-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+            .book-card {
+
+                padding:
+                    15px;
+            }
+
+            .book-info h3 {
+
+                font-size:
+                    16px;
+            }
+
             .tests-box {
 
                 padding:
@@ -1472,6 +1699,50 @@
             id="subjectsGrid"
             class="subjects-grid"
         ></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         كتب المادة
+    ====================================================== -->
+
+    <section
+        class="section"
+        id="booksSection"
+    >
+
+        <div class="section-title">
+
+            <h2>
+                كتب المادة
+            </h2>
+
+            <div class="section-line"></div>
+
+        </div>
+
+
+        <div class="books-box">
+
+            <p class="books-description">
+
+                جميع الكتب والملخصات والتمارين الخاصة
+                بمادة اللغة العربية متاحة هنا.
+
+                <br>
+
+                اضغط على الكتاب لفتحه.
+
+            </p>
+
+
+            <div
+                id="booksGrid"
+                class="books-grid"
+            ></div>
+
+        </div>
 
     </section>
 
@@ -1889,6 +2160,50 @@
 
 
     /* =====================================================
+       أيقونة الكتاب
+    ====================================================== */
+
+    function bookIcon() {
+
+        return `
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+            >
+
+                <path
+                    d="M4 5.5A2.5 2.5 0 0 1
+                    6.5 3H20v16H6.5
+                    A2.5 2.5 0 0 0 4
+                    21.5z"
+                ></path>
+
+                <path
+                    d="M4 5.5v16"
+                ></path>
+
+                <path
+                    d="M8 7h8"
+                ></path>
+
+                <path
+                    d="M8 11h7"
+                ></path>
+
+                <path
+                    d="M8 15h5"
+                ></path>
+
+            </svg>
+
+        `;
+    }
+
+
+    /* =====================================================
        عرض المواد
     ====================================================== */
 
@@ -1939,6 +2254,216 @@
 
         }
     );
+
+
+    /* =====================================================
+       مكتبة الكتب
+       
+       Bucket:
+       Les livres
+       
+       الملفات:
+       Arabic_arb_cours.pdf
+       Arabic_arb_resum.pdf
+       Arabic_arb_ex1.pdf
+       Arabic_arb_ex2.pdf
+    ====================================================== */
+
+    const booksSection =
+        document.getElementById(
+            "booksSection"
+        );
+
+
+    const booksGrid =
+        document.getElementById(
+            "booksGrid"
+        );
+
+
+    const arabicBooks = [
+
+        {
+            title:
+                "كتاب المادة",
+
+            description:
+                "كتاب مادة اللغة العربية كاملًا",
+
+            file:
+                "Arabic_arb_cours.pdf"
+        },
+
+        {
+            title:
+                "ملخص المادة",
+
+            description:
+                "ملخص مادة اللغة العربية",
+
+            file:
+                "Arabic_arb_resum.pdf"
+        },
+
+        {
+            title:
+                "التمارين 1",
+
+            description:
+                "تمارين اللغة العربية — المجموعة الأولى",
+
+            file:
+                "Arabic_arb_ex1.pdf"
+        },
+
+        {
+            title:
+                "التمارين 2",
+
+            description:
+                "تمارين اللغة العربية — المجموعة الثانية",
+
+            file:
+                "Arabic_arb_ex2.pdf"
+        }
+
+    ];
+
+
+    /*
+       إنشاء رابط الملف من Supabase Storage.
+       
+       getPublicUrl لا يحتاج إلى تسجيل دخول،
+       لذلك سيبقى نظام الصلاحيات الحالي للحسابات
+       كما هو دون أي تغيير.
+    */
+
+    function getBookUrl(
+        fileName
+    ) {
+
+        const result =
+            db
+                .storage
+                .from("Les livres")
+                .getPublicUrl(
+                    fileName
+                );
+
+
+        return result.data.publicUrl;
+
+    }
+
+
+    /*
+       عرض كتب اللغة العربية.
+       
+       حاليًا نختبر على المعلم العربي فقط.
+       عند إضافة كتب باقي المواد سنضيفها إلى
+       بيانات الكتب الخاصة بها دون تغيير
+       نظام الصفحة.
+    */
+
+    function renderArabicBooks() {
+
+        booksGrid.innerHTML =
+            "";
+
+
+        arabicBooks.forEach(
+            function(book) {
+
+                const url =
+                    getBookUrl(
+                        book.file
+                    );
+
+
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                link.className =
+                    "book-card";
+
+
+                link.href =
+                    url;
+
+
+                link.target =
+                    "_blank";
+
+
+                link.rel =
+                    "noopener noreferrer";
+
+
+                link.innerHTML = `
+
+                    <div class="book-icon">
+
+                        ${bookIcon()}
+
+                    </div>
+
+
+                    <div class="book-info">
+
+                        <h3>
+                            ${escapeHtml(book.title)}
+                        </h3>
+
+                        <span>
+                            ${escapeHtml(book.description)}
+                        </span>
+
+                    </div>
+
+
+                    <span class="book-arrow">
+                        ←
+                    </span>
+
+                `;
+
+
+                booksGrid.appendChild(
+                    link
+                );
+
+            }
+        );
+
+    }
+
+
+    /*
+       إظهار مكتبة الكتب حاليًا
+       للفئة العربية فقط.
+       
+       السبب:
+       الملفات التي أضفناها حتى الآن
+       تخص مادة اللغة العربية للمعلم العربي.
+    */
+
+    if (
+        category === "arabic"
+    ) {
+
+        renderArabicBooks();
+
+    }
+
+    else {
+
+        booksSection.style.display =
+            "none";
+
+    }
 
 
     /* =====================================================
