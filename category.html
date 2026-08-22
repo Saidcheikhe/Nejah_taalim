@@ -520,22 +520,15 @@
                 var(--shadow);
         }
 
+        /*
+           تم تعليق فقرة وصف الكتب حسب الاتفاق.
+           سيظهر عنوان "كتب المادة" ثم بطاقات الكتب مباشرة.
+        */
+
         .books-description {
 
-            color:
-                var(--muted);
-
-            text-align:
-                center;
-
-            font-size:
-                15px;
-
-            line-height:
-                1.9;
-
-            margin-bottom:
-                22px;
+            display:
+                none;
         }
 
         .books-grid {
@@ -914,7 +907,7 @@
         .test-subject.open .levels {
 
             max-height:
-                300px;
+                500px;
         }
 
         .levels-inner {
@@ -998,6 +991,18 @@
                 800;
         }
 
+        .attempt-count {
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+        }
+
         body.dark .best-score {
 
             color:
@@ -1032,73 +1037,6 @@
 
             color:
                 var(--secondary);
-        }
-
-        /* =========================
-           رياضيات المعلم المزدوج
-        ========================== */
-
-        .double-math-levels {
-
-            max-height:
-                none;
-
-            overflow:
-                visible;
-        }
-
-        .double-level-group {
-
-            margin-bottom:
-                18px;
-        }
-
-        .double-level-group:last-child {
-
-            margin-bottom:
-                0;
-        }
-
-        .double-level-title {
-
-            color:
-                var(--primary);
-
-            font-size:
-                16px;
-
-            font-weight:
-                800;
-
-            padding:
-                8px 6px;
-
-            text-align:
-                right;
-        }
-
-        body.dark .double-level-title {
-
-            color:
-                #ffffff;
-        }
-
-        .language-options {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap:
-                8px;
-        }
-
-        .language-options .level-link {
-
-            margin:
-                0;
         }
 
         /* =========================
@@ -1516,12 +1454,6 @@
                     35px;
             }
 
-            .language-options {
-
-                grid-template-columns:
-                    1fr;
-            }
-
         }
 
     </style>
@@ -1687,7 +1619,7 @@
         <div class="section-title">
 
             <h2>
-                المواد
+                كتب المواد
             </h2>
 
             <div class="section-line"></div>
@@ -1724,6 +1656,10 @@
 
 
         <div class="books-box">
+
+            <!--
+                تم إخفاء فقرة الوصف الزائدة.
+            -->
 
             <p class="books-description">
 
@@ -2258,15 +2194,6 @@
 
     /* =====================================================
        مكتبة الكتب
-       
-       Bucket:
-       Les livres
-       
-       الملفات:
-       Arabic_arb_cours.pdf
-       Arabic_arb_resum.pdf
-       Arabic_arb_ex1.pdf
-       Arabic_arb_ex2.pdf
     ====================================================== */
 
     const booksSection =
@@ -2330,14 +2257,6 @@
     ];
 
 
-    /*
-       إنشاء رابط الملف من Supabase Storage.
-       
-       getPublicUrl لا يحتاج إلى تسجيل دخول،
-       لذلك سيبقى نظام الصلاحيات الحالي للحسابات
-       كما هو دون أي تغيير.
-    */
-
     function getBookUrl(
         fileName
     ) {
@@ -2355,15 +2274,6 @@
 
     }
 
-
-    /*
-       عرض كتب اللغة العربية.
-       
-       حاليًا نختبر على المعلم العربي فقط.
-       عند إضافة كتب باقي المواد سنضيفها إلى
-       بيانات الكتب الخاصة بها دون تغيير
-       نظام الصفحة.
-    */
 
     function renderArabicBooks() {
 
@@ -2441,15 +2351,6 @@
     }
 
 
-    /*
-       إظهار مكتبة الكتب حاليًا
-       للفئة العربية فقط.
-       
-       السبب:
-       الملفات التي أضفناها حتى الآن
-       تخص مادة اللغة العربية للمعلم العربي.
-    */
-
     if (
         category === "arabic"
     ) {
@@ -2467,7 +2368,7 @@
 
 
     /* =====================================================
-       المستوى ↔ قيمة level في قاعدة البيانات
+       المستوى ↔ قيمة level
     ====================================================== */
 
     const levelMap = {
@@ -2559,8 +2460,15 @@
 
 
     /*
-       أفضل نسبة حققها الطالب لكل اختبار.
+       نتائج الطالب لكل اختبار.
+
        المفتاح = quiz_id
+
+       القيمة:
+       {
+           bestPercentage,
+           attemptsCount
+       }
     */
 
     const bestResults =
@@ -2581,11 +2489,6 @@
 
         }
 
-
-        /*
-           نجمع subject_id العادي،
-           ونضيف frenchSubjectId عند وجوده.
-        */
 
         const subjectIds = [];
 
@@ -2718,12 +2621,16 @@
     preloadQuizzes()
         .then(
             function() {
+
                 return loadBestResults();
+
             }
         )
         .then(
             function() {
+
                 updateBestScores();
+
             }
         )
         .catch(
@@ -2739,7 +2646,7 @@
 
 
     /* =====================================================
-       تحميل أعلى النتائج للطالب
+       تحميل أعلى النتائج وعدد المحاولات
     ====================================================== */
 
     async function loadBestResults() {
@@ -2795,7 +2702,7 @@
                 await db
                     .from("quiz_results")
                     .select(
-                        "quiz_id, best_percentage"
+                        "quiz_id, best_percentage, attempts_count"
                     )
                     .eq(
                         "user_id",
@@ -2826,9 +2733,17 @@
 
                     bestResults.set(
                         result.quiz_id,
-                        Number(
-                            result.best_percentage
-                        )
+                        {
+                            bestPercentage:
+                                Number(
+                                    result.best_percentage
+                                ),
+
+                            attemptsCount:
+                                Number(
+                                    result.attempts_count
+                                )
+                        }
                     );
 
                 }
@@ -2849,7 +2764,8 @@
 
 
     /* =====================================================
-       تحديث أعلى نسبة تحت كل مستوى
+       تحديث أعلى نتيجة وعدد المحاولات
+       تحت كل مستوى
     ====================================================== */
 
     function updateBestScores() {
@@ -2889,8 +2805,15 @@
                         );
 
 
+                    const attemptElement =
+                        link.querySelector(
+                            ".attempt-count"
+                        );
+
+
                     if (
-                        !scoreElement
+                        !scoreElement ||
+                        !attemptElement
                     ) {
 
                         return;
@@ -2903,36 +2826,53 @@
                     ) {
 
                         scoreElement.textContent =
-                            "أعلى نسبة تقدم: —";
+                            "أعلى نتيجة: —";
+
+                        attemptElement.textContent =
+                            "عدد المحاولات: 0";
 
                         return;
 
                     }
 
 
-                    const bestPercentage =
+                    const result =
                         bestResults.get(
                             quiz.id
                         );
 
 
                     if (
+                        result &&
                         Number.isFinite(
-                            bestPercentage
+                            result.bestPercentage
                         )
                     ) {
 
                         scoreElement.textContent =
-                            "أعلى نسبة تقدم: " +
-                            bestPercentage +
+                            "أعلى نتيجة: " +
+                            result.bestPercentage +
                             "%";
+
+                        attemptElement.textContent =
+                            "عدد المحاولات: " +
+                            (
+                                Number.isFinite(
+                                    result.attemptsCount
+                                )
+                                    ? result.attemptsCount
+                                    : 0
+                            );
 
                     }
 
                     else {
 
                         scoreElement.textContent =
-                            "أعلى نسبة تقدم: لم تُجرَ محاولة بعد";
+                            "أعلى نتيجة: لم تُجرَ محاولة بعد";
+
+                        attemptElement.textContent =
+                            "عدد المحاولات: 0";
 
                     }
 
@@ -3084,11 +3024,10 @@
 
         /*
            =====================================================
-           حالة خاصة:
            رياضيات المعلم المزدوج
-           
-           المستوى يظهر مباشرة،
-           وتحته العربية والفرنسية.
+
+           الآن أصبحت قائمة منسدلة مثل بقية المواد.
+           لا تظهر المستويات إلا بعد الضغط على الرياضيات.
            =====================================================
         */
 
@@ -3099,9 +3038,9 @@
 
             wrapper.innerHTML = `
 
-                <div
+                <button
                     class="test-subject-button"
-                    style="cursor: default;"
+                    type="button"
                 >
 
                     <span class="test-subject-name">
@@ -3118,10 +3057,13 @@
 
                     </span>
 
-                </div>
+
+                    <span class="arrow"></span>
+
+                </button>
 
 
-                <div class="levels double-math-levels">
+                <div class="levels">
 
                     <div class="levels-inner">
 
@@ -3151,10 +3093,15 @@
                                         </span>
 
                                         <span class="best-score">
-                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                            أعلى نتيجة: جارٍ التحميل...
+                                        </span>
+
+                                        <span class="attempt-count">
+                                            عدد المحاولات: جارٍ التحميل...
                                         </span>
 
                                     </span>
+
 
                                     <span class="level-arrow">
                                         ←
@@ -3177,10 +3124,15 @@
                                         </span>
 
                                         <span class="best-score">
-                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                            أعلى نتيجة: جارٍ التحميل...
+                                        </span>
+
+                                        <span class="attempt-count">
+                                            عدد المحاولات: جارٍ التحميل...
                                         </span>
 
                                     </span>
+
 
                                     <span class="level-arrow">
                                         ←
@@ -3218,10 +3170,15 @@
                                         </span>
 
                                         <span class="best-score">
-                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                            أعلى نتيجة: جارٍ التحميل...
+                                        </span>
+
+                                        <span class="attempt-count">
+                                            عدد المحاولات: جارٍ التحميل...
                                         </span>
 
                                     </span>
+
 
                                     <span class="level-arrow">
                                         ←
@@ -3244,10 +3201,15 @@
                                         </span>
 
                                         <span class="best-score">
-                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                            أعلى نتيجة: جارٍ التحميل...
+                                        </span>
+
+                                        <span class="attempt-count">
+                                            عدد المحاولات: جارٍ التحميل...
                                         </span>
 
                                     </span>
+
 
                                     <span class="level-arrow">
                                         ←
@@ -3285,10 +3247,15 @@
                                         </span>
 
                                         <span class="best-score">
-                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                            أعلى نتيجة: جارٍ التحميل...
+                                        </span>
+
+                                        <span class="attempt-count">
+                                            عدد المحاولات: جارٍ التحميل...
                                         </span>
 
                                     </span>
+
 
                                     <span class="level-arrow">
                                         ←
@@ -3311,10 +3278,15 @@
                                         </span>
 
                                         <span class="best-score">
-                                            أعلى نسبة تقدم: جارٍ التحميل...
+                                            أعلى نتيجة: جارٍ التحميل...
+                                        </span>
+
+                                        <span class="attempt-count">
+                                            عدد المحاولات: جارٍ التحميل...
                                         </span>
 
                                     </span>
+
 
                                     <span class="level-arrow">
                                         ←
@@ -3333,6 +3305,53 @@
 
             `;
 
+
+            /*
+               فتح وإغلاق قائمة رياضيات المعلم المزدوج
+            */
+
+            const button =
+                wrapper.querySelector(
+                    ".test-subject-button"
+                );
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    document
+                        .querySelectorAll(
+                            ".test-subject.open"
+                        )
+                        .forEach(
+                            function(openItem) {
+
+                                if (
+                                    openItem !== wrapper
+                                ) {
+
+                                    openItem.classList.remove(
+                                        "open"
+                                    );
+
+                                }
+
+                            }
+                        );
+
+
+                    wrapper.classList.toggle(
+                        "open"
+                    );
+
+                }
+            );
+
+
+            /*
+               روابط مستويات الرياضيات
+            */
 
             wrapper
                 .querySelectorAll(
@@ -3428,10 +3447,15 @@
                             </span>
 
                             <span class="best-score">
-                                أعلى نسبة تقدم: جارٍ التحميل...
+                                أعلى نتيجة: جارٍ التحميل...
+                            </span>
+
+                            <span class="attempt-count">
+                                عدد المحاولات: جارٍ التحميل...
                             </span>
 
                         </span>
+
 
                         <span class="level-arrow">
                             ←
@@ -3454,10 +3478,15 @@
                             </span>
 
                             <span class="best-score">
-                                أعلى نسبة تقدم: جارٍ التحميل...
+                                أعلى نتيجة: جارٍ التحميل...
+                            </span>
+
+                            <span class="attempt-count">
+                                عدد المحاولات: جارٍ التحميل...
                             </span>
 
                         </span>
+
 
                         <span class="level-arrow">
                             ←
@@ -3480,10 +3509,15 @@
                             </span>
 
                             <span class="best-score">
-                                أعلى نسبة تقدم: جارٍ التحميل...
+                                أعلى نتيجة: جارٍ التحميل...
+                            </span>
+
+                            <span class="attempt-count">
+                                عدد المحاولات: جارٍ التحميل...
                             </span>
 
                         </span>
+
 
                         <span class="level-arrow">
                             ←
