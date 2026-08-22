@@ -480,6 +480,21 @@
                 27px;
         }
 
+        .subject-card-content {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                center;
+
+            gap:
+                6px;
+        }
+
         .subject-card h3 {
 
             color:
@@ -496,6 +511,25 @@
 
             color:
                 #ffffff;
+        }
+
+        /* =========================
+           تنبيه فتح الكتاب
+        ========================== */
+
+        .open-book-hint {
+
+            color:
+                var(--secondary);
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+            line-height:
+                1.5;
         }
 
         /* =====================================================
@@ -520,15 +554,56 @@
                 var(--shadow);
         }
 
-        /*
-           تم تعليق فقرة وصف الكتب حسب الاتفاق.
-           سيظهر عنوان "كتب المادة" ثم بطاقات الكتب مباشرة.
-        */
-
         .books-description {
 
             display:
                 none;
+        }
+
+        /* =========================
+           تنبيه إضافة المحتوى
+        ========================== */
+
+        .arabic-books-notice {
+
+            display:
+                none;
+
+            background:
+                var(--soft-gold);
+
+            border:
+                1px solid #fed7aa;
+
+            border-radius:
+                12px;
+
+            padding:
+                14px 18px;
+
+            margin:
+                0 0 20px;
+
+            color:
+                var(--secondary);
+
+            text-align:
+                center;
+
+            font-size:
+                15px;
+
+            font-weight:
+                800;
+
+            line-height:
+                1.8;
+        }
+
+        body.dark .arabic-books-notice {
+
+            border-color:
+                #4b3820;
         }
 
         .books-grid {
@@ -910,6 +985,62 @@
                 500px;
         }
 
+        /* =====================================================
+           رياضيات المعلم المزدوج
+           قائمة المستويات قابلة للتمرير
+        ====================================================== */
+
+        .test-subject.double-math.open .levels {
+
+            max-height:
+                70vh;
+
+            overflow-y:
+                auto;
+
+            overflow-x:
+                hidden;
+
+            -webkit-overflow-scrolling:
+                touch;
+
+            overscroll-behavior:
+                contain;
+
+            scrollbar-width:
+                thin;
+        }
+
+        .test-subject.double-math.open .levels::-webkit-scrollbar {
+
+            width:
+                6px;
+        }
+
+        .test-subject.double-math.open .levels::-webkit-scrollbar-track {
+
+            background:
+                var(--background);
+
+            border-radius:
+                10px;
+        }
+
+        .test-subject.double-math.open .levels::-webkit-scrollbar-thumb {
+
+            background:
+                var(--border);
+
+            border-radius:
+                10px;
+        }
+
+        .test-subject.double-math.open .levels::-webkit-scrollbar-thumb:hover {
+
+            background:
+                var(--secondary);
+        }
+
         .levels-inner {
 
             border-top:
@@ -918,6 +1049,77 @@
             padding:
                 10px;
         }
+
+        /* =========================
+           مجموعات رياضيات المزدوج
+        ========================== */
+
+        .double-level-group {
+
+            background:
+                var(--background);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                14px;
+
+            padding:
+                10px;
+
+            margin:
+                8px 0 12px;
+        }
+
+        .double-level-group:last-child {
+
+            margin-bottom:
+                4px;
+        }
+
+        .double-level-title {
+
+            color:
+                var(--primary);
+
+            font-size:
+                15px;
+
+            font-weight:
+                800;
+
+            padding:
+                8px 10px;
+
+            margin-bottom:
+                4px;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+        body.dark .double-level-title {
+
+            color:
+                #ffffff;
+        }
+
+        .language-options {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap:
+                4px;
+        }
+
+        /* =========================
+           روابط المستويات
+        ========================== */
 
         .level-link {
 
@@ -1400,6 +1602,12 @@
                     0;
             }
 
+            .subject-card-content {
+
+                align-items:
+                    flex-start;
+            }
+
             .subject-card h3 {
 
                 font-size:
@@ -1452,6 +1660,68 @@
 
                 height:
                     35px;
+            }
+
+            /* =============================================
+               الهاتف:
+               قائمة رياضيات المعلم المزدوج قابلة للتمرير
+            ============================================== */
+
+            .test-subject.double-math.open .levels {
+
+                max-height:
+                    65vh;
+
+                overflow-y:
+                    auto;
+
+                overflow-x:
+                    hidden;
+
+                -webkit-overflow-scrolling:
+                    touch;
+
+                overscroll-behavior:
+                    contain;
+            }
+
+            .double-level-group {
+
+                padding:
+                    8px;
+
+                margin:
+                    7px 0 10px;
+            }
+
+            .double-level-title {
+
+                font-size:
+                    14px;
+
+                padding:
+                    8px;
+            }
+
+            .level-link {
+
+                padding:
+                    13px 12px;
+
+                font-size:
+                    14px;
+            }
+
+            .best-score {
+
+                font-size:
+                    12px;
+            }
+
+            .attempt-count {
+
+                font-size:
+                    11px;
             }
 
         }
@@ -1635,12 +1905,10 @@
     </section>
 
 
-    <!-- =====================================================
+    <!-- =========================
          كتب المادة
-    ====================================================== -->
+    ========================== -->
 
-
-    
     <section
         class="section"
         id="booksSection"
@@ -1658,6 +1926,19 @@
 
 
         <div class="books-box">
+
+            <!--
+                تظهر هذه العبارة داخل صندوق كتب المادة
+                لفئة المعلم العربي فقط
+            -->
+
+            <p
+                class="arabic-books-notice"
+                id="arabicBooksNotice"
+            >
+                نعمل على إضافة هذا المحتوى
+            </p>
+
 
             <p class="books-description">
 
@@ -1679,7 +1960,6 @@
         </div>
 
     </section>
-
 
 
     <!-- =========================
@@ -2176,9 +2456,17 @@
 
                 </div>
 
-                <h3>
-                    ${escapeHtml(subject.name)}
-                </h3>
+                <div class="subject-card-content">
+
+                    <h3>
+                        ${escapeHtml(subject.name)}
+                    </h3>
+
+                    <span class="open-book-hint">
+                        اضغط هنا لفتح الكتاب
+                    </span>
+
+                </div>
 
             `;
 
@@ -2204,6 +2492,12 @@
     const booksGrid =
         document.getElementById(
             "booksGrid"
+        );
+
+
+    const arabicBooksNotice =
+        document.getElementById(
+            "arabicBooksNotice"
         );
 
 
@@ -2326,6 +2620,7 @@
                             ${escapeHtml(book.title)}
                         </h3>
 
+
                         <span>
                             ${escapeHtml(book.description)}
                         </span>
@@ -2353,6 +2648,15 @@
     if (
         category === "arabic"
     ) {
+
+        /*
+           عرض عبارة "نعمل على إضافة هذا المحتوى"
+           داخل صندوق كتب المادة فقط.
+        */
+
+        arabicBooksNotice.style.display =
+            "block";
+
 
         renderArabicBooks();
 
@@ -2458,18 +2762,6 @@
         new Map();
 
 
-    /*
-       نتائج الطالب لكل اختبار.
-
-       المفتاح = quiz_id
-
-       القيمة:
-       {
-           bestPercentage,
-           attemptsCount
-       }
-    */
-
     const bestResults =
         new Map();
 
@@ -2558,11 +2850,6 @@
                         quizCache.clear();
 
 
-                        /*
-                           نأخذ أحدث اختبار لكل
-                           subject_id + level.
-                        */
-
                         (
                             data || []
                         ).forEach(
@@ -2613,9 +2900,9 @@
     }
 
 
-    /*
-       بدء التحميل عند فتح الصفحة.
-    */
+    /* =====================================================
+       بدء التحميل عند فتح الصفحة
+    ====================================================== */
 
     preloadQuizzes()
         .then(
@@ -2764,7 +3051,6 @@
 
     /* =====================================================
        تحديث أعلى نتيجة وعدد المحاولات
-       تحت كل مستوى
     ====================================================== */
 
     function updateBestScores() {
@@ -2901,7 +3187,6 @@
                 "مستوى الاختبار غير صحيح."
             );
 
-
             return;
 
         }
@@ -2951,7 +3236,6 @@
                 showMessage(
                     "لا يوجد اختبار لهذا المستوى حاليًا. سيتم إضافته قريبًا."
                 );
-
 
                 return;
 
@@ -3021,19 +3305,19 @@
             "test-subject";
 
 
-        /*
-           =====================================================
+        /* =================================================
            رياضيات المعلم المزدوج
-
-           الآن أصبحت قائمة منسدلة مثل بقية المواد.
-           لا تظهر المستويات إلا بعد الضغط على الرياضيات.
-           =====================================================
-        */
+        ================================================= */
 
         if (
             category === "double" &&
             subject.frenchSubjectId
         ) {
+
+            wrapper.classList.add(
+                "double-math"
+            );
+
 
             wrapper.innerHTML = `
 
@@ -3067,7 +3351,9 @@
                     <div class="levels-inner">
 
 
-                        <!-- المستوى الأول -->
+                        <!-- =========================
+                             المستوى الأول
+                        ========================== -->
 
                         <div class="double-level-group">
 
@@ -3078,6 +3364,8 @@
 
                             <div class="language-options">
 
+                                <!-- العربية -->
+
                                 <a
                                     href="#"
                                     class="level-link"
@@ -3108,6 +3396,8 @@
 
                                 </a>
 
+
+                                <!-- الفرنسية -->
 
                                 <a
                                     href="#"
@@ -3144,7 +3434,9 @@
                         </div>
 
 
-                        <!-- المستوى الثاني -->
+                        <!-- =========================
+                             المستوى الثاني
+                        ========================== -->
 
                         <div class="double-level-group">
 
@@ -3155,6 +3447,8 @@
 
                             <div class="language-options">
 
+                                <!-- العربية -->
+
                                 <a
                                     href="#"
                                     class="level-link"
@@ -3185,6 +3479,8 @@
 
                                 </a>
 
+
+                                <!-- الفرنسية -->
 
                                 <a
                                     href="#"
@@ -3221,7 +3517,9 @@
                         </div>
 
 
-                        <!-- المستوى الثالث -->
+                        <!-- =========================
+                             المستوى الثالث
+                        ========================== -->
 
                         <div class="double-level-group">
 
@@ -3231,6 +3529,8 @@
 
 
                             <div class="language-options">
+
+                                <!-- العربية -->
 
                                 <a
                                     href="#"
@@ -3262,6 +3562,8 @@
 
                                 </a>
 
+
+                                <!-- الفرنسية -->
 
                                 <a
                                     href="#"
@@ -3305,9 +3607,9 @@
             `;
 
 
-            /*
+            /* =================================================
                فتح وإغلاق قائمة رياضيات المعلم المزدوج
-            */
+            ================================================= */
 
             const button =
                 wrapper.querySelector(
@@ -3348,9 +3650,9 @@
             );
 
 
-            /*
+            /* =================================================
                روابط مستويات الرياضيات
-            */
+            ================================================= */
 
             wrapper
                 .querySelectorAll(
@@ -3394,11 +3696,9 @@
         }
 
 
-        /*
-           =====================================================
+        /* =====================================================
            المواد الأخرى
-           =====================================================
-        */
+        ====================================================== */
 
         wrapper.innerHTML = `
 
@@ -3432,6 +3732,8 @@
                 <div class="levels-inner">
 
 
+                    <!-- المستوى الأول -->
+
                     <a
                         href="#"
                         class="level-link"
@@ -3463,6 +3765,8 @@
                     </a>
 
 
+                    <!-- المستوى الثاني -->
+
                     <a
                         href="#"
                         class="level-link"
@@ -3493,6 +3797,8 @@
 
                     </a>
 
+
+                    <!-- المستوى الثالث -->
 
                     <a
                         href="#"
@@ -3532,9 +3838,9 @@
         `;
 
 
-        /*
+        /* =================================================
            فتح وإغلاق المادة
-        */
+        ================================================= */
 
         const button =
             wrapper.querySelector(
@@ -3575,9 +3881,9 @@
         );
 
 
-        /*
+        /* =================================================
            روابط المستويات
-        */
+        ================================================= */
 
         wrapper
             .querySelectorAll(
