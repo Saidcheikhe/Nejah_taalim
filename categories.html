@@ -296,7 +296,7 @@
                 auto;
 
             padding:
-                50px 18px 70px;
+                28px 18px 40px;
         }
 
 
@@ -306,7 +306,7 @@
                 center;
 
             margin-bottom:
-                38px;
+                22px;
         }
 
 
@@ -316,13 +316,13 @@
                 var(--primary);
 
             font-size:
-                clamp(30px, 7vw, 46px);
+                clamp(30px, 7vw, 42px);
 
             font-weight:
                 800;
 
             margin-bottom:
-                12px;
+                8px;
         }
 
 
@@ -342,7 +342,7 @@
                 16px;
 
             line-height:
-                1.8;
+                1.7;
         }
 
 
@@ -359,7 +359,7 @@
                 repeat(3, 1fr);
 
             gap:
-                20px;
+                16px;
         }
 
 
@@ -375,13 +375,13 @@
                 1px solid var(--border);
 
             border-radius:
-                23px;
+                20px;
 
             padding:
-                28px 21px;
+                22px 18px;
 
             min-height:
-                275px;
+                225px;
 
             display:
                 flex;
@@ -463,13 +463,13 @@
         .category-icon {
 
             width:
-                55px;
+                50px;
 
             height:
-                55px;
+                50px;
 
             border-radius:
-                15px;
+                14px;
 
             background:
                 var(--icon-bg);
@@ -491,10 +491,10 @@
         .category-icon svg {
 
             width:
-                29px;
+                27px;
 
             height:
-                29px;
+                27px;
         }
 
 
@@ -514,13 +514,13 @@
         .category-card h2 {
 
             font-size:
-                24px;
+                22px;
 
             color:
                 var(--primary);
 
             margin-top:
-                25px;
+                19px;
         }
 
 
@@ -540,10 +540,10 @@
                 14px;
 
             line-height:
-                1.7;
+                1.6;
 
             margin-top:
-                8px;
+                6px;
         }
 
 
@@ -557,16 +557,16 @@
                 block;
 
             margin-top:
-                23px;
+                17px;
 
             width:
                 100%;
 
             padding:
-                12px;
+                11px;
 
             border-radius:
-                12px;
+                11px;
 
             background:
                 var(--accent);
@@ -645,7 +645,7 @@
                 center;
 
             padding:
-                25px 15px;
+                18px 15px;
 
             color:
                 var(--muted);
@@ -943,14 +943,14 @@
             main {
 
                 padding:
-                    42px 14px 55px;
+                    30px 14px 45px;
             }
 
 
             .intro {
 
                 margin-bottom:
-                    28px;
+                    24px;
             }
 
 
@@ -981,10 +981,10 @@
             .category-card {
 
                 min-height:
-                    225px;
+                    215px;
 
                 padding:
-                    24px 19px;
+                    22px 18px;
 
                 border-radius:
                     20px;
@@ -997,7 +997,7 @@
                     22px;
 
                 margin-top:
-                    19px;
+                    18px;
             }
 
 
@@ -1509,9 +1509,6 @@
 
     /* =====================================================
        حماية الصفحة
-       
-       لا يسمح بالدخول إلى categories.html
-       إلا إذا كان هناك مستخدم مسجل الدخول.
     ====================================================== */
 
     async function checkAuthentication() {
@@ -1552,11 +1549,6 @@
                 return;
             }
 
-
-            /*
-               المستخدم مسجل الدخول.
-               نعرض البريد الإلكتروني.
-            */
 
             const user =
                 data.session.user;
@@ -1601,10 +1593,6 @@
     }
 
 
-
-    /* =====================================================
-       تشغيل التحقق فور تحميل الصفحة
-    ====================================================== */
 
     checkAuthentication();
 
@@ -1763,11 +1751,6 @@
                 return;
             }
 
-
-            /*
-               بعد تسجيل الخروج
-               العودة إلى الصفحة الأولى.
-            */
 
             window.location.href =
                 "index.html";
