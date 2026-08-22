@@ -289,6 +289,38 @@ header{
     margin-bottom:25px
 }
 
+
+/* =====================================================
+   معلومات المحاولة والنتيجة السابقة
+===================================================== */
+
+.attempt-info{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin:20px 0 5px
+}
+
+.attempt-info-card{
+    background:#f8fafc;
+    border:1px solid #e1e7ef;
+    border-radius:15px;
+    padding:14px 10px;
+    display:flex;
+    flex-direction:column;
+    gap:7px
+}
+
+.attempt-info-card span{
+    color:#64748b;
+    font-size:14px
+}
+
+.attempt-info-card strong{
+    color:#173f73;
+    font-size:20px
+}
+
 .result-actions{
     display:flex;
     flex-direction:column;
@@ -489,6 +521,10 @@ header{
         font-size:44px
     }
 
+    .attempt-info{
+        grid-template-columns:1fr 1fr
+    }
+
 }
 
 </style>
@@ -515,7 +551,7 @@ header{
 id="timer"
 class="timer"
 >
-30:00
+60:00
 </div>
 
 </div>
@@ -666,6 +702,70 @@ class="result-percent"
 0%
 </div>
 
+
+<!-- =====================================================
+     معلومات المحاولة والنتيجة
+===================================================== -->
+
+<div
+id="attemptInfo"
+class="attempt-info"
+>
+
+<div class="attempt-info-card">
+
+<span>
+🔢 رقم المحاولة
+</span>
+
+<strong id="attemptNumber">
+1
+</strong>
+
+</div>
+
+
+<div class="attempt-info-card">
+
+<span>
+🏆 أعلى نتيجة
+</span>
+
+<strong id="bestResult">
+0 / 50
+</strong>
+
+</div>
+
+
+<div class="attempt-info-card">
+
+<span>
+📊 أعلى نسبة
+</span>
+
+<strong id="bestPercentage">
+0%
+</strong>
+
+</div>
+
+
+<div class="attempt-info-card">
+
+<span>
+🔄 عدد المحاولات
+</span>
+
+<strong id="attemptsCount">
+1
+</strong>
+
+</div>
+
+</div>
+
+
 <div
 id="resultMessage"
 class="result-message"
@@ -762,8 +862,24 @@ supabase.createClient(
 
 const REQUIRED_QUESTIONS = 50;
 
+
+/*
+ * =====================================================
+ * مدة جميع الاختبارات
+ *
+ * تم حسمها على 60 دقيقة لجميع الاختبارات.
+ *
+ * لن يتم استخدام duration_minutes من قاعدة البيانات
+ * لتحديد مدة الاختبار.
+ * =====================================================
+ */
+
 const DEFAULT_DURATION_SECONDS =
-30 * 60;
+60 * 60;
+
+const QUIZ_DURATION_MINUTES =
+60;
+
 
 const quizId =
 new URLSearchParams(
@@ -774,16 +890,6 @@ new URLSearchParams(
 /* =====================================================
    3. الصفحة التي جاء منها الطالب
 ===================================================== */
-
-/*
- * نحفظ الصفحة السابقة قبل بدء الاختبار.
- *
- * document.referrer يعطي عنوان الصفحة
- * التي انتقل منها الطالب إلى صفحة الاختبار.
- *
- * إذا لم توجد صفحة سابقة، نستخدم categories.html
- * كخطة احتياطية.
- */
 
 const returnPage =
 document.referrer &&
@@ -872,6 +978,25 @@ document.getElementById("reviewContainer");
 
 const backToSubjectBtn =
 document.getElementById("backToSubjectBtn");
+
+
+/*
+ * =====================================================
+ * عناصر معلومات المحاولة
+ * =====================================================
+ */
+
+const attemptNumberElement =
+document.getElementById("attemptNumber");
+
+const bestResultElement =
+document.getElementById("bestResult");
+
+const bestPercentageElement =
+document.getElementById("bestPercentage");
+
+const attemptsCountElement =
+document.getElementById("attemptsCount");
 
 
 /* =====================================================
@@ -1027,24 +1152,15 @@ async function loadQuiz(){
         "اختبر نفسك";
 
 
-        const duration =
-        Number(
-            q.duration_minutes
-        ) ||
-        30;
-
+        /*
+         * =================================================
+         * جميع الاختبارات مدتها 60 دقيقة.
+         * لا نستخدم q.duration_minutes هنا.
+         * =================================================
+         */
 
         quizDescription.textContent =
-        `${REQUIRED_QUESTIONS} سؤالًا • ${duration} دقيقة`;
-
-
-        /* =================================================
-           مهم:
-           لا نضع هنا categories.html مرة أخرى.
-
-           زر الرجوع سيستخدم returnPage
-           الذي تم حفظه في بداية الصفحة.
-        ================================================= */
+        `${REQUIRED_QUESTIONS} سؤالًا • ${QUIZ_DURATION_MINUTES} دقيقة`;
 
 
         backToSubjectBtn.href =
@@ -1262,11 +1378,14 @@ async function startNewAttempt(){
     crypto.randomUUID();
 
 
+    /*
+     * =================================================
+     * مدة جميع الاختبارات = 60 دقيقة
+     * =================================================
+     */
+
     const duration =
-    Number(
-        quiz?.duration_minutes
-    ) ||
-    30;
+    QUIZ_DURATION_MINUTES;
 
 
     const {
@@ -1498,14 +1617,6 @@ function renderQuestions(){
 
                             catch(e){
 
-                                /*
-                                 * تم إزالة alert السابق حتى لا تظهر
-                                 * للطالب رسالة "تم تغيير الإجابة"
-                                 * عند كل مشكلة في الحفظ.
-                                 *
-                                 * الخطأ يُسجل في Console فقط.
-                                 */
-
                                 console.error(
                                     "خطأ حفظ الإجابة:",
                                     e
@@ -1647,11 +1758,6 @@ async function saveSelectedOptions(
     }
 
 
-    /*
-     * نضمن أن القيمة مصفوفة مستقلة
-     * حتى نتمكن من حفظ أكثر من خيار.
-     */
-
     const selectedIds =
     Array.isArray(optionIds)
     ?
@@ -1659,11 +1765,6 @@ async function saveSelectedOptions(
     :
     [];
 
-
-    /*
-     * حذف الاختيارات السابقة لهذا السؤال
-     * من المحاولة الحالية فقط.
-     */
 
     const {
         error:deleteError
@@ -1695,11 +1796,6 @@ async function saveSelectedOptions(
     }
 
 
-    /*
-     * إذا لم يختر الطالب أي خيار،
-     * فلا يوجد شيء لإدخاله.
-     */
-
     if(
         selectedIds.length === 0
     ){
@@ -1708,22 +1804,6 @@ async function saveSelectedOptions(
 
     }
 
-
-    /*
-     * إنشاء سجل مستقل لكل خيار محدد.
-     *
-     * مثال:
-     *
-     * إذا اختار الطالب A و C و D
-     *
-     * سيتم إدخال ثلاثة سجلات:
-     *
-     * A
-     * C
-     * D
-     *
-     * للسؤال نفسه والمحاولة نفسها.
-     */
 
     const rows =
     selectedIds.map(
@@ -1741,10 +1821,6 @@ async function saveSelectedOptions(
         })
     );
 
-
-    /*
-     * إدخال جميع الاختيارات مرة واحدة.
-     */
 
     const {
         error:insertError
@@ -2001,6 +2077,30 @@ async function finishQuiz(
         );
 
 
+        const attemptNumber =
+        Number(
+            result.attempt_number
+        );
+
+
+        const bestScore =
+        Number(
+            result.best_score
+        );
+
+
+        const bestPercentage =
+        Number(
+            result.best_percentage
+        );
+
+
+        const attemptsCount =
+        Number(
+            result.attempts_count
+        );
+
+
         quizArea.style.display =
         "none";
 
@@ -2017,6 +2117,28 @@ async function finishQuiz(
         `${percentage}%`;
 
 
+        /*
+         * =================================================
+         * عرض معلومات المحاولة والنتيجة
+         * =================================================
+         */
+
+        attemptNumberElement.textContent =
+        attemptNumber;
+
+
+        bestResultElement.textContent =
+        `${bestScore} / ${totalQuestions}`;
+
+
+        bestPercentageElement.textContent =
+        `${bestPercentage}%`;
+
+
+        attemptsCountElement.textContent =
+        attemptsCount;
+
+
         resultMessage.textContent =
         autoFinished
 
@@ -2027,22 +2149,6 @@ async function finishQuiz(
         :
 
         "تم إنهاء الاختبار وتصحيح إجاباتك.";
-
-
-        /*
-         * =================================================
-         * مهم جدًا:
-         *
-         * لا نغيّر رابط زر الرجوع هنا.
-         *
-         * الرابط تم تحديده مسبقًا في:
-         *
-         * backToSubjectBtn.href = returnPage;
-         *
-         * وبالتالي سيعود الطالب إلى الصفحة التي
-         * جاء منها إلى الاختبار.
-         * =================================================
-         */
 
 
         renderReview();
@@ -2066,7 +2172,11 @@ async function finishQuiz(
                 attemptId,
                 score,
                 totalQuestions,
-                percentage
+                percentage,
+                attemptNumber,
+                bestScore,
+                bestPercentage,
+                attemptsCount
             }
         );
 
